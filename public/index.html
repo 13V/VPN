@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#171916">
+  <title>VPN — Your connection, collectively funded</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to dashboard</a>
+  <aside class="sidebar" aria-label="Main navigation">
+    <a href="#overview" class="wordmark" aria-label="VPN home"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>VPN<span class="working-label">WORKING TITLE</span></a>
+    <div class="workspace-label">YOUR WORKSPACE</div>
+    <nav>
+      <a class="nav-link selected" href="#overview"><span aria-hidden="true">◫</span> Overview <span class="nav-number">01</span></a>
+      <a class="nav-link" href="#tunnels"><span aria-hidden="true">◎</span> Your tunnels <span class="nav-number" id="nav-count">—</span></a>
+      <a class="nav-link" href="#activity"><span aria-hidden="true">↗</span> Activity</a>
+      <button class="nav-link" id="guide-sidebar"><span aria-hidden="true">⊞</span> How it works</button>
+    </nav>
+    <div class="sidebar-note"><div class="tiny-label">THE IDEA</div><p>A community token.<br>A useful connection.</p><span>Trading fees fund VPN access for eligible holders.</span></div>
+    <div class="sidebar-footer"><span class="status-dot"></span> ROBINHOOD CHAIN <span class="testnet-label">PLANNED</span></div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="topbar-actions"><span class="mode-badge" id="mode-badge">PREVIEW</span><button class="button button-small button-outline" id="wallet-button">Connect wallet <span aria-hidden="true">↗</span></button><button class="button button-small button-outline" id="logout-button" hidden>Disconnect</button></div></header>
+    <main id="main" tabindex="-1">
+      <div class="notice" id="mode-notice"><span class="notice-icon" aria-hidden="true">i</span><p><strong>Prototype preview.</strong> No real VPN connections or payments are made here.</p><button id="about-demo">What’s included <span aria-hidden="true">↗</span></button></div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+      <section class="hero" id="overview" aria-labelledby="page-title">
+        <div><div class="eyebrow"><span class="small-rule"></span> THE HOLDER PORTAL</div><h1 id="page-title">Your connection.<br><span>Collectively funded.</span></h1><p class="hero-copy">Put your holder allowance to use.<br>Create a tunnel. Keep your everyday connected.</p><div class="hero-actions"><button class="button button-lime" id="demo-button">Explore the demo <span aria-hidden="true">↗</span></button><span class="session-label" id="session-label">No wallet needed to explore</span></div></div>
+        <div class="connection-art" aria-hidden="true"><div class="orbital orbital-one"></div><div class="orbital orbital-two"></div><div class="orbital orbital-three"></div><div class="orbital-axis"></div><div class="orbital-core">↗</div><span class="orbital-label top">SHARED VALUE</span><span class="orbital-label bottom">PERSONAL UTILITY</span><i class="orbital-node node-one"></i><i class="orbital-node node-two"></i></div>
+      </section>
+
+      <div class="section-heading"><h2>Make room for a better connection</h2><span class="tiny-label">01 / GET STARTED</span></div>
+      <div class="dashboard-grid">
+        <section class="panel create-panel" aria-labelledby="create-title"><div class="panel-heading"><div class="panel-icon" aria-hidden="true">↗</div><span class="tiny-label">NEW TUNNEL</span><span class="pill subtle">WIREGUARD</span></div><h3 id="create-title">Where to?</h3><p class="muted">Choose a location and put your allowance to work.</p>
+          <form id="create-form">
+            <div class="form-grid"><label>Tunnel name<input id="tunnel-name" name="name" type="text" placeholder="My everyday connection" maxlength="40" value="My everyday connection" required autocomplete="off"></label><label>Location<select id="country" name="country"><option value="AU">Australia</option></select></label></div>
+            <div class="plan-choice"><div class="plan-radio" aria-hidden="true"></div><div><strong id="plan-name">One day</strong><span id="plan-detail">50 GB · Australia · WireGuard</span></div><div class="plan-price" id="plan-price">$0.50<span>FROM ALLOWANCE</span></div></div>
+            <button class="button button-lime button-full" id="create-button" type="submit" disabled>Explore demo to create a tunnel <span aria-hidden="true">↗</span></button><p class="form-caption" id="create-caption">This prototype generates a sample download, not a working VPN.</p>
+          </form>
+        </section>
+
+        <section class="panel allowance-panel" aria-labelledby="allowance-title"><div class="panel-heading"><span class="tiny-label" id="allowance-title">YOUR WEEKLY ALLOWANCE</span><span class="pill" id="allowance-badge">PREVIEW</span></div><div class="allowance-amount" id="allowance-amount">—<span>USD</span></div><p class="allowance-description" id="allowance-description">Connect to see your holder allowance.</p><div class="allowance-meter" role="meter" aria-label="Weekly allowance remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="allowance-meter"><span id="allowance-fill"></span></div><div class="allowance-stats"><div><span>Used this week</span><strong id="allowance-spent">—</strong></div><div><span>Weekly total</span><strong id="allowance-total">—</strong></div></div><div class="allowance-footer"><span aria-hidden="true">↻</span><span id="allowance-reset">An allowance made for everyday utility.</span></div></section>
+      </div>
+
+      <section class="tunnels-section" id="tunnels" aria-labelledby="tunnels-title"><div class="section-heading"><div class="heading-with-count"><h2 id="tunnels-title">Your tunnels</h2><span class="count" id="tunnel-count">0</span></div><span class="tiny-label">02 / YOUR ACCESS</span></div><div id="tunnel-list" class="tunnel-list"><div class="empty-state"><div class="empty-symbol" aria-hidden="true">◎</div><h3>Your next connection starts here.</h3><p>Explore the demo to create your first sample tunnel.</p><span class="tiny-label">ONE ALLOWANCE. YOUR CHOICE.</span></div></div></section>
+
+      <div class="lower-grid"><section class="panel activity-panel" id="activity" aria-labelledby="activity-title"><div class="section-heading inside"><h2 id="activity-title">Recent activity</h2><span class="tiny-label">03 / THE DETAILS</span></div><div id="activity-list" class="activity-list"><p class="empty-inline">Your tunnel history will appear here.</p></div></section><section class="pool-panel"><div class="tiny-label">POWERED BY THE COMMUNITY</div><h2>Real utility.<br>Shared by holders.</h2><p>The proposed model routes token trading fees into a pool that funds holder VPN allowances.</p><div class="pool-stats" id="pool-stats" hidden><div><span>Sample weekly pool</span><strong id="pool-budget">—</strong></div><div><span>Sample allocated</span><strong id="pool-allocated">—</strong></div></div><button class="text-button" id="guide-pool">See how it works <span aria-hidden="true">↗</span></button><span class="pool-disclaimer">Token launch and fee funding are not connected in this prototype.</span></section></div>
+      <footer class="page-footer"><span>VPN <span class="muted">/ A working title, a useful idea.</span></span><span>Built to explore. Not yet a live service.</span></footer>
+    </main>
+  </div>
+
+  <dialog id="guide-dialog" aria-labelledby="guide-title"><div class="dialog-top"><span class="tiny-label">THE CONNECTION GUIDE</span><button class="icon-button" id="close-guide" aria-label="Close guide">×</button></div><h2 id="guide-title">A little value.<br>A useful connection.</h2><p class="muted">This MVP lets you try the holder experience before any real access is offered.</p><ol class="guide-steps"><li><span>01</span><div><h3>Explore your allowance</h3><p>Demo mode gives you sample funds to test creating and extending tunnels. These funds have no monetary value.</p></div></li><li><span>02</span><div><h3>Create your sample tunnel</h3><p>Choose Australia and the one-day plan. The download is a text example; it cannot connect you to a VPN.</p></div></li><li><span>03</span><div><h3>Know what comes next</h3><p>Live access requires verified supplier recovery and a payment adapter that enforces the spending cap. Holder eligibility, fee funding and the token launch are not connected yet.</p></div></li></ol><div class="guide-callout"><strong>Installing a real tunnel later</strong><p>A live service would provide a WireGuard configuration to import into the WireGuard app. Do not import the demo text file. Tunnel connectivity, DNS and throughput are still untested.</p></div><button class="button button-lime button-full" id="guide-done">Got it <span aria-hidden="true">↗</span></button></dialog>
+</body>
+</html>

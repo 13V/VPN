@@ -1,6 +1,17 @@
-# VPN supplier validation
+# VPN holder portal
 
-Node.js 22+ harness for testing nadanada VPN purchase, renewal and interrupted delivery through Bitcoin Lightning. This repository does not implement a token, holder website or treasury bridge.
+A Node.js 22+ MVP for a holder-funded VPN: a responsive portal, wallet sign-in, weekly allowance display, demo tunnel creation and renewal, activity history and setup downloads. The project name is still a working title.
+
+```sh
+npm ci
+npm start
+```
+
+Open [the local portal](http://127.0.0.1:4173) and choose **Explore demo**. The sample account starts with $3.50 of weekly service credit. Create an Australia one-day tunnel for $0.50 of sample credit, extend it, and download the sample setup file. Refreshing preserves your session and demo orders. No real tunnel or payment is created. Demo downloads are explicitly labelled `.txt` previews, not usable WireGuard configurations.
+
+Connect an injected Ethereum wallet to test real signature authentication. Sign-in requires no transaction or wallet funds. EOA wallets are supported; contract-wallet signatures are not implemented. Real wallet sessions receive no demo credit and cannot purchase. See [MVP setup and scope](docs/mvp.md) for configuration, security boundaries and remaining launch work.
+
+The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented.
 
 **Live spending is blocked.** Blink's inspected payment input has no enforceable maximum fee or total-debit parameter. Adding credentials does not remove this gate. Offline simulations work; paid supplier validation remains outstanding. See the [dated evidence report](docs/validation-report.md).
 
@@ -16,7 +27,7 @@ npm run vpn -- purchase
 npm run report
 ```
 
-There are no dependencies to install. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All commands default to read-only behaviour.
+Run `npm ci` first to install the pinned wallet-signature dependency. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The web demo mutates only sample local data when you click its action buttons.
 
 `docs/offline-tests.workflow.yml` is an optional GitHub Actions template for Node.js 22/24. It is inactive; a login with workflow-write permission can place it at `.github/workflows/test.yml` to enable CI.
 
