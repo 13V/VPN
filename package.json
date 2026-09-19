@@ -9,13 +9,14 @@
   },
   "scripts": {
     "vpn": "node src/cli.js",
-    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js",
+    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js",
     "start": "node portal/server.js",
     "catalogue": "node src/cli.js catalogue",
     "preflight": "node src/cli.js preflight",
     "report": "node src/cli.js report"
   },
   "dependencies": {
+    "@vercel/blob": "2.8.0",
     "ethers": "6.17.0"
   }
 }

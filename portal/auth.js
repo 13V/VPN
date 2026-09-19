@@ -48,6 +48,56 @@ class Auth {
     return now;
   }
 
+  // Server-only snapshots contain token hashes, never the bearer tokens returned
+  // to browsers. Import is all-or-nothing so corrupt storage cannot reset auth.
+  exportState() {
+    this.#cleanup();
+    return structuredClone({ version: 1, origin: this.origin, chainId: this.chainId,
+      challenges: [...this.#challenges], sessions: [...this.#sessions] });
+  }
+
+  importState(state) {
+    const invalid = () => { throw new Error('Invalid authentication state; refusing to reset'); };
+    const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+    const canonicalAddress = value => {
+      try { return typeof value === 'string' && /^0x[a-fA-F0-9]{40}$/.test(value) && getAddress(value) === value; }
+      catch { return false; }
+    };
+    const validExpiry = value => Number.isSafeInteger(value) && value >= CHALLENGE_TTL && value <= 8640000000000000;
+    if (!record(state) || state.version !== 1 || state.origin !== this.origin || state.chainId !== this.chainId ||
+        !Array.isArray(state.challenges) || state.challenges.length > MAX_CHALLENGES ||
+        !Array.isArray(state.sessions) || state.sessions.length > MAX_SESSIONS) invalid();
+    const challenges = new Map(), sessions = new Map();
+    for (const entry of state.challenges) {
+      if (!Array.isArray(entry) || entry.length !== 2) invalid();
+      const [nonce, item] = entry;
+      if (typeof nonce !== 'string' || !/^[a-f0-9]{32}$/.test(nonce) || challenges.has(nonce) ||
+          !record(item) || !canonicalAddress(item.address) || !validExpiry(item.expiresAt) ||
+          item.message !== this.#message(item.address, nonce, item.expiresAt - CHALLENGE_TTL, item.expiresAt)) invalid();
+      challenges.set(nonce, { address: item.address, message: item.message, expiresAt: item.expiresAt });
+    }
+    for (const entry of state.sessions) {
+      if (!Array.isArray(entry) || entry.length !== 2) invalid();
+      const [hash, item] = entry;
+      if (!validToken(hash) || sessions.has(hash) || !record(item) || !validExpiry(item.expiresAt) || !record(item.session)) invalid();
+      const { address, kind } = item.session;
+      if (kind === 'wallet' ? !canonicalAddress(address) : kind !== 'demo' || typeof address !== 'string' || !/^demo:[a-f0-9]{32}$/.test(address)) invalid();
+      sessions.set(hash, { session: { address, kind }, expiresAt: item.expiresAt });
+    }
+    this.#challenges = challenges;
+    this.#sessions = sessions;
+    this.#cleanup();
+  }
+
+  #message(address, nonce, issuedAt, expiresAt) {
+    return [
+      `${this.origin} wants you to sign in with your Ethereum account:`, address, '',
+      'Sign in to the VPN preview for up to 8 hours. This does not authorize a payment.', '',
+      `URI: ${this.origin}`, 'Version: 1', `Chain ID: ${this.chainId}`, `Nonce: ${nonce}`,
+      `Issued At: ${new Date(issuedAt).toISOString()}`, `Expiration Time: ${new Date(expiresAt).toISOString()}`
+    ].join('\n');
+  }
+
   challenge(address) {
     const now = this.#cleanup();
     let canonical;
@@ -60,19 +110,7 @@ class Auth {
     }
     const nonce = randomBytes(16).toString('hex');
     const expiresAt = now + CHALLENGE_TTL;
-    const message = [
-      `${this.origin} wants you to sign in with your Ethereum account:`,
-      canonical,
-      '',
-      'Sign in to the VPN preview for up to 8 hours. This does not authorize a payment.',
-      '',
-      `URI: ${this.origin}`,
-      'Version: 1',
-      `Chain ID: ${this.chainId}`,
-      `Nonce: ${nonce}`,
-      `Issued At: ${new Date(now).toISOString()}`,
-      `Expiration Time: ${new Date(expiresAt).toISOString()}`
-    ].join('\n');
+    const message = this.#message(canonical, nonce, now, expiresAt);
     this.#challenges.set(nonce, { address: canonical, message, expiresAt });
     return { nonce, message };
   }

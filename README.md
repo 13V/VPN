@@ -11,7 +11,7 @@ Open [the local website](http://127.0.0.1:4173) to read the introduction, fundin
 
 Connect an injected Ethereum wallet to test real signature authentication. Sign-in requires no transaction or wallet funds. EOA wallets are supported; contract-wallet signatures are not implemented. Real wallet sessions receive no demo credit and cannot purchase. See [MVP setup and scope](docs/mvp.md) for configuration, security boundaries and remaining launch work.
 
-The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented.
+The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the landing page and demo portal with private persistent state.
 
 **Live spending is blocked.** Blink's inspected payment input has no enforceable maximum fee or total-debit parameter. Adding credentials does not remove this gate. Offline simulations work; paid supplier validation remains outstanding. See the [dated evidence report](docs/validation-report.md).
 
@@ -27,7 +27,7 @@ npm run vpn -- purchase
 npm run report
 ```
 
-Run `npm ci` first to install the pinned wallet-signature dependency. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The web demo mutates only sample local data when you click its action buttons.
+Run `npm ci` first to install the pinned dependencies. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The web demo mutates only sample data when you click its action buttons: local files with `npm start`, or a private Blob store on Vercel.
 
 `docs/offline-tests.workflow.yml` is an optional GitHub Actions template for Node.js 22/24. It is inactive; a login with workflow-write permission can place it at `.github/workflows/test.yml` to enable CI.
 

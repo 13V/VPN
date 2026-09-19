@@ -4,6 +4,7 @@ node_modules/
 !.env.example
 .state/
 coverage/
+.vercel/
 *.conf
 *.key
 *.pem

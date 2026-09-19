@@ -1,0 +1,9 @@
+.git/
+.env*
+.state/
+coverage/
+*.conf
+*.key
+*.pem
+*.log
+node_modules/
