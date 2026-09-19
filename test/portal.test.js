@@ -179,8 +179,8 @@ test('landing page introduces the product before the separate portal and only ex
   assert.equal(portal.status, 200);
   assert.match(await portal.text(), /id="create-form"/);
   assert.equal((await request('/portal/')).status, 200);
-  const globe = await request('/globe.svg');
-  assert.equal(globe.status, 200);
-  assert.match(globe.headers.get('content-type'), /image\/svg\+xml/);
+  const artwork = await request('/connection-sculpture.jpg');
+  assert.equal(artwork.status, 200);
+  assert.match(artwork.headers.get('content-type'), /image\/jpeg/);
   assert.equal((await request('/portal.json')).status, 404);
 });

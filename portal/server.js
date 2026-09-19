@@ -14,7 +14,7 @@ function createApp({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = n
     '/portal': ['index.html', 'text/html'], '/portal/': ['index.html', 'text/html'],
     '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'],
     '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
-    '/globe.svg': ['globe.svg', 'image/svg+xml'],
+    '/connection-sculpture.jpg': ['connection-sculpture.jpg', 'image/jpeg'],
   };
   function token(req) { return (req.headers.cookie || '').split(';').map(s => s.trim()).find(s => s.startsWith('vpn_session='))?.slice(12); }
   function cookie(value, maxAge = 28800) { return `vpn_session=${value}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${canonical.protocol === 'https:' ? '; Secure' : ''}`; }
