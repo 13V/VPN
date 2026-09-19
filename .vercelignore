@@ -2,6 +2,7 @@
 .env*
 .state/
 coverage/
+dist/
 *.conf
 *.key
 *.pem
