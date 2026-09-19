@@ -23,6 +23,7 @@ function fixture() {
       assert.equal(pathname, 'vpn/portal-state-v1.json');
       assert.equal(options.access, 'private');
       assert.equal(options.useCache, false);
+      assert.equal(options.headers['accept-encoding'], 'identity');
       if (body === null) return null;
       return { statusCode: 200, stream: new Blob([body]).stream(), blob: { etag: `"${revision}"`, size: Buffer.byteLength(body) } };
     },
@@ -77,6 +78,17 @@ test('anonymous or malformed cookies do not access private storage', async () =>
   }
   assert.equal(f.calls.get, 0);
   assert.equal(f.calls.put, 0);
+});
+
+test('a weak compressed ETag cannot authorize a state write or reset the saved state', async () => {
+  const f = fixture();
+  await f.instance().auth.demo();
+  const saved = f.raw(), writes = f.calls.put;
+  const get = f.blob.get;
+  f.blob.get = async (...args) => { const result = await get(...args); result.blob.etag = `W/${result.blob.etag}`; return result; };
+  await assert.rejects(f.instance().auth.demo(), { code: 'HOSTED_STATE_UNAVAILABLE' });
+  assert.equal(f.raw(), saved);
+  assert.equal(f.calls.put, writes);
 });
 
 test('simultaneous first writes never overwrite another newly created session', async () => {

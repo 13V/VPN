@@ -54,9 +54,15 @@ class HostedState {
   }
 
   async #read() {
-    const result = await this.blob.get(this.pathname, { access: 'private', token: this.token, useCache: false, abortSignal: AbortSignal.timeout(10000) });
+    // Compression can turn the strong object ETag into W/"...", which cannot
+    // authorize a conditional write. Request the original representation.
+    const result = await this.blob.get(this.pathname, { access: 'private', token: this.token, useCache: false,
+      headers: { 'accept-encoding': 'identity' }, abortSignal: AbortSignal.timeout(10000) });
     if (result === null) return { etag: null, state: { version: 1, auth: new Auth(this.authOptions).exportState(), portal: { version: 1, accounts: {}, requests: {} } } };
-    if (!result || result.statusCode !== 200 || !result.stream || typeof result.blob?.etag !== 'string' || !result.blob.etag || result.blob.size > MAX_BYTES) throw unavailable();
+    if (!result || result.statusCode !== 200 || !result.stream || typeof result.blob?.etag !== 'string' || !/^"[^"\r\n]+"$/.test(result.blob.etag) || result.blob.size > MAX_BYTES) {
+      await result?.stream?.cancel().catch(() => {});
+      throw unavailable();
+    }
     const reader = result.stream.getReader(), parts = [];
     let size = 0;
     try {
