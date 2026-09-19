@@ -22,7 +22,7 @@ npm test
 npm start
 ```
 
-The portal binds to `127.0.0.1:4173`. Use that exact URL; request host and origin checks intentionally reject a different hostname. `npm start` does not call the supplier or Blink. It does not start recurring jobs or bridge any funds.
+The website binds to `127.0.0.1:4173`. The public introduction, illustrated product explanation and FAQ are at `/`; the holder portal is at `/portal`. Use that exact hostname; request host and origin checks intentionally reject a different hostname. `npm start` does not call the supplier or Blink. It does not start recurring jobs or bridge any funds.
 
 Configuration is read from process environment variables, not automatically from `.env`:
 
@@ -36,7 +36,7 @@ Configuration is read from process environment variables, not automatically from
 
 Keep portal state outside the checkout and outside cloud-synced folders. Sessions and login challenges are held in memory; server restart signs users out. Demo accounts are random per login, so a fresh demo login starts a new sample account. Persisted demo records are not a production customer database. Wallet addresses are personal identifiers: do not commit snapshots or portal state. POSIX files request owner-only permissions; Windows uses inherited ACLs.
 
-Mutating API calls require the exact configured `Origin`, JSON content type, a bounded body and an authenticated session where applicable. Rate limiting uses the socket peer, not forwarded client headers. The app serves only three allowlisted static paths and applies no-store, CSP and MIME-sniffing protection. Behind a reverse proxy, preserve the configured Host and use HTTPS; single-process sessions and peer-based throttling require adaptation before scaling.
+Mutating API calls require the exact configured `Origin`, JSON content type, a bounded body and an authenticated session where applicable. Rate limiting uses the socket peer, not forwarded client headers. The app serves an explicit allowlist of page and asset paths and applies no-store, CSP and MIME-sniffing protection. The globe is a local SVG; neither page loads third-party images, fonts or trackers. Behind a reverse proxy, preserve the configured Host and use HTTPS; single-process sessions and peer-based throttling require adaptation before scaling.
 
 ## Weekly snapshots
 

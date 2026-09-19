@@ -1,6 +1,6 @@
 # MVP validation — 2026-09-19
 
-**62 automated tests passed locally on Node.js 24.19.0.** This includes the original 37 supplier-validation tests, 13 wallet-authentication tests and 12 portal/model/HTTP tests. Automated tests run offline against temporary state and test signatures.
+**63 automated tests passed locally on Node.js 24.19.0.** This includes the original 37 supplier-validation tests, 13 wallet-authentication tests and 13 portal/model/HTTP tests. Automated tests run offline against temporary state and test signatures.
 
 | Check | Observed result |
 | --- | --- |
@@ -10,6 +10,8 @@
 | Reload | Balance, tunnel, expiry and both activity records retained |
 | Download | Sample `.txt` download completed; UI explicitly says it cannot establish a VPN connection |
 | Guide | Dialog opens, takes focus and dismisses with Escape |
+| Landing page | Public introduction at `/`, portal at `/portal`; mobile menu opens and closes after navigation, FAQ expands, demo link opens the portal |
+| Visual update | Ivory/forest/jade design on both pages, local SVG globe, readable demo boundaries and source/report links; demo creation still works after styling changes |
 | Responsive layout | Desktop 1440-pixel viewport and narrow 390-pixel viewport inspected; narrow content width equals available width, no horizontal overflow |
 | Browser logs | No captured warnings/errors during the demo flow |
 | Authentication | HTTP test signs the exact challenge with a generated EOA key, verifies wallet session and zero unconfigured allowance; replay, expiry and wrong signer rejected |

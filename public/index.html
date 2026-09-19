@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#171916">
-  <title>VPN — Your connection, collectively funded</title>
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f9f5">
+  <meta name="description" content="Explore the VPN holder portal: sample allowances, tunnel creation and renewals. A preview of community-funded access.">
+  <title>Holder portal — VPN</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to dashboard</a>
   <aside class="sidebar" aria-label="Main navigation">
-    <a href="#overview" class="wordmark" aria-label="VPN home"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>VPN<span class="working-label">WORKING TITLE</span></a>
+    <a href="/" class="wordmark" aria-label="VPN website home"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>VPN<span class="working-label">HOLDER PORTAL</span></a>
     <div class="workspace-label">YOUR WORKSPACE</div>
     <nav>
       <a class="nav-link selected" href="#overview"><span aria-hidden="true">◫</span> Overview <span class="nav-number">01</span></a>
@@ -20,12 +21,13 @@
       <a class="nav-link" href="#activity"><span aria-hidden="true">↗</span> Activity</a>
       <button class="nav-link" id="guide-sidebar"><span aria-hidden="true">⊞</span> How it works</button>
     </nav>
-    <div class="sidebar-note"><div class="tiny-label">THE IDEA</div><p>A community token.<br>A useful connection.</p><span>Trading fees fund VPN access for eligible holders.</span></div>
+    <div class="sidebar-note"><div class="tiny-label">A LITTLE SHARED VALUE</div><p>A community token.<br>A useful connection.</p><span>The proposed model uses trading fees to fund holder VPN access.</span></div>
+    <a href="/" class="back-link"><span aria-hidden="true">←</span> Back to website</a>
     <div class="sidebar-footer"><span class="status-dot"></span> ROBINHOOD CHAIN <span class="testnet-label">PLANNED</span></div>
   </aside>
 
   <div class="app-shell">
-    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="topbar-actions"><span class="mode-badge" id="mode-badge">PREVIEW</span><button class="button button-small button-outline" id="wallet-button">Connect wallet <span aria-hidden="true">↗</span></button><button class="button button-small button-outline" id="logout-button" hidden>Disconnect</button></div></header>
+    <header class="topbar"><div class="breadcrumb">Holder portal <span>/</span> <strong>Overview</strong></div><div class="topbar-actions"><span class="mode-badge" id="mode-badge">PREVIEW</span><button class="button button-small button-outline" id="wallet-button">Connect wallet <span aria-hidden="true">↗</span></button><button class="button button-small button-outline" id="logout-button" hidden>Disconnect</button></div></header>
     <main id="main" tabindex="-1">
       <div class="notice" id="mode-notice"><span class="notice-icon" aria-hidden="true">i</span><p><strong>Prototype preview.</strong> No real VPN connections or payments are made here.</p><button id="about-demo">What’s included <span aria-hidden="true">↗</span></button></div>
       <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
@@ -50,7 +52,7 @@
       <section class="tunnels-section" id="tunnels" aria-labelledby="tunnels-title"><div class="section-heading"><div class="heading-with-count"><h2 id="tunnels-title">Your tunnels</h2><span class="count" id="tunnel-count">0</span></div><span class="tiny-label">02 / YOUR ACCESS</span></div><div id="tunnel-list" class="tunnel-list"><div class="empty-state"><div class="empty-symbol" aria-hidden="true">◎</div><h3>Your next connection starts here.</h3><p>Explore the demo to create your first sample tunnel.</p><span class="tiny-label">ONE ALLOWANCE. YOUR CHOICE.</span></div></div></section>
 
       <div class="lower-grid"><section class="panel activity-panel" id="activity" aria-labelledby="activity-title"><div class="section-heading inside"><h2 id="activity-title">Recent activity</h2><span class="tiny-label">03 / THE DETAILS</span></div><div id="activity-list" class="activity-list"><p class="empty-inline">Your tunnel history will appear here.</p></div></section><section class="pool-panel"><div class="tiny-label">POWERED BY THE COMMUNITY</div><h2>Real utility.<br>Shared by holders.</h2><p>The proposed model routes token trading fees into a pool that funds holder VPN allowances.</p><div class="pool-stats" id="pool-stats" hidden><div><span>Sample weekly pool</span><strong id="pool-budget">—</strong></div><div><span>Sample allocated</span><strong id="pool-allocated">—</strong></div></div><button class="text-button" id="guide-pool">See how it works <span aria-hidden="true">↗</span></button><span class="pool-disclaimer">Token launch and fee funding are not connected in this prototype.</span></section></div>
-      <footer class="page-footer"><span>VPN <span class="muted">/ A working title, a useful idea.</span></span><span>Built to explore. Not yet a live service.</span></footer>
+      <footer class="page-footer"><span><a href="/">VPN</a> <span class="muted">/ A working title, a useful idea.</span></span><span>Built to explore. Not yet a live service.</span></footer>
     </main>
   </div>
 

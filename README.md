@@ -1,13 +1,13 @@
 # VPN holder portal
 
-A Node.js 22+ MVP for a holder-funded VPN: a responsive portal, wallet sign-in, weekly allowance display, demo tunnel creation and renewal, activity history and setup downloads. The project name is still a working title.
+A Node.js 22+ MVP for a holder-funded VPN: a public landing page followed by a responsive portal, wallet sign-in, weekly allowance display, demo tunnel creation and renewal, activity history and setup downloads. The project name is still a working title.
 
 ```sh
 npm ci
 npm start
 ```
 
-Open [the local portal](http://127.0.0.1:4173) and choose **Explore demo**. The sample account starts with $3.50 of weekly service credit. Create an Australia one-day tunnel for $0.50 of sample credit, extend it, and download the sample setup file. Refreshing preserves your session and demo orders. No real tunnel or payment is created. Demo downloads are explicitly labelled `.txt` previews, not usable WireGuard configurations.
+Open [the local website](http://127.0.0.1:4173) to read the introduction, funding model and FAQ. **Explore the demo** leads to [the holder portal](http://127.0.0.1:4173/portal), where you can start a sample workspace. The sample account starts with $3.50 of weekly service credit. Create an Australia one-day tunnel for $0.50 of sample credit, extend it, and download the sample setup file. Refreshing preserves your session and demo orders. No real tunnel or payment is created. Demo downloads are explicitly labelled `.txt` previews, not usable WireGuard configurations.
 
 Connect an injected Ethereum wallet to test real signature authentication. Sign-in requires no transaction or wallet funds. EOA wallets are supported; contract-wallet signatures are not implemented. Real wallet sessions receive no demo credit and cannot purchase. See [MVP setup and scope](docs/mvp.md) for configuration, security boundaries and remaining launch work.
 

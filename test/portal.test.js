@@ -166,3 +166,21 @@ test('preview mode disables the demo login endpoint', async t => {
   const r = await request('/api/auth/demo', { method: 'POST', body: '{}' });
   assert.equal(r.status, 403);
 });
+
+test('landing page introduces the product before the separate portal and only exposes allowlisted assets', async t => {
+  const { request } = await httpFixture(t);
+  const landing = await request('/');
+  assert.equal(landing.status, 200);
+  const html = await landing.text();
+  assert.match(html, /href="\/portal"/);
+  assert.match(html, /id="how-it-works"/);
+  assert.doesNotMatch(html, /src="\/app.js"/);
+  const portal = await request('/portal');
+  assert.equal(portal.status, 200);
+  assert.match(await portal.text(), /id="create-form"/);
+  assert.equal((await request('/portal/')).status, 200);
+  const globe = await request('/globe.svg');
+  assert.equal(globe.status, 200);
+  assert.match(globe.headers.get('content-type'), /image\/svg\+xml/);
+  assert.equal((await request('/portal.json')).status, 404);
+});

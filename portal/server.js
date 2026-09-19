@@ -9,7 +9,13 @@ function createApp({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = n
   const canonical = new URL(origin);
   if (canonical.origin !== origin || !['http:', 'https:'].includes(canonical.protocol) || canonical.username || canonical.password) throw new Error('VPN_ORIGIN must be an exact HTTP(S) origin');
   const limiter = new Map();
-  const files = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+  const files = {
+    '/': ['landing.html', 'text/html'],
+    '/portal': ['index.html', 'text/html'], '/portal/': ['index.html', 'text/html'],
+    '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'],
+    '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
+    '/globe.svg': ['globe.svg', 'image/svg+xml'],
+  };
   function token(req) { return (req.headers.cookie || '').split(';').map(s => s.trim()).find(s => s.startsWith('vpn_session='))?.slice(12); }
   function cookie(value, maxAge = 28800) { return `vpn_session=${value}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${canonical.protocol === 'https:' ? '; Secure' : ''}`; }
   async function body(req) {
