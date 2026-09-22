@@ -12,4 +12,4 @@ Primary forest: `#18372e`. Warm cream: `#f5f3ed`. Supporting sage: `#61735d`. Ke
 
 The website header, footer, sample workspace and portal use this identity. Generic references to VPN technology remain as written. Naming and trademark clearance are outside this design work.
 
-Validation: all 79 existing tests passed; Vercel static build completed; logo assets loaded in the local browser on both pages; 390px mobile layouts showed no horizontal overflow. This branding iteration has not been published to the production website.
+Validation: all 79 existing tests passed; Vercel static build completed; logo assets loaded in the local browser on both pages; 390px mobile layouts showed no horizontal overflow. The branding was approved and included in the 22 September 2026 production update.

@@ -1,6 +1,6 @@
 # Vercel deployment
 
-The landing page and demo portal run on Vercel from this repository. Vercel runs `api/index.js` as a Node.js function; static artwork, CSS and JavaScript are served from `public`. The CLI supplier-validation engine is not exposed as an HTTP route. Live VPN purchasing remains blocked, including when Blink credentials exist in the hosting project.
+The landing page and demo portal run on Vercel from this repository. Vercel runs `api/index.js` as a Node.js function. `scripts/build-vercel.js` copies the public assets into `dist/public` and makes the landing page its static `index.html`; the function serves `/portal` and API requests. The CLI supplier-validation engine is not exposed as an HTTP route. Live VPN purchasing remains blocked, including when Blink credentials exist in the hosting project.
 
 ## Reproduce
 
@@ -15,7 +15,7 @@ The configured production origin is [vpn-one-phi.vercel.app](https://vpn-one-phi
 
 ## State and limits
 
-`portal/hosted-state.js` persists hashed session tokens, expiring login challenges and sample accounts in one private Blob document. Reads bypass the Blob cache. Each mutation conditionally writes against the read ETag, so concurrent requests cannot silently overwrite another request. Only explicit version conflicts are retried automatically. Unknown storage failures return an error without claiming success or resetting state. Retries of a sample provisioning request use its original idempotency key.
+`portal/hosted-state.js` persists hashed session tokens, expiring login challenges and sample accounts in one private Blob document. Reads bypass the Blob cache and request identity encoding to preserve a strong ETag. Each mutation conditionally writes against that ETag, so concurrent requests cannot silently overwrite another request. Only explicit version conflicts are retried automatically. Unknown storage failures return an error without claiming success or resetting state. Retries of a sample provisioning request use its original idempotency key.
 
 Sessions expire after eight hours. Expired or signed-out demo accounts and their action history are pruned on the next state transaction. Capacity is bounded by 1,000 sessions, 1,000 demo accounts, 20 actions per account and a 4 MiB document. This is a small demonstration store: a real launch needs a transactional database, backup and retention policy, monitored capacity, and an independently validated supplier/payment workflow.
 

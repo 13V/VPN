@@ -1,6 +1,6 @@
 # MVP validation — 2026-09-19
 
-**63 automated tests passed locally on Node.js 24.19.0.** This includes the original 37 supplier-validation tests, 13 wallet-authentication tests and 13 portal/model/HTTP tests. Automated tests run offline against temporary state and test signatures.
+**79 automated tests passed in the Vercel production build.** The original 63 tests also passed locally on Node.js 24.19.0, followed by the added 14 hosted-state tests and two asynchronous HTTP tests. Automated tests run offline against temporary state, a fake Blob service and test signatures.
 
 | Check | Observed result |
 | --- | --- |
@@ -18,6 +18,31 @@
 | Spending gates | Wallet and preview sessions cannot provision; invalid `live` mode rejected |
 | Persistence and retries | Restarted store retains orders; retries return original result without another debit; concurrent write blocked; ownership checks prevent another account's access |
 
-No real browser wallet was connected during manual checking. Wallet signatures were tested using generated keys through the real HTTP handlers. No live VPN, supplier payment, on-chain fee funding, token launch or public deployment occurred. Sample session data stays in the private local portal directory, outside this repository.
+No real browser wallet was connected during manual checking. Wallet signatures were tested using generated keys through the real HTTP handlers. No live VPN, supplier payment, on-chain fee funding or token launch occurred. Local sample state remains outside the repository; hosted sample state uses a private Vercel Blob store.
+
+## Public deployment — 2026-09-19
+
+Published [the website](https://vpn-one-phi.vercel.app) and [portal](https://vpn-one-phi.vercel.app/portal) to Vercel project `vpn`. Runtime source: commit `6bb2aa6`; production deployment `dpl_7KbMh3fa3Sb16Cy3C2vRSzqKutbZ`. See [deployment setup](vercel.md).
+
+| Live hosting check | Observed result |
+| --- | --- |
+| Landing, portal and artwork | Public HTTP 200; landing opens first, CTA navigates to portal, bundled artwork renders |
+| Demo login | Secure, HttpOnly, SameSite=Strict cookie; $3.50 sample allowance |
+| Create and retry | One sample tunnel; repeated request returns the same result; sample balance $3.00 |
+| Renewal | Same tunnel; expiry adds one day, bandwidth becomes 100 GB; balance $2.50 |
+| Persistence | Subsequent HTTP requests retain allowance, tunnel and activity through private storage |
+| Download | HTTP 200, `.txt` attachment explicitly states it cannot establish a real VPN connection |
+| Logout | Persisted session invalidated; next bootstrap returns no session |
+| Origin enforcement | Foreign-origin mutation rejected with HTTP 403 |
+| File exposure | `/.env`, `/portal.json`, and server-source path return HTTP 404 |
+| Browser journey | Landing-to-portal navigation, demo sign-in and sample creation verified in the deployed browser |
+
+Initial deployment checking found Vercel's static `index.html` taking precedence over the root rewrite; the deployment build now publishes the landing page as that static index. Renewal checking also exposed a weak ETag on compressed Blob responses. State reads now request identity encoding and require a strong ETag before conditional writes. Both fixes were deployed; the full API smoke flow subsequently passed. A regression test rejects weak ETags without modifying saved state.
+
+These observations validate hosting and sample provisioning only. Offline tests simulate lost responses and competing serverless instances; they are not evidence of supplier recovery or production traffic capacity. Hosting/Blob usage was incurred, but no VPN purchase was made.
 
 The GitHub Actions template remains inactive because the available GitHub login lacks workflow-write permission. Node.js 22 support is specified, but the reported local run used Node.js 24.19.0.
+
+## Velora clarity update — 2026-09-22
+
+Adopted the approved Velora vector identity. Landing copy now explains community-funded VPN access directly. The portal shows a single demo-start action before revealing the plan workspace; sample funding metrics are removed from the visible dashboard. Creation and renewal use clearer plan labels with visible sample costs. All 79 tests passed before deployment. Local browser checks verified start, create, the balance change to $3.00, and 390px layouts without horizontal overflow. Real purchases remain disabled.

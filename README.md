@@ -2,6 +2,8 @@
 
 A Node.js 22+ MVP for a holder-funded VPN: a public landing page followed by a responsive portal, wallet sign-in, weekly allowance display, demo tunnel creation and renewal, activity history and setup downloads. The project name is still a working title.
 
+**[Open the website](https://vpn-one-phi.vercel.app)** · [Explore the demo portal](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel; real VPN purchasing remains disabled.
+
 ```sh
 npm ci
 npm start
