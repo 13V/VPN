@@ -163,7 +163,7 @@
         id="how-it-works"
         aria-labelledby="idea-title"
       >
-        <div class="section-intro">
+        <div class="section-intro route-intro">
           <p class="eyebrow">The thinking behind Velora</p>
           <h2 id="idea-title">Shared value.<br /><em>Everyday use.</em></h2>
           <p>
@@ -171,42 +171,62 @@
             uses token trading fees to fund VPN credit for eligible holders.
           </p>
         </div>
-        <div class="idea-steps">
-          <article>
-            <span class="step-number">01</span>
-            <div>
-              <h3>A community contributes.</h3>
-              <p>
-                A portion of token trading fees would fund a shared VPN service
-                budget.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span class="step-number">02</span>
-            <div>
-              <h3>Credit becomes access.</h3>
-              <p>
-                Eligible holders would receive an allowance to put towards a VPN
-                plan.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span class="step-number">03</span>
-            <div>
-              <h3>You make it part of your day.</h3>
-              <p>
-                Choose a plan, get your WireGuard setup and connect. Today, you
-                can explore this flow in the demo.
-              </p>
-            </div>
-          </article>
-          <p class="development-note">
-            Token eligibility, allowances and live service are still being
-            developed.
-          </p>
+        <div class="route-story">
+          <svg
+            class="route-track route-track-desktop"
+            viewBox="0 0 1000 220"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="route-leg" pathLength="1" d="M20 50 482 195" />
+            <path class="route-leg" pathLength="1" d="M518 195 980 50" />
+          </svg>
+          <svg
+            class="route-track route-track-mobile"
+            viewBox="0 0 56 400"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="route-leg" pathLength="1" d="M15 15 41 193" />
+            <path class="route-leg" pathLength="1" d="M41 193 15 371" />
+          </svg>
+          <ol class="route-stages">
+            <li class="route-stage">
+              <span class="route-node" aria-hidden="true">01</span>
+              <div class="route-copy">
+                <h3>Community fees</h3>
+                <p>
+                  A portion of token trading fees is intended to fund the
+                  service.
+                </p>
+              </div>
+            </li>
+            <li class="route-stage">
+              <span class="route-node" aria-hidden="true">02</span>
+              <div class="route-copy">
+                <h3>Holder credit</h3>
+                <p>
+                  Eligible holders would receive credit from the funded pool.
+                </p>
+              </div>
+            </li>
+            <li class="route-stage">
+              <span class="route-node" aria-hidden="true">03</span>
+              <div class="route-copy">
+                <h3>VPN access</h3>
+                <p>
+                  Use that credit towards a plan when the live service is ready.
+                </p>
+              </div>
+            </li>
+          </ol>
         </div>
+        <p class="development-note">
+          A proposed route to everyday access. Token launch, eligibility and
+          live VPN service are still in development.
+        </p>
       </section>
       <section
         class="experience-section"
@@ -402,7 +422,17 @@
     </main>
     <footer class="site-footer shell">
       <div class="footer-invitation">
-        <h2>Your next connection<br />starts with <em>an idea.</em></h2>
+        <div>
+          <svg
+            class="footer-route"
+            viewBox="0 0 180 60"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M4 5 82 55 M98 55 176 5" />
+          </svg>
+          <h2>Your next connection<br />starts with <em>an idea.</em></h2>
+        </div>
         <a class="button button-primary" href="/portal"
           >Explore Velora
           <svg class="icon" aria-hidden="true">

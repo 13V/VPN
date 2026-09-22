@@ -60,7 +60,7 @@ if ("IntersectionObserver" in window) {
     [".hero-copy > :not(h1)", 65],
     [".connection-stage", 0],
     [".intro-facts > div", 75],
-    [".section-intro, .idea-steps article", 65],
+    [".route-intro", 0],
     [".phone-scene, .experience-copy", 70],
     [".faq-section > div:first-child, .faq-list, .footer-invitation", 0],
   ];
@@ -69,6 +69,18 @@ if ("IntersectionObserver" in window) {
       node.dataset.revealDelay = String(Math.min(index * stagger, 260));
       revealObserver.observe(node);
     });
+  }
+  const routeStory = document.querySelector(".route-story");
+  if (routeStory) {
+    const routeObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        routeStory.classList.add("is-visible");
+        routeObserver.disconnect();
+      },
+      { threshold: 0.25 },
+    );
+    routeObserver.observe(routeStory);
   }
   document.querySelectorAll(".hero-line > *").forEach((node, index) => {
     animateEntry(

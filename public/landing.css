@@ -561,10 +561,25 @@ h1 em {
   line-height: 1.6;
 }
 .idea-section {
+  padding-block: 112px 86px;
+}
+.route-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 110px;
-  padding-block: 110px;
+  column-gap: 110px;
+}
+.route-intro .eyebrow {
+  grid-column: 1 / -1;
+}
+.route-intro h2 {
+  grid-column: 1;
+  grid-row: 2;
+}
+.route-intro > p:last-child {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: end;
+  margin-bottom: 5px;
 }
 .section-intro h2,
 .experience-copy h2,
@@ -587,38 +602,118 @@ h2 em {
   margin-top: 27px;
   max-width: 375px;
 }
-.idea-steps article {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--line);
+.route-story {
+  position: relative;
+  height: 354px;
+  margin-top: 73px;
 }
-.idea-steps article:first-child {
-  padding-top: 0;
+.route-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  overflow: visible;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.25;
+  opacity: 0.75;
+  pointer-events: none;
 }
-.step-number {
-  font-size: 11px;
-  color: #817b70;
-  padding-top: 5px;
+.route-track-mobile {
+  display: none;
 }
-.idea-steps h3 {
-  font-size: 15px;
-  line-height: 1.5;
-  font-weight: 600;
-  letter-spacing: -0.3px;
+.route-leg {
+  vector-effect: non-scaling-stroke;
 }
-.idea-steps article p {
-  font-size: 12px;
-  line-height: 1.9;
+.route-story.is-visible .route-leg {
+  stroke-dasharray: 1;
+  animation: route-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.route-story.is-visible .route-leg:nth-child(2) {
+  animation-delay: 0.4s;
+}
+@keyframes route-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.route-stages {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.route-stage {
+  position: absolute;
+  top: 35px;
+  width: min(25%, 260px);
+}
+.route-stage:first-child {
+  left: 0;
+}
+.route-stage:nth-child(2) {
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.route-stage:last-child {
+  right: 0;
+  text-align: right;
+}
+.route-stage:first-child .route-copy,
+.route-stage:last-child .route-copy {
+  position: absolute;
+  bottom: 45px;
+  width: 100%;
+}
+.route-node {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: -0.2px;
+  line-height: 1;
+}
+.route-stage:nth-child(2) .route-node {
+  margin-inline: auto;
+}
+.route-stage:last-child .route-node {
+  margin-left: auto;
+}
+.route-stage h3 {
+  margin-top: 22px;
+  font-size: 19px;
+  font-weight: 550;
+  letter-spacing: -0.5px;
+}
+.route-stage p {
+  max-width: 245px;
+  margin-top: 10px;
   color: var(--muted);
-  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.route-stage:last-child p {
+  margin-left: auto;
 }
 .development-note {
-  font-size: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 19px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
-  margin: 17px 0 0 38px;
 }
 .experience-section {
   background: var(--beige);
@@ -941,6 +1036,16 @@ h2 em {
   line-height: 1.25;
   letter-spacing: -1px;
 }
+.footer-route {
+  display: block;
+  width: 96px;
+  height: 34px;
+  margin-bottom: 24px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -999,7 +1104,6 @@ h2 em {
     margin-inline: -22px;
     padding-inline: 22px;
   }
-  .idea-section,
   .experience-grid,
   .faq-section {
     gap: 55px;
@@ -1165,9 +1269,13 @@ h2 em {
     font-size: 11px;
   }
   .idea-section {
-    grid-template-columns: 1fr;
-    gap: 33px;
-    padding-block: 62px;
+    padding-block: 70px 60px;
+  }
+  .route-intro {
+    display: block;
+  }
+  .route-intro > p:last-child {
+    margin-bottom: 0;
   }
   .section-intro h2,
   .experience-copy h2,
@@ -1182,17 +1290,63 @@ h2 em {
     margin-top: 22px;
     max-width: 470px;
   }
-  .idea-steps article {
-    padding: 20px 0;
+  .route-story {
+    height: auto;
+    margin-top: 47px;
   }
-  .idea-steps h3 {
-    font-size: 15px;
+  .route-track-desktop {
+    display: none;
   }
-  .idea-steps article p {
+  .route-track-mobile {
+    display: block;
+    width: 56px;
+    height: 400px;
+  }
+  .route-stages {
+    display: grid;
+    grid-template-rows: repeat(3, 160px);
+    gap: 18px;
+    padding-left: 60px;
+    height: auto;
+  }
+  .route-stage,
+  .route-stage:nth-child(2),
+  .route-stage:last-child {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: auto;
+    text-align: left;
+  }
+  .route-stage h3 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+  .route-stage:first-child .route-copy,
+  .route-stage:last-child .route-copy {
+    position: static;
+  }
+  .route-stage p,
+  .route-stage:last-child p {
+    margin: 8px 0 0;
     font-size: 13px;
+  }
+  .route-node,
+  .route-stage:nth-child(2) .route-node,
+  .route-stage:last-child .route-node {
+    position: absolute;
+    top: 0;
+    left: -60px;
+    margin: 0;
+  }
+  .route-stage:nth-child(2) .route-node {
+    left: -34px;
   }
   .development-note {
     font-size: 11px;
+    margin-top: -5px;
   }
   .experience-grid {
     grid-template-columns: 1fr;
