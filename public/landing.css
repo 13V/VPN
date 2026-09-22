@@ -1383,3 +1383,127 @@ h2 em {
     transition: none !important;
   }
 }
+
+/* A more expressive motion layer, with a still resting state. */
+.hero-line {
+  display: block;
+  overflow: clip;
+  padding: 0 0.13em 0.13em;
+  margin: 0 -0.13em -0.13em;
+}
+.hero-line > span,
+.hero-line > em {
+  display: block;
+}
+.connection-stage {
+  perspective: 1100px;
+}
+.connection-panel {
+  transform: rotateX(var(--panel-x, 0deg)) rotateY(var(--panel-y, 0deg));
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+#app-concept[data-state="on"] .path-one {
+  animation: orbit-settle-one 4.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+#app-concept[data-state="on"] .path-two {
+  animation: orbit-settle-two 4.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+#app-concept[data-state="on"] .point-one {
+  animation: point-drift-one 4.4s ease-in-out both;
+}
+#app-concept[data-state="on"] .point-two {
+  animation: point-drift-two 4.4s ease-in-out both;
+}
+.phone-scene {
+  perspective: 1100px;
+}
+.phone-scene[data-motion="scroll"] .phone-device {
+  transform: translateY(var(--phone-lift, 0px)) rotate(var(--phone-turn, -4deg))
+    rotateY(var(--phone-yaw, 0deg));
+}
+.desktop-nav a {
+  position: relative;
+}
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.desktop-nav a:hover {
+  text-decoration: none;
+}
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+.button {
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+  .button:active {
+    transform: translateY(0);
+  }
+}
+@keyframes orbit-settle-one {
+  from {
+    transform: rotate(-25deg);
+  }
+  to {
+    transform: rotate(155deg);
+  }
+}
+@keyframes orbit-settle-two {
+  from {
+    transform: rotate(30deg);
+  }
+  to {
+    transform: rotate(-150deg);
+  }
+}
+@keyframes point-drift-one {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(7px, -9px);
+  }
+}
+@keyframes point-drift-two {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-7px, 9px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .connection-panel {
+    transform: none;
+  }
+  .phone-scene[data-motion="scroll"] .phone-device {
+    transform: rotate(-4deg);
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
