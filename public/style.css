@@ -498,3 +498,82 @@ main { max-width:1440px;padding:24px 36px 0; }.notice { background:transparent;b
   .sidebar nav { display:block; }
   .sidebar .nav-link { width:100%; }
 }
+
+/* Phone workspace: comfortable controls and a shorter route to each task. */
+.mobile-add-plan { display:none; }
+@media(max-width:680px) {
+  .sidebar { padding:20px 20px 0;gap:18px; }
+  .sidebar .brand-lockup { width:124px; }
+  .sidebar .back-link { min-height:44px;padding:0;display:flex;align-items:center;font-size:12px; }
+  .sidebar nav { gap:0;justify-content:space-between;border-top:1px solid var(--line);padding-top:7px; }
+  .sidebar .nav-link { min-height:48px;border-radius:0;font-size:12px;padding:12px 8px; }
+  .sidebar .nav-link.selected { background:transparent;box-shadow:inset 0 -2px #254435; }
+  .sidebar .nav-link>span:first-child { display:none; }
+  .sidebar nav a[href="#activity"] { display:none; }
+  .topbar { min-height:60px;padding:8px 20px;background:transparent; }
+  .topbar .breadcrumb { display:none; }
+  .topbar-actions { width:100%;gap:8px;justify-content:space-between; }
+  .topbar .button-small { min-height:44px;font-size:12px;padding:10px; }
+  main { padding:0 20px; }
+  .notice { padding:12px 0;align-items:center;gap:3px; }
+  .notice p { font-size:12px;line-height:1.6; }
+  .notice button { min-height:40px;font-size:12px; }
+  .hero { padding:25px 0;gap:24px; }
+  .hero h1 { font-size:30px;line-height:1.15; }
+  .hero-copy { font-size:14px;line-height:1.65; }
+  .hero-actions { gap:10px; }
+  .hero-actions .button { width:100%;min-height:50px;justify-content:space-between; }
+  .session-label { font-size:12px;line-height:1.6; }
+  .portal-steps { padding:20px;gap:20px;background:#fffefa; }
+  .workspace-layout { gap:26px; }
+  .workspace-layout .allowance-panel { padding:20px;gap:8px 16px; }
+  .allowance-description { font-size:12px;line-height:1.6; }
+  .allowance-stats { gap:12px; }
+  .allowance-stats span { font-size:11px;line-height:1.5; }
+  .allowance-stats strong { font-size:18px; }
+  .allowance-footer { font-size:12px;line-height:1.5; }
+  .workspace-columns { gap:24px; }
+  .plans-column { display:contents; }
+  .tunnels-section { order:1; }
+  .create-panel { order:2;scroll-margin-top:20px; }
+  .plans-column .lower-grid { order:3;margin:0; }
+  .plans-column .setup-tip { order:4; }
+  .workspace-columns:has(.empty-state) .create-panel { grid-row:auto;order:0; }
+  .workspace-columns:has(.empty-state) .tunnels-section { display:none; }
+  .section-heading { align-items:center;margin-bottom:14px; }
+  .mobile-add-plan { display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 8px;color:#254435;font-size:13px;text-decoration:underline;text-underline-offset:4px; }
+  .tunnel-card { grid-template-columns:minmax(0,1fr) auto;padding:20px;gap:18px 8px; }
+  .tunnel-identity { min-width:0;align-items:flex-start; }
+  .country-mark { width:36px;height:36px;flex-shrink:0; }
+  .tunnel-name { font-size:17px;overflow-wrap:anywhere; }
+  .tunnel-meta { font-size:12px;line-height:1.6; }
+  .plan-status { font-size:10px;padding:6px 8px; }
+  .tunnel-usage { display:grid;gap:7px;font-size:13px;line-height:1.5; }
+  .tunnel-actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0;border:0; }
+  .tunnel-actions .button { min-height:48px;padding:10px 8px;font-size:12px; }
+  .create-panel { padding:22px 20px; }
+  .create-panel .panel-heading { display:none; }
+  .create-panel h3 { font-size:23px; }
+  .create-panel>.muted { font-size:13px;line-height:1.6; }
+  .form-grid { grid-template-columns:1fr;gap:18px; }
+  .form-grid label { font-size:13px;gap:8px; }
+  .create-panel input,.create-panel select { height:50px;font-size:16px;padding-inline:14px; }
+  .plan-choice { flex-wrap:nowrap;padding:16px 12px; }
+  .plan-choice>div>span { font-size:11px;line-height:1.6; }
+  .plan-price { white-space:nowrap; }
+  .button-full { min-height:50px;font-size:13px; }
+  .form-caption { font-size:12px;line-height:1.6; }
+  .activity-text strong { font-size:14px; }
+  .activity-text span,.activity-cost { font-size:12px; }
+  .setup-tip p,.page-footer { font-size:12px;line-height:1.7; }
+  dialog { padding:24px;max-height:calc(100dvh - 24px); }
+  .icon-button { min-width:44px;min-height:44px; }
+}
+@media(max-width:360px) {
+  main { padding-inline:16px; }
+  .sidebar { padding-inline:16px; }
+  .workspace-layout .allowance-panel { padding:16px;column-gap:10px; }
+  .allowance-stats { padding-left:10px;gap:8px; }
+  .tunnel-card { grid-template-columns:1fr; }
+  .plan-status { justify-self:start;margin-left:46px;margin-top:-12px; }
+}
