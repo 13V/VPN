@@ -19,6 +19,16 @@
     if (text !== undefined) node.textContent = text;
     return node;
   };
+  const icon = (name) => {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    node.setAttribute('class', 'icon');
+    node.setAttribute('aria-hidden', 'true');
+    node.setAttribute('focusable', 'false');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', `/icons.svg#${name}`);
+    node.append(use);
+    return node;
+  };
   const message = (text, error = false) => {
     const feedback = $('feedback');
     feedback.textContent = text;
@@ -100,7 +110,7 @@
     else if (pending) { label = state.busy ? 'Checking saved request…' : 'Retry the same demo request'; caption = 'A previous request is unresolved. Retry checks that request without charging twice.'; }
     else if (!eligible) { label = 'Allowance is not available'; caption = data.dashboard?.eligibility?.reason || 'Your session is not currently eligible.'; }
     else if (!affordable) { label = 'Not enough demo allowance'; caption = 'Your remaining sample allowance is below the one-day plan price.'; }
-    $('create-button').replaceChildren(document.createTextNode(label), element('span', '', '↗'));
+    $('create-button').replaceChildren(document.createTextNode(label), icon('arrow-right'));
     $('create-caption').textContent = caption;
   }
   function render() {
@@ -116,7 +126,7 @@
     const notice = $('mode-notice').querySelector('p');
     notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('No real VPN connections or payments are made here.'));
     $('demo-button').hidden = mode !== 'demo' || isDemo;
-    $('demo-button').textContent = session?.kind === 'wallet' ? 'Switch to demo ↗' : 'Start demo — $3.50 credit ↗';
+    $('demo-button').replaceChildren(document.createTextNode(session?.kind === 'wallet' ? 'Switch to demo' : 'Start demo — $3.50 credit'), icon('arrow-right'));
     $('wallet-button').hidden = session?.kind === 'wallet';
     $('logout-button').hidden = !session;
     $('session-label').textContent = isDemo ? 'Demo workspace · no real connection or payment.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
@@ -160,7 +170,8 @@
     $('nav-count').textContent = String(tunnels.length).padStart(2, '0');
     if (!tunnels.length) {
       const empty = element('div', 'empty-state');
-      const symbol = element('div', 'empty-symbol', '◎');
+      const symbol = element('div', 'empty-symbol');
+      symbol.append(icon('plans'));
       symbol.setAttribute('aria-hidden', 'true');
       empty.append(symbol, element('h3', '', 'No demo plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Use Add a VPN plan to create your first sample.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'Australia · One day · $0.50 demo credit'));
       $('tunnel-list').replaceChildren(empty);
@@ -179,11 +190,13 @@
       const usage = element('div', 'tunnel-usage');
       usage.append(element('strong', '', `${tunnel.usedGb} / ${tunnel.bandwidthGb} GB · sample data`), element('div', '', `${expired ? 'Expired' : 'Sample expiry'} ${date(tunnel.expiresAt, true)}`));
       const actions = element('div', 'tunnel-actions');
-      const download = element('button', 'button button-outline', 'Download sample ↓');
+      const download = element('button', 'button button-outline', 'Download sample');
+      download.append(icon('download'));
       download.type = 'button';
       download.setAttribute('aria-label', `Download sample text file for ${tunnel.name}`);
       download.addEventListener('click', () => downloadConfig(tunnel, download));
-      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension ↻' : 'Add 1 day · $0.50');
+      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension' : 'Add 1 day · $0.50');
+      if (pending[`renew:${tunnel.id}`]) renew.append(icon('renew'));
       renew.type = 'button';
       renew.dataset.renew = tunnel.id;
       renew.setAttribute('aria-label', `${pending[`renew:${tunnel.id}`] ? 'Retry extension for' : 'Extend'} ${tunnel.name}`);
@@ -204,7 +217,9 @@
       const row = element('div', 'activity-row');
       const details = element('div', 'activity-text');
       details.append(element('strong', '', activity.label), element('span', '', `${date(activity.createdAt, true)} · Demo transaction`));
-      row.append(element('div', 'activity-symbol', activity.type === 'renew' ? '↻' : '↗'), details, element('span', 'activity-cost', `−${money(activity.costCents)}`));
+      const symbol = element('div', 'activity-symbol');
+      symbol.append(icon(activity.type === 'renew' ? 'renew' : 'plus'));
+      row.append(symbol, details, element('span', 'activity-cost', `−${money(activity.costCents)}`));
       return row;
     }));
   }
