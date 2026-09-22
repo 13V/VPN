@@ -443,3 +443,58 @@ dialog > .muted { font-size: 14px; line-height: 1.75; margin-top: 16px; }
 #overview:has(.portal-steps[hidden]) .hero-actions { margin-top:15px; }
 .topbar #wallet-button { border-color:transparent; font-size:12px; }
 @media(max-width:760px) { .hero { grid-template-columns:1fr; } .portal-steps { min-width:0; width:100%; } .hero-copy { font-size:14px; } }
+
+/* Velora product workspace: plans first, a compact wallet, a focused side form. */
+:root { --bg:#f5f6f3; --panel:#fff; --line:#e0e5de; --display:Aptos,'Segoe UI',sans-serif; }
+.sidebar { width:208px;background:#fafbf8;padding:30px 16px;border-color:#e3e7e0; }
+.sidebar .brand-lockup { width:143px;height:auto; }.sidebar .working-label { display:none; }
+.workspace-label { margin-top:46px;font-size:10px;letter-spacing:1px; }.nav-link { border-radius:8px; }.nav-link.selected { background:#eaf0e6; }
+.app-shell { margin-left:208px; }.topbar { min-height:72px;padding:14px 36px;background:#fafbf8; }
+main { max-width:1440px;padding:24px 36px 0; }.notice { background:transparent;border:0;padding:0 0 14px;border-bottom:1px solid var(--line);border-radius:0; }
+.hero { padding:28px 0 24px; }.hero h1 { font-family:inherit;font-weight:600;font-size:34px;letter-spacing:-1.1px;margin:0 0 10px; }.hero-copy { font-size:14px;line-height:1.65;max-width:660px; }#overview:has(.portal-steps[hidden]) .hero-actions { margin-top:8px; }.session-label { font-size:11px;color:#738071; }
+.workspace-layout { display:grid;gap:28px; }.workspace-columns { display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,1fr);gap:26px;align-items:start; }.plans-column { min-width:0; }
+.workspace-layout .allowance-panel { display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:30px;row-gap:6px;padding:23px 27px;background:#fff;color:var(--text);border:1px solid var(--line);box-shadow:0 2px 3px #15332b03; }
+.allowance-panel .panel-heading { grid-column:1;grid-row:1;margin:0; }.allowance-panel .tiny-label { color:#667364;font-size:10px;letter-spacing:1px; }.allowance-panel .pill { display:none; }
+.allowance-amount { grid-column:1;grid-row:2;font-family:inherit;font-size:39px;letter-spacing:-1.5px;font-weight:550; }.allowance-amount>span { color:#7b8776;font-size:11px; }
+.allowance-description { grid-column:1;grid-row:3;font-size:11px;color:#6d7869;margin:0; }
+.allowance-stats { grid-column:2;grid-row:1 / 3;margin:0;align-items:center;border-left:1px solid var(--line);padding-left:28px;gap:16px; }.allowance-stats>div:last-child { text-align:left; }.allowance-stats span { color:#75806e;font-size:11px; }.allowance-stats strong { font-family:inherit;font-size:22px;font-weight:550; }
+.allowance-meter { grid-column:3;grid-row:2;margin:13px 0 0;height:5px;background:#edf0e9; }.allowance-meter>span { background:#658663; }
+.allowance-footer { grid-column:3;grid-row:3;border:0;padding:0;margin:0;color:#6b7766;font-size:11px; }.allowance-footer>span:first-child { color:#658663;font-size:15px; }
+.tunnels-section { margin:0; }.section-heading { margin-bottom:17px; }.section-heading h2,.section-heading.inside h2 { font-family:inherit;font-size:18px;font-weight:600;letter-spacing:-.4px; }.count { border:0;border-radius:20px;background:#e7eddf;width:24px;height:24px; }
+.tunnel-list { gap:15px; }.tunnel-card { display:grid;grid-template-columns:1fr auto;gap:22px 12px;padding:23px;border-radius:13px;box-shadow:0 2px 4px #16352d03; }.country-mark { background:#edf1e7;border:0;width:44px;height:44px;border-radius:50%;font-size:12px; }.tunnel-name { font-size:16px; }.tunnel-meta { font-size:11px;line-height:1.5;max-width:270px; }.plan-status { align-self:start;border:1px solid #dfe6d7;border-radius:20px;padding:5px 9px;font-size:10px;color:#607353;white-space:nowrap; }
+.tunnel-usage { grid-column:1 / -1;padding:15px 0;border-top:1px solid #edf0e9;border-bottom:1px solid #edf0e9;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:12px; }.tunnel-usage strong { color:#344b36;font-weight:500; }
+.tunnel-actions { grid-column:1 / -1;display:flex;justify-content:flex-start;gap:10px; }.tunnel-actions .button { font-size:12px;min-height:42px;padding:10px 15px;border-radius:7px; }.tunnel-actions .button-outline { background:#18372e;color:#fff;border-color:#18372e; }.tunnel-actions .button-lime { background:#fff;border-color:#d5ddce;color:#3b573a; }
+.setup-tip { display:flex;gap:12px;padding:22px 4px;color:#71806a; }.setup-tip>span { font-size:24px; }.setup-tip strong { font-size:12px;color:#42583d;font-weight:550; }.setup-tip p { font-size:12px;line-height:1.7;margin-top:5px;max-width:480px; }
+.create-panel { padding:25px;border-radius:13px;background:#fafbf8; }.create-panel .panel-heading { margin-bottom:18px; }.create-panel h3 { font-size:21px;letter-spacing:-.5px;font-weight:600; }.create-panel>.muted { font-size:12px; }.form-grid { grid-template-columns:1fr;gap:15px;margin-top:22px; }input,select { background:#fff;border-radius:7px;height:44px;font-size:14px; }.plan-choice { padding:14px 12px;background:#eff3e9;border-color:#d8e2ce;gap:10px;margin:18px 0; }.plan-price { font-family:inherit;font-size:21px; }.plan-radio { display:none; }.plan-choice>div>span { font-size:10px; }.form-caption { font-size:10px;line-height:1.7;margin-top:12px; }.button-full { font-size:12px;border-radius:7px; }
+.empty-state { background:#fff;border:1px dashed #cfdac7;min-height:250px; }.empty-state h3 { font-size:18px; }.empty-state p { font-size:13px; }.empty-state .tiny-label { letter-spacing:.3px;font-size:11px; }
+.lower-grid { margin-top:24px; }.activity-panel { padding:23px 26px;border-radius:13px; }.section-heading.inside { margin-bottom:18px; }.activity-row { padding:13px 0; }.activity-text strong { font-size:13px; }.activity-symbol { background:#f1f4ed;border:0;border-radius:50%;width:32px;height:32px; }.page-footer { margin-top:30px;padding-block:20px; }
+@media(max-width:1100px) { .sidebar { width:184px;padding-inline:12px; }.sidebar .brand-lockup { width:130px; }.app-shell { margin-left:184px; }main { padding-inline:24px; }.topbar { padding-inline:24px; }.workspace-columns { grid-template-columns:minmax(0,1fr) 310px;gap:18px; }.workspace-layout .allowance-panel { column-gap:18px;padding:20px; }.allowance-stats { padding-left:18px; }.allowance-description { max-width:190px; } }
+@media(max-width:900px) { .sidebar { position:static;width:auto;padding:18px 24px; }.app-shell { margin-left:0; }.sidebar .wordmark { padding:0; }.workspace-columns { grid-template-columns:minmax(0,1fr) 300px; }.tunnel-card { padding:19px; }.tunnel-actions { flex-wrap:wrap; } }
+@media(max-width:680px) { main { padding:20px 18px 0; }.topbar { padding:12px 18px; }.hero h1 { font-size:29px; }.hero { padding:24px 0; }.workspace-columns { grid-template-columns:1fr;gap:12px; }.workspace-layout { gap:24px; }.workspace-layout .allowance-panel { grid-template-columns:1fr 1fr;gap:8px 16px;padding:20px; }.allowance-amount { font-size:34px; }.allowance-description { grid-column:1 / -1;grid-row:3;max-width:none; }.allowance-stats { grid-column:2;grid-row:1 / 3;gap:12px;padding-left:15px; }.allowance-stats strong { font-size:18px; }.allowance-stats span { font-size:10px; }.allowance-meter { grid-column:1 / -1;grid-row:4;margin-top:9px; }.allowance-footer { grid-column:1 / -1;grid-row:5;margin-top:5px; }.create-panel { padding:22px; }.form-grid { grid-template-columns:1fr 1fr; }.plan-status { font-size:9px;padding:5px 7px; }.tunnel-meta { max-width:190px; }.activity-panel { padding:20px; }.notice button { font-size:10px; }.setup-tip { padding-bottom:12px; } }
+@media(max-width:380px) { .form-grid { grid-template-columns:1fr; }.tunnel-card { padding:16px; }.tunnel-actions .button { padding:9px 11px;font-size:11px; }.allowance-stats { gap:10px;padding-left:12px; } }
+.allowance-amount,.allowance-stats strong,.plan-price { font-family:Aptos,'Segoe UI',sans-serif; }
+.plans-column .lower-grid { margin-top:20px; }.plans-column .activity-panel { padding:22px; }.plans-column .setup-tip { padding-top:18px; }
+@media(max-width:680px) { .workspace-columns:has(.empty-state) .create-panel { grid-row:1; } }
+/* Quiet luxury: warm surfaces, deliberate spacing, no decorative competition. */
+:root { --bg:#f5f4ef;--panel:#fffefa;--line:#e4e4da;--muted:#72776c; }
+.sidebar,.topbar { background:#f8f8f3; }.sidebar { border-color:#e5e6dc; }.nav-link.selected { background:#e9eee3; }.sidebar .back-link { margin-top:auto; }
+.hero h1 { font-weight:500;letter-spacing:-1px; }.hero-copy { color:#70776b; }.session-label { color:#72796c; }
+.workspace-layout .allowance-panel { background:#fffefa;border-radius:10px;box-shadow:none; }.allowance-panel .tiny-label { text-transform:none;letter-spacing:0;font-size:12px;font-weight:500; }.allowance-amount { font-size:36px;font-weight:450; }.allowance-stats strong { font-size:20px;font-weight:450; }
+.tunnel-card { background:#fffefa;box-shadow:none;border-radius:10px;padding:25px; }.country-mark { background:#ecefdf;color:#526548; }.plan-status { background:#f2f4eb;border:0;color:#626f54; }.tunnel-name { font-weight:550; }.tunnel-usage { border-color:#e9ebe2; }.tunnel-actions .button-outline { background:#254435;border-color:#254435; }.tunnel-actions .button-lime { background:transparent; }
+.create-panel { background:#efF1e9;border:1px solid #e0e5d7;box-shadow:none;border-radius:10px; }.create-panel .panel-heading .pill { display:none; }.create-panel .tiny-label { letter-spacing:1.3px;font-size:9px; }.create-panel h3 { font-weight:500;font-size:22px; }.plan-choice { background:#f9faf4;border-color:#dce3d2; }.create-panel input,.create-panel select { background:#fffefa; }.button-full { background:#254435;border-color:#254435;font-weight:500; }.form-caption { text-align:left; }
+.activity-panel { background:transparent;border:0;border-top:1px solid var(--line);border-radius:0!important;padding-inline:0!important; }.activity-symbol { background:#e9eee2; }.activity-cost { font-variant-numeric:tabular-nums; }.setup-tip { border-top:1px solid var(--line); }.setup-tip>span { display:none; }.setup-tip p { font-size:11px; }
+.page-footer { color:#7a8072;border-color:#e2e5d9; }.notice-icon { display:none; }.notice { color:#747b6b; }.notice p { font-size:11px; }
+@media(max-width:680px) { .tunnel-card { padding:20px; }.allowance-amount { font-size:32px; }.hero h1 { font-size:29px; }.create-panel { padding:22px; } }
+/* Compact mobile summary, with the notice spanning the available width. */
+@media(max-width:740px) {
+  .notice { display:flex;flex-wrap:wrap;gap:8px; }
+  .notice p { flex:1 1 240px; }
+  .notice button { margin:0; }
+  .workspace-layout .allowance-panel { min-height:0; }
+  .hero { flex-direction:column;align-items:stretch; }
+}
+@media(min-width:901px) and (max-width:1000px) {
+  .sidebar { position:fixed;height:100vh;display:flex;flex-direction:column; }
+  .sidebar nav { display:block; }
+  .sidebar .nav-link { width:100%; }
+}

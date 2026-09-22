@@ -93,7 +93,7 @@
     $('tunnel-name').disabled = state.busy || !!pending;
     $('country').disabled = state.busy || !!pending;
     $('create-button').disabled = state.busy || !demo || (!pending && (!eligible || !affordable || !plan));
-    let label = state.busy ? 'Working…' : 'Create demo plan — $0.50';
+    let label = state.busy ? 'Working…' : 'Create plan · $0.50 demo credit';
     let caption = 'Downloads are sample text files. No real VPN connection or payment.';
     if (!data?.session) label = data?.mode === 'demo' ? 'Start the demo above' : 'Live provisioning is not available';
     else if (!demo) { label = 'Live provisioning is not available'; caption = 'Wallet connected. Holder eligibility and live payments are not connected yet.'; }
@@ -109,9 +109,8 @@
     $('plan-workspace').hidden = !session;
     document.querySelector('.tunnels-section').hidden = !session;
     document.querySelector('.lower-grid').hidden = !session;
-    document.querySelector('#plan-workspace').previousElementSibling.hidden = !session;
-    $('page-title').textContent = isDemo ? 'Your demo VPN plans' : session ? 'Your VPN dashboard' : 'Try Velora. No wallet needed.';
-    document.querySelector('.hero-copy').textContent = isDemo ? 'Create a plan below, then download a sample setup or add another day. Your demo credit is shown alongside the plan.' : session ? 'Wallet signed in. Live VPN access and holder credit are not available yet. Switch to the demo to try a plan.' : 'Start with $3.50 of demo credit. Try creating a VPN plan, downloading a sample setup and adding another day.';
+    $('page-title').textContent = isDemo ? 'Your VPN plans' : session ? 'Your VPN dashboard' : 'Try Velora. No wallet needed.';
+    document.querySelector('.hero-copy').textContent = isDemo ? 'Your access, setup files and credit. All in one place.' : session ? 'Wallet signed in. Live VPN access and holder credit are not available yet. Switch to the demo to try a plan.' : 'Start with $3.50 of demo credit. Try creating a VPN plan, downloading a sample setup and adding another day.';
     document.querySelector('.portal-steps').hidden = !!session;
     $('mode-badge').textContent = mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
     const notice = $('mode-notice').querySelector('p');
@@ -120,7 +119,7 @@
     $('demo-button').textContent = session?.kind === 'wallet' ? 'Switch to demo ↗' : 'Start demo — $3.50 credit ↗';
     $('wallet-button').hidden = session?.kind === 'wallet';
     $('logout-button').hidden = !session;
-    $('session-label').textContent = isDemo ? 'Demo credit has no cash value. No wallet is charged.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
+    $('session-label').textContent = isDemo ? 'Demo workspace · no real connection or payment.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
     const countries = catalogue?.countries || [];
     $('country').replaceChildren(...countries.map((country) => {
       const option = element('option', '', country.name);
@@ -136,7 +135,7 @@
     const allowance = dashboard?.allowance;
     $('allowance-badge').textContent = isDemo ? 'DEMO CREDIT' : session ? 'SNAPSHOT' : 'PREVIEW';
     $('allowance-amount').replaceChildren(document.createTextNode(allowance ? money(allowance.remainingCents) : '—'), element('span', '', 'USD'));
-    $('allowance-description').textContent = isDemo ? 'Use this credit to create or extend demo plans.' : session ? dashboard?.eligibility?.reason || 'Configured allowance snapshot. Live provisioning is not available.' : 'Explore the demo to see a sample allowance.';
+    $('allowance-description').textContent = isDemo ? 'Sample credit for creating or extending plans.' : session ? dashboard?.eligibility?.reason || 'Configured allowance snapshot. Live provisioning is not available.' : 'Explore the demo to see a sample allowance.';
     $('allowance-spent').textContent = allowance ? money(allowance.spentCents) : '—';
     $('allowance-total').textContent = allowance ? money(allowance.totalCents) : '—';
     const percentage = allowance && allowance.totalCents > 0 ? Math.min(100, Math.max(0, allowance.remainingCents / allowance.totalCents * 100)) : 0;
@@ -163,7 +162,7 @@
       const empty = element('div', 'empty-state');
       const symbol = element('div', 'empty-symbol', '◎');
       symbol.setAttribute('aria-hidden', 'true');
-      empty.append(symbol, element('h3', '', 'No demo plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Create your first plan using the form above.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'Australia · One day · $0.50 demo credit'));
+      empty.append(symbol, element('h3', '', 'No demo plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Use Add a VPN plan to create your first sample.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'Australia · One day · $0.50 demo credit'));
       $('tunnel-list').replaceChildren(empty);
       return;
     }
@@ -191,7 +190,8 @@
       renew.disabled = state.busy || state.data.session?.kind !== 'demo';
       renew.addEventListener('click', () => mutateTunnel(`renew:${tunnel.id}`, `/api/tunnels/${encodeURIComponent(tunnel.id)}/renew`, {}, `“${tunnel.name}” was extended in the demo.`));
       actions.append(download, renew);
-      card.append(identity, usage, actions);
+      const badge = element('span', 'plan-status', expired ? 'Expired sample' : 'Demo plan');
+      card.append(identity, badge, usage, actions);
       return card;
     }));
   }
