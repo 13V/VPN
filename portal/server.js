@@ -15,6 +15,10 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
     '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'],
     '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
     '/connection-sculpture.jpg': ['connection-sculpture.jpg', 'image/jpeg'],
+    '/velora-logo.svg': ['velora-logo.svg', 'image/svg+xml'],
+    '/velora-logo-light.svg': ['velora-logo-light.svg', 'image/svg+xml'],
+    '/velora-mark.svg': ['velora-mark.svg', 'image/svg+xml'],
+    '/favicon.svg': ['favicon.svg', 'image/svg+xml'],
   };
   function token(req) { return (req.headers.cookie || '').split(';').map(s => s.trim()).find(s => s.startsWith('vpn_session='))?.slice(12); }
   function cookie(value, maxAge = 28800) { return `vpn_session=${value}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${canonical.protocol === 'https:' ? '; Secure' : ''}`; }

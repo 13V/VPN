@@ -420,3 +420,9 @@ dialog > .muted { font-size: 14px; line-height: 1.75; margin-top: 16px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Velora: original geometric connection mark and custom vector wordmark. */
+.brand-lockup { display: block; width: 160px; height: 39px; flex-shrink: 0; }
+.mini-brand .brand-lockup { width: 108px; height: auto; }
+.wordmark .working-label { margin-left: 46px; }
+@media (max-width: 600px) { .brand-lockup { width: 128px; height: 32px; } .site-header { gap: 12px; } .header-portal { gap: 8px; padding-inline: 10px; } }
