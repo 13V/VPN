@@ -1,6 +1,6 @@
 # Holder portal MVP — September 2026
 
-This is the first working product slice. The name, token address, holder allocation policy and launch are still undecided. The existing supplier-validation harness is preserved alongside the portal.
+This is the first working product slice. Velora is the project name; the token address, holder allocation policy and launch are still undecided. The existing supplier-validation harness is preserved alongside the portal.
 
 ## What works
 
@@ -10,7 +10,7 @@ This is the first working product slice. The name, token address, holder allocat
 - EOA wallet ownership verified with an exact server-generated sign-in message. Short-lived, single-use nonces bind the signature to the configured domain, URI and chain. Opaque sessions use HttpOnly, SameSite=Strict cookies; HTTPS adds Secure.
 - Optional operator-supplied weekly holder snapshot display, with funded-pool bounds and expired-snapshot rejection. This file is trusted operator input, not cryptographic proof of funding or ownership.
 
-The demo is fully usable without a wallet. All credits, bandwidth and tunnel expiry shown in a demo session are samples. No network is connected, no traffic is measured and the sample download deliberately contains no usable keys or configuration. The demo's $3.50 allowance and $1,000 sample pool are interface fixtures, not an agreed token economy.
+The demo is fully usable without a wallet. The portal expresses its fixed $3.50 internal allowance as seven one-day sample plan units at $0.50 each; this is a presentation of demo capacity, not an agreed holder benefit or a visitor payment. All bandwidth and tunnel expiry shown in a demo session are samples. No network is connected, no traffic is measured and the sample download deliberately contains no usable keys or configuration. The $1,000 sample pool is also an internal fixture, not an agreed token economy.
 
 ## Run locally
 

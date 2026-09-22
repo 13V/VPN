@@ -6,7 +6,8 @@
   // These server errors are raised before any tunnel/allowance change is committed.
   // Every other failure retains the original request ID until its outcome is known.
   const noCommitCodes = new Set(['INVALID_PLAN', 'REQUEST_ID_REQUIRED', 'ALLOWANCE_EXHAUSTED', 'TUNNEL_NOT_FOUND']);
-  const money = (cents) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
+  const sampleDays = (cents, dayPrice) => Number.isSafeInteger(cents) && Number.isSafeInteger(dayPrice) && dayPrice > 0 ? Math.floor(cents / dayPrice) : null;
+  const daysLabel = (count) => `${count} ${count === 1 ? 'day' : 'days'}`;
   const date = (value, includeTime = false) => {
     const parsed = new Date(value);
     return Number.isNaN(parsed.getTime()) ? 'Not available' : parsed.toLocaleString(undefined, {
@@ -103,13 +104,13 @@
     $('tunnel-name').disabled = state.busy || !!pending;
     $('country').disabled = state.busy || !!pending;
     $('create-button').disabled = state.busy || !demo || (!pending && (!eligible || !affordable || !plan));
-    let label = state.busy ? 'Working…' : 'Create plan · $0.50 demo credit';
-    let caption = 'Downloads are sample text files. No real VPN connection or payment.';
+    let label = state.busy ? 'Working…' : 'Create sample plan';
+    let caption = 'No payment. This creates a sample file, not a VPN connection.';
     if (!data?.session) label = data?.mode === 'demo' ? 'Start the demo above' : 'Live provisioning is not available';
-    else if (!demo) { label = 'Live provisioning is not available'; caption = 'Wallet connected. Holder eligibility and live payments are not connected yet.'; }
+    else if (!demo) { label = 'Live access is not available'; caption = 'Wallet connected. Holder eligibility and token-funded access are not connected yet.'; }
     else if (pending) { label = state.busy ? 'Checking saved request…' : 'Retry the same demo request'; caption = 'A previous request is unresolved. Retry checks that request without charging twice.'; }
-    else if (!eligible) { label = 'Allowance is not available'; caption = data.dashboard?.eligibility?.reason || 'Your session is not currently eligible.'; }
-    else if (!affordable) { label = 'Not enough demo allowance'; caption = 'Your remaining sample allowance is below the one-day plan price.'; }
+    else if (!eligible) { label = 'Sample access is not available'; caption = data.dashboard?.eligibility?.reason || 'Your session is not currently eligible.'; }
+    else if (!affordable) { label = 'No sample days left'; caption = 'This demo has reached its weekly sample limit.'; }
     $('create-button').replaceChildren(document.createTextNode(label), icon('arrow-right'));
     $('create-caption').textContent = caption;
   }
@@ -119,14 +120,14 @@
     $('plan-workspace').hidden = !session;
     document.querySelector('.tunnels-section').hidden = !session;
     document.querySelector('.lower-grid').hidden = !session;
-    $('page-title').textContent = isDemo ? 'Your VPN plans' : session ? 'Your VPN dashboard' : 'Try Velora. No wallet needed.';
-    document.querySelector('.hero-copy').textContent = isDemo ? 'Your access, setup files and credit. All in one place.' : session ? 'Wallet signed in. Live VPN access and holder credit are not available yet. Switch to the demo to try a plan.' : 'Start with $3.50 of demo credit. Try creating a VPN plan, downloading a sample setup and adding another day.';
+    $('page-title').textContent = isDemo ? 'Your sample access' : session ? 'Holder access preview' : 'VPN data for holders.';
+    document.querySelector('.hero-copy').textContent = isDemo ? 'Explore your sample plans and setup. Real holder access is still in development.' : session ? 'Wallet signed in. Holder eligibility and live VPN data are not available yet. Switch to the demo to explore the flow.' : 'Eligible holders are intended to receive VPN data covered by community fees. Explore a no-payment preview of how access could work.';
     document.querySelector('.portal-steps').hidden = !!session;
     $('mode-badge').textContent = mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
     const notice = $('mode-notice').querySelector('p');
-    notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('No real VPN connections or payments are made here.'));
+    notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('Sample limits are illustrative. No real VPN connections or payments are made here.'));
     $('demo-button').hidden = mode !== 'demo' || isDemo;
-    $('demo-button').replaceChildren(document.createTextNode(session?.kind === 'wallet' ? 'Switch to demo' : 'Start demo — $3.50 credit'), icon('arrow-right'));
+    $('demo-button').replaceChildren(document.createTextNode(session?.kind === 'wallet' ? 'Switch to demo' : 'Explore sample access'), icon('arrow-right'));
     $('wallet-button').hidden = session?.kind === 'wallet';
     $('logout-button').hidden = !session;
     $('session-label').textContent = isDemo ? 'Demo workspace · no real connection or payment.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
@@ -139,28 +140,27 @@
     const plan = catalogue?.plans?.find((item) => item.id === 'day');
     if (plan) {
       $('plan-name').textContent = plan.name;
-      $('plan-detail').textContent = `${plan.bandwidthGb} GB · Australia · WireGuard`;
-      $('plan-price').replaceChildren(document.createTextNode(money(plan.priceCents)), element('span', '', 'DEMO CREDIT'));
+      $('plan-detail').textContent = `${plan.bandwidthGb} GB sample data · Australia`;
+      $('plan-price').replaceChildren(document.createTextNode('Included'), element('span', '', 'IN THE DEMO'));
     }
     const allowance = dashboard?.allowance;
-    $('allowance-badge').textContent = isDemo ? 'DEMO CREDIT' : session ? 'SNAPSHOT' : 'PREVIEW';
-    $('allowance-amount').replaceChildren(document.createTextNode(allowance ? money(allowance.remainingCents) : '—'), element('span', '', 'USD'));
-    $('allowance-description').textContent = isDemo ? 'Sample credit for creating or extending plans.' : session ? dashboard?.eligibility?.reason || 'Configured allowance snapshot. Live provisioning is not available.' : 'Explore the demo to see a sample allowance.';
-    $('allowance-spent').textContent = allowance ? money(allowance.spentCents) : '—';
-    $('allowance-total').textContent = allowance ? money(allowance.totalCents) : '—';
-    const percentage = allowance && allowance.totalCents > 0 ? Math.min(100, Math.max(0, allowance.remainingCents / allowance.totalCents * 100)) : 0;
+    const remainingDays = isDemo ? sampleDays(allowance?.remainingCents, plan?.priceCents) : null;
+    const usedDays = isDemo ? sampleDays(allowance?.spentCents, plan?.priceCents) : null;
+    const totalDays = isDemo ? sampleDays(allowance?.totalCents, plan?.priceCents) : null;
+    $('allowance-title').textContent = isDemo ? 'Sample access available' : 'Holder access status';
+    $('allowance-badge').textContent = isDemo ? 'SAMPLE ACCESS' : 'NOT LIVE';
+    $('allowance-amount').replaceChildren(document.createTextNode(remainingDays ?? '—'), element('span', '', remainingDays === null ? '' : remainingDays === 1 ? 'DAY LEFT' : 'DAYS LEFT'));
+    $('allowance-description').textContent = isDemo ? 'One sample day can create or extend a plan. This is not an announced holder allocation.' : session ? 'Wallet sign-in does not activate VPN data. Eligibility and funding are still in development.' : 'Explore the demo to see sample access.';
+    $('allowance-spent').previousElementSibling.textContent = isDemo ? 'Days allocated' : 'Wallet';
+    $('allowance-total').previousElementSibling.textContent = isDemo ? 'Demo weekly limit' : 'VPN data';
+    $('allowance-spent').textContent = isDemo ? usedDays === null ? '—' : daysLabel(usedDays) : 'Signed in';
+    $('allowance-total').textContent = isDemo ? totalDays === null ? '—' : daysLabel(totalDays) : 'Not live';
+    const percentage = isDemo && allowance && allowance.totalCents > 0 ? Math.min(100, Math.max(0, allowance.remainingCents / allowance.totalCents * 100)) : 0;
     $('allowance-fill').style.width = `${percentage}%`;
     $('allowance-meter').setAttribute('aria-valuenow', String(Math.round(percentage)));
-    $('allowance-reset').textContent = allowance?.resetsAt ? `${isDemo ? 'Sample week resets' : 'Configured reset'} ${date(allowance.resetsAt)}.` : 'An allowance made for everyday utility.';
-    const pool = dashboard?.pool;
-    $('pool-stats').hidden = !session || !pool;
-    if (session && pool) {
-      $('pool-budget').previousElementSibling.textContent = isDemo ? 'Sample weekly pool' : 'Configured weekly pool';
-      $('pool-allocated').previousElementSibling.textContent = isDemo ? 'Sample allocated' : 'Configured allocated';
-      $('pool-budget').textContent = money(pool.weeklyBudgetCents);
-      $('pool-allocated').textContent = money(pool.allocatedCents);
-    }
-    document.querySelector('.pool-disclaimer').textContent = isDemo || !session ? 'Token launch and fee funding are not connected in this prototype.' : 'Configured figures are snapshots. Treasury funding and token fees have not been verified.';
+    $('allowance-meter').setAttribute('aria-label', isDemo ? 'Sample access remaining this week' : 'Holder access not active');
+    $('allowance-reset').textContent = isDemo && allowance?.resetsAt ? `Sample week resets ${date(allowance.resetsAt)}.` : 'Token-funded holder access is not live.';
+    document.querySelector('.pool-disclaimer').textContent = isDemo || !session ? 'Token launch and fee funding are not connected in this prototype.' : 'Wallet sign-in proves ownership only. Treasury funding and token fees have not been verified.';
     renderCreate();
     renderTunnels(dashboard?.tunnels || []);
     renderActivity(dashboard?.activity || []);
@@ -173,7 +173,7 @@
       const symbol = element('div', 'empty-symbol');
       symbol.append(icon('plans'));
       symbol.setAttribute('aria-hidden', 'true');
-      empty.append(symbol, element('h3', '', 'No demo plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Use Add a VPN plan to create your first sample.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'Australia · One day · $0.50 demo credit'));
+      empty.append(symbol, element('h3', '', 'No sample plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Create a sample plan to see how holder access could work.' : 'Explore the demo to create your first sample plan.'), element('span', 'tiny-label', 'Australia · One day · No payment'));
       $('tunnel-list').replaceChildren(empty);
       return;
     }
@@ -195,7 +195,7 @@
       download.type = 'button';
       download.setAttribute('aria-label', `Download sample text file for ${tunnel.name}`);
       download.addEventListener('click', () => downloadConfig(tunnel, download));
-      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension' : 'Add 1 day · $0.50');
+      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension' : 'Add 1 sample day');
       if (pending[`renew:${tunnel.id}`]) renew.append(icon('renew'));
       renew.type = 'button';
       renew.dataset.renew = tunnel.id;
@@ -216,10 +216,12 @@
     $('activity-list').replaceChildren(...activities.slice(0, 6).map((activity) => {
       const row = element('div', 'activity-row');
       const details = element('div', 'activity-text');
-      details.append(element('strong', '', activity.label), element('span', '', `${date(activity.createdAt, true)} · Demo transaction`));
+      details.append(element('strong', '', activity.label), element('span', '', `${date(activity.createdAt, true)} · Sample activity`));
       const symbol = element('div', 'activity-symbol');
       symbol.append(icon(activity.type === 'renew' ? 'renew' : 'plus'));
-      row.append(symbol, details, element('span', 'activity-cost', `−${money(activity.costCents)}`));
+      const dayPrice = state.data?.catalogue?.plans?.find((item) => item.id === 'day')?.priceCents;
+      const allocatedDays = sampleDays(activity.costCents, dayPrice);
+      row.append(symbol, details, element('span', 'activity-cost', allocatedDays === null ? 'Sample access' : daysLabel(allocatedDays)));
       return row;
     }));
   }
@@ -248,7 +250,7 @@
           message(`${error.message} No tunnel change was made, but this browser could not clear the saved request. Use Retry to check the same request.`, true);
         }
       } else {
-        message(committed ? 'The demo request completed, but the dashboard could not refresh. Reload to see the updated balance and tunnel.' : `${error.message} ${pendingRequests()[key] ? 'Use Retry to resume the same request.' : ''}`, true);
+        message(committed ? 'The demo request completed, but the dashboard could not refresh. Reload to see the updated sample access and plan.' : `${error.message} ${pendingRequests()[key] ? 'Use Retry to resume the same request.' : ''}`, true);
       }
     } finally {
       setBusy(false);

@@ -46,3 +46,7 @@ The GitHub Actions template remains inactive because the available GitHub login 
 ## Velora clarity update — 2026-09-22
 
 Adopted the approved Velora vector identity. Landing copy now explains community-funded VPN access directly. The portal shows a single demo-start action before revealing the plan workspace; sample funding metrics are removed from the visible dashboard. Creation and renewal use clearer plan labels with visible sample costs. All 79 tests passed before deployment. Local browser checks verified start, create, the balance change to $3.00, and 390px layouts without horizontal overflow. Real purchases remain disabled.
+
+## Holder access presentation — 2026-09-23
+
+The public landing and portal now explain the proposed benefit as VPN data covered by trading fees for eligible holders, without a separate VPN payment. The portal presents the fixed demo cap as seven sample plan-days instead of dollar credit; creating a one-day sample shows six days left, and extending it shows five. The underlying allowance ledger and retry protections are unchanged. Sample days are illustrative, not an announced holder allocation. Local browser checks covered creation, renewal and 320px/390px layouts without horizontal overflow. No live VPN access or token-funded eligibility was activated.
