@@ -251,3 +251,34 @@ a.trust-detail:hover { text-decoration: underline; }
 .brand-note { display: none; }
 .step p, .trust-card p, .experience-copy>p { font-size: 15px; line-height: 1.8; }
 @media(max-width:600px) { .hero h1 { font-size: clamp(45px,12vw,64px); letter-spacing:-2px; } .hero-footnote { font-size:12px; } }
+
+/* A product demonstration, drawn in the browser and responsive at every size. */
+.hero h1 { font-family:'Aptos','Segoe UI',Helvetica,Arial,sans-serif; font-weight:550; font-size:clamp(44px,4.7vw,68px); letter-spacing:-2.8px; line-height:1.08; }
+.hero h1 em { font-style:normal; font-weight:inherit; color:#57715d; }
+.hero-copy>p { font-size:16px; max-width:410px; line-height:1.75; }
+.phone-preview { justify-content:center; align-self:center; }
+.phone-stage { display:grid; place-items:center; padding:22px 30px 32px; background:radial-gradient(ellipse at 50% 70%,#dce4d5 0,transparent 66%); }
+.phone-device { position:relative; width:300px; padding:7px; border-radius:45px; background:#252a27; border:1px solid #73776e; box-shadow:0 2px 0 #c2c5bb inset,0 30px 45px -25px #172b2d66,0 4px 12px #182a2b22; }
+.phone-device:before,.phone-device:after { content:''; position:absolute; width:3px; background:#565d55; border-radius:2px; }
+.phone-device:before { height:46px; left:-3px; top:115px; }.phone-device:after { height:60px;right:-3px;top:144px; }
+.phone-screen { position:relative; overflow:hidden; background:#fcfcf8; border-radius:37px; padding:0 21px; }
+.phone-camera { position:absolute; top:15px; left:50%; transform:translateX(-50%); height:20px; width:77px; border-radius:20px; background:#171b18; z-index:2; }
+.phone-status { display:flex; justify-content:space-between; height:45px; align-items:center; font-size:10px; font-weight:650; padding:0 2px; }
+.app-brand { display:flex; align-items:center; justify-content:space-between; padding:14px 0 24px; }.app-brand img { width:104px; height:auto; }.app-brand>span { font-size:7px;letter-spacing:.8px;color:#798079; }
+.app-heading>span { font-size:11px;color:#6b746b; }.app-heading h3 { font-family:inherit; font-size:23px;letter-spacing:-.7px;font-weight:550;margin:7px 0; }.app-heading p { font-size:11px;color:#747c73;min-height:16px; }
+.connection-orbit { position:relative; height:170px;display:grid;place-items:center; }
+.orbit-ring { position:absolute;width:150px;height:150px;border:1px solid #e7eae2;border-radius:50%;transition:border-color .6s,transform .6s; }.orbit-ring.inner { width:119px;height:119px; }
+.connection-core { display:grid;place-items:center;width:85px;height:85px;background:#edf0e9;border:1px solid #e0e5da;border-radius:50%;transition:background .6s,box-shadow .6s; }.connection-core svg { width:38px;height:38px;fill:none;stroke:#6d7e68;stroke-width:2.5;stroke-linecap:round;transition:stroke .6s; }
+.connection-control { display:flex;align-items:center;justify-content:space-between;padding:0 0 21px; }.connection-control>div { display:flex;align-items:center;gap:8px; }.connection-control strong { font-size:12px;font-weight:550; }.connection-dot { width:6px;height:6px;border-radius:50%;background:#a4ada0; }
+#connection-toggle { width:49px;height:29px;border:0;border-radius:25px;background:#dce1d7;padding:4px;cursor:pointer;transition:background .4s;flex-shrink:0; }#connection-toggle>span { display:block;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0002;transition:transform .4s; }#connection-toggle:focus-visible { outline:2px solid #18372e;outline-offset:4px; }
+.app-location { display:flex;align-items:center;gap:10px;padding:15px 12px;border:1px solid #e3e7de;border-radius:12px; }.location-monogram { width:31px;height:31px;display:grid;place-items:center;background:#e9eddf;border-radius:50%;font-size:10px;font-weight:600; }.app-location>div { flex:1; }.app-location strong { display:block;font-size:12px;font-weight:550; }.app-location div>span { display:block;font-size:9px;color:#778170;margin-top:3px; }
+.app-credit { display:flex;align-items:center;justify-content:space-between;padding:22px 0; }.app-credit div>span { display:block;font-size:10px;color:#747c70; }.app-credit strong { display:block;font-size:24px;font-weight:500;letter-spacing:-.8px;margin-top:5px; }.app-credit small { font-size:9px;letter-spacing:0;color:#7e857a; }.credit-label { font-size:8px;background:#eef1e7;color:#617453;padding:6px 8px;border-radius:5px; }
+.app-tabs { display:flex;justify-content:space-between;border-top:1px solid #e8ebe3;padding:17px 2px 14px;color:#90968b;font-size:9px; }.app-tabs .selected { color:#18372e;font-weight:650; }.home-indicator { width:90px;height:4px;border-radius:5px;background:#243b2e;margin:0 auto 8px; }
+.phone-device[data-state="on"] .connection-core { background:#18372e;box-shadow:0 0 0 9px #e4ecdd; }.phone-device[data-state="on"] .connection-core svg { stroke:#e8f2dc; }.phone-device[data-state="on"] .orbit-ring { border-color:#cbdcc0;transform:scale(1.025); }.phone-device[data-state="on"] .connection-dot { background:#577e46; }
+.phone-device[data-state="on"] #connection-toggle,.phone-device[data-state="connecting"] #connection-toggle { background:#416344; }.phone-device[data-state="on"] #connection-toggle>span,.phone-device[data-state="connecting"] #connection-toggle>span { transform:translateX(20px); }
+.phone-device[data-state="connecting"] .connection-core { animation:connect-pulse .7s ease-in-out infinite alternate; }
+.phone-preview figcaption { font-size:10px;letter-spacing:0;justify-content:center;gap:18px;color:#6b7467; }
+@keyframes connect-pulse { to { box-shadow:0 0 0 10px #e4ecdd; } }
+@media(max-width:900px) { .phone-stage { padding:15px 0 25px; }.phone-device { width:280px; }.hero { gap:28px; } }
+@media(max-width:600px) { .hero h1 { font-size:clamp(43px,11vw,62px);letter-spacing:-2px; }.phone-stage { padding-top:8px; }.phone-device { width:min(300px,100%); }.phone-preview figcaption { font-size:9px; }.phone-preview figcaption>span:last-child { display:block; } }
+@media(prefers-reduced-motion:reduce) { .phone-device *, .phone-device *:before { animation:none!important;transition:none!important; } }
