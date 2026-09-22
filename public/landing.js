@@ -104,6 +104,8 @@ document.addEventListener("visibilitychange", () => {
 // Illustrative app only: no network calls, wallet access or VPN provisioning.
 const concept = document.getElementById("app-concept");
 const toggle = document.getElementById("connection-toggle");
+const phoneConcept = document.getElementById("phone-concept");
+const phoneToggle = document.getElementById("phone-toggle");
 if (concept && toggle) {
   const reducedMotion = motionPreference;
   let timer,
@@ -112,6 +114,16 @@ if (concept && toggle) {
   function display(state) {
     concept.dataset.state = state;
     toggle.setAttribute("aria-checked", String(state !== "off"));
+    if (phoneConcept && phoneToggle) {
+      phoneConcept.dataset.state = state;
+      phoneToggle.setAttribute("aria-checked", String(state !== "off"));
+      document.getElementById("phone-connection-status").textContent =
+        state === "on"
+          ? "Connected · preview"
+          : state === "connecting"
+            ? "Connecting · preview"
+            : "Not connected · preview";
+    }
     document.getElementById("connection-title").textContent =
       state === "on"
         ? "You’re connected."
@@ -145,13 +157,16 @@ if (concept && toggle) {
     display("connecting");
     timer = setTimeout(() => display("on"), 1100);
   }
-  toggle.addEventListener("click", () => {
+  function togglePreview() {
     started = true;
+    observer?.disconnect();
     clearTimeout(autoTimer);
     clearTimeout(timer);
     if (concept.dataset.state === "off") connect();
     else display("off");
-  });
+  }
+  toggle.addEventListener("click", togglePreview);
+  phoneToggle?.addEventListener("click", togglePreview);
   const observer =
     "IntersectionObserver" in window
       ? new IntersectionObserver(

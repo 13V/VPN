@@ -218,6 +218,8 @@
             <div class="stone-plinth" aria-hidden="true"></div>
             <div
               class="phone-device"
+              id="phone-concept"
+              data-state="off"
               aria-label="Future Velora app concept, not a working VPN"
             >
               <div class="phone-camera" aria-hidden="true"></div>
@@ -239,13 +241,23 @@
                 />
                 <p class="phone-eyebrow">YOUR EVERYDAY CONNECTION</p>
                 <h3>A world<br />within reach.</h3>
-                <div class="phone-power" aria-hidden="true">
-                  <svg viewBox="0 0 48 48">
+                <button
+                  class="phone-power"
+                  id="phone-toggle"
+                  type="button"
+                  role="switch"
+                  aria-checked="false"
+                  aria-label="Preview VPN connection in future app"
+                >
+                  <svg viewBox="0 0 48 48" aria-hidden="true">
                     <path d="M24 8v17M14 13a16 16 0 1 0 20 0" />
                   </svg>
-                </div>
+                </button>
                 <div class="phone-connection">
-                  <span class="status-dot"></span> Connected · concept
+                  <span class="status-dot"></span>
+                  <span id="phone-connection-status" aria-live="polite"
+                    >Not connected · preview</span
+                  >
                 </div>
                 <div class="phone-location">
                   <span class="location-monogram">AU</span>
@@ -265,7 +277,9 @@
                 <div class="home-indicator" aria-hidden="true"></div>
               </div>
             </div>
-            <p class="phone-caption">A look ahead. Future app concept.</p>
+            <p class="phone-caption">
+              Future app concept. Tap the power control to preview.
+            </p>
           </div>
           <div class="experience-copy">
             <p class="eyebrow">Considered from the first connection</p>

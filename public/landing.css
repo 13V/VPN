@@ -720,20 +720,56 @@ h2 em {
   place-items: center;
   width: 64px;
   height: 64px;
-  background: var(--ink);
+  background: var(--beige);
+  border: 0;
+  cursor: pointer;
   border-radius: 50%;
   margin: 27px auto 19px;
   box-shadow:
     0 0 0 9px #f4f1eb,
     0 0 0 10px #e8e3da;
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+.phone-power:hover {
+  transform: scale(1.045);
+}
+.phone-power:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 13px;
 }
 .phone-power svg {
   width: 30px;
   height: 30px;
   fill: none;
-  stroke: #fff;
+  stroke: var(--ink);
   stroke-width: 2;
   stroke-linecap: round;
+  transition: stroke 0.4s ease;
+}
+.phone-device[data-state="on"] .phone-power {
+  background: var(--ink);
+}
+.phone-device[data-state="on"] .phone-power svg {
+  stroke: #fff;
+}
+.phone-device[data-state="connecting"] .phone-power {
+  animation: phone-connecting 1.1s ease-in-out both;
+}
+.phone-device[data-state="on"] .phone-connection .status-dot {
+  background: var(--ink);
+}
+.phone-device[data-state="off"] .phone-connection .status-dot {
+  background: #aaa99f;
+}
+@keyframes phone-connecting {
+  50% {
+    box-shadow:
+      0 0 0 12px #e9e5dc,
+      0 0 0 13px #d9d4c8;
+  }
 }
 .phone-connection {
   font-size: 9px;
@@ -1499,6 +1535,9 @@ h2 em {
   }
   .phone-scene[data-motion="scroll"] .phone-device {
     transform: rotate(-4deg);
+  }
+  .phone-power:hover {
+    transform: none;
   }
   *,
   *::before,
