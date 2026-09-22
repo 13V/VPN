@@ -426,3 +426,20 @@ dialog > .muted { font-size: 14px; line-height: 1.75; margin-top: 16px; }
 .mini-brand .brand-lockup { width: 108px; height: auto; }
 .wordmark .working-label { margin-left: 46px; }
 @media (max-width: 600px) { .brand-lockup { width: 128px; height: 32px; } .site-header { gap: 12px; } .header-portal { gap: 8px; padding-inline: 10px; } }
+/* One clear start, then a focused plan workspace. */
+[hidden] { display: none !important; }
+.sidebar-note, .sidebar-footer, .pool-panel { display: none; }
+.lower-grid { grid-template-columns: 1fr; }
+.hero { padding-block: 32px; min-height: 0; gap: 36px; }
+.hero h1 { font-size: clamp(34px,4vw,54px); line-height:1.1; letter-spacing:-1.8px; }
+.hero-copy { max-width:570px; font-size:16px; line-height:1.7; }
+.portal-steps { list-style:none; padding:24px; margin:0; border:1px solid var(--line); border-radius:12px; display:grid; gap:22px; min-width:285px; }
+.portal-steps li { display:flex; gap:14px; align-items:flex-start; }
+.portal-steps li>span { display:grid; place-items:center; width:28px; height:28px; flex-shrink:0; border-radius:50%; background:#e4e7dc; color:#18372e; font-size:13px; }
+.portal-steps strong { font-size:14px; font-weight:600; }
+.portal-steps p { margin:5px 0 0; font-size:12px; color:#697269; line-height:1.6; }
+#overview .eyebrow, .section-heading>.tiny-label, .inside>.tiny-label { display:none; }
+#overview:has(.portal-steps[hidden]) { display:block; }
+#overview:has(.portal-steps[hidden]) .hero-actions { margin-top:15px; }
+.topbar #wallet-button { border-color:transparent; font-size:12px; }
+@media(max-width:760px) { .hero { grid-template-columns:1fr; } .portal-steps { min-width:0; width:100%; } .hero-copy { font-size:14px; } }

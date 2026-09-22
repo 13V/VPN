@@ -93,9 +93,9 @@
     $('tunnel-name').disabled = state.busy || !!pending;
     $('country').disabled = state.busy || !!pending;
     $('create-button').disabled = state.busy || !demo || (!pending && (!eligible || !affordable || !plan));
-    let label = state.busy ? 'Working…' : 'Create demo tunnel';
+    let label = state.busy ? 'Working…' : 'Create demo plan — $0.50';
     let caption = 'Downloads are sample text files. No real VPN connection or payment.';
-    if (!data?.session) label = data?.mode === 'demo' ? 'Explore demo to create a tunnel' : 'Live provisioning is not available';
+    if (!data?.session) label = data?.mode === 'demo' ? 'Start the demo above' : 'Live provisioning is not available';
     else if (!demo) { label = 'Live provisioning is not available'; caption = 'Wallet connected. Holder eligibility and live payments are not connected yet.'; }
     else if (pending) { label = state.busy ? 'Checking saved request…' : 'Retry the same demo request'; caption = 'A previous request is unresolved. Retry checks that request without charging twice.'; }
     else if (!eligible) { label = 'Allowance is not available'; caption = data.dashboard?.eligibility?.reason || 'Your session is not currently eligible.'; }
@@ -106,14 +106,21 @@
   function render() {
     const { mode, session, catalogue, dashboard } = state.data;
     const isDemo = session?.kind === 'demo';
+    $('plan-workspace').hidden = !session;
+    document.querySelector('.tunnels-section').hidden = !session;
+    document.querySelector('.lower-grid').hidden = !session;
+    document.querySelector('#plan-workspace').previousElementSibling.hidden = !session;
+    $('page-title').textContent = isDemo ? 'Your demo VPN plans' : session ? 'Your VPN dashboard' : 'Try Velora. No wallet needed.';
+    document.querySelector('.hero-copy').textContent = isDemo ? 'Create a plan below, then download a sample setup or add another day. Your demo credit is shown alongside the plan.' : session ? 'Wallet signed in. Live VPN access and holder credit are not available yet. Switch to the demo to try a plan.' : 'Start with $3.50 of demo credit. Try creating a VPN plan, downloading a sample setup and adding another day.';
+    document.querySelector('.portal-steps').hidden = !!session;
     $('mode-badge').textContent = mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
     const notice = $('mode-notice').querySelector('p');
     notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('No real VPN connections or payments are made here.'));
     $('demo-button').hidden = mode !== 'demo' || isDemo;
-    $('demo-button').textContent = session?.kind === 'wallet' ? 'Switch to demo ↗' : 'Explore the demo ↗';
+    $('demo-button').textContent = session?.kind === 'wallet' ? 'Switch to demo ↗' : 'Start demo — $3.50 credit ↗';
     $('wallet-button').hidden = session?.kind === 'wallet';
     $('logout-button').hidden = !session;
-    $('session-label').textContent = isDemo ? 'Demo workspace · sample funds only' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
+    $('session-label').textContent = isDemo ? 'Demo credit has no cash value. No wallet is charged.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
     const countries = catalogue?.countries || [];
     $('country').replaceChildren(...countries.map((country) => {
       const option = element('option', '', country.name);
@@ -124,12 +131,12 @@
     if (plan) {
       $('plan-name').textContent = plan.name;
       $('plan-detail').textContent = `${plan.bandwidthGb} GB · Australia · WireGuard`;
-      $('plan-price').replaceChildren(document.createTextNode(money(plan.priceCents)), element('span', '', 'FROM ALLOWANCE'));
+      $('plan-price').replaceChildren(document.createTextNode(money(plan.priceCents)), element('span', '', 'DEMO CREDIT'));
     }
     const allowance = dashboard?.allowance;
-    $('allowance-badge').textContent = isDemo ? 'SAMPLE FUNDS' : session ? 'SNAPSHOT' : 'PREVIEW';
+    $('allowance-badge').textContent = isDemo ? 'DEMO CREDIT' : session ? 'SNAPSHOT' : 'PREVIEW';
     $('allowance-amount').replaceChildren(document.createTextNode(allowance ? money(allowance.remainingCents) : '—'), element('span', '', 'USD'));
-    $('allowance-description').textContent = isDemo ? 'Sample balance available for demo tunnels.' : session ? dashboard?.eligibility?.reason || 'Configured allowance snapshot. Live provisioning is not available.' : 'Explore the demo to see a sample allowance.';
+    $('allowance-description').textContent = isDemo ? 'Use this credit to create or extend demo plans.' : session ? dashboard?.eligibility?.reason || 'Configured allowance snapshot. Live provisioning is not available.' : 'Explore the demo to see a sample allowance.';
     $('allowance-spent').textContent = allowance ? money(allowance.spentCents) : '—';
     $('allowance-total').textContent = allowance ? money(allowance.totalCents) : '—';
     const percentage = allowance && allowance.totalCents > 0 ? Math.min(100, Math.max(0, allowance.remainingCents / allowance.totalCents * 100)) : 0;
@@ -156,7 +163,7 @@
       const empty = element('div', 'empty-state');
       const symbol = element('div', 'empty-symbol', '◎');
       symbol.setAttribute('aria-hidden', 'true');
-      empty.append(symbol, element('h3', '', 'Your next connection starts here.'), element('p', '', state.data.session?.kind === 'demo' ? 'Create a sample tunnel with your demo allowance.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'ONE ALLOWANCE. YOUR CHOICE.'));
+      empty.append(symbol, element('h3', '', 'No demo plans yet'), element('p', '', state.data.session?.kind === 'demo' ? 'Create your first plan using the form above.' : 'Explore the demo to create your first sample tunnel.'), element('span', 'tiny-label', 'Australia · One day · $0.50 demo credit'));
       $('tunnel-list').replaceChildren(empty);
       return;
     }
@@ -167,17 +174,17 @@
       const details = element('div');
       details.append(element('h3', 'tunnel-name', tunnel.name));
       const expired = tunnel.status === 'expired' || new Date(tunnel.expiresAt).getTime() <= Date.now();
-      const meta = element('p', 'tunnel-meta', `${tunnel.country === 'AU' ? 'Australia' : tunnel.country} · ${expired ? 'Demo expired' : 'Demo ready'}`);
+      const meta = element('p', 'tunnel-meta', `${tunnel.country === 'AU' ? 'Australia' : tunnel.country} · ${expired ? 'Demo expired' : 'Sample only · not connected'}`);
       details.append(meta);
       identity.append(element('div', 'country-mark', tunnel.country), details);
       const usage = element('div', 'tunnel-usage');
       usage.append(element('strong', '', `${tunnel.usedGb} / ${tunnel.bandwidthGb} GB · sample data`), element('div', '', `${expired ? 'Expired' : 'Sample expiry'} ${date(tunnel.expiresAt, true)}`));
       const actions = element('div', 'tunnel-actions');
-      const download = element('button', 'button button-outline', 'Sample file ↓');
+      const download = element('button', 'button button-outline', 'Download sample ↓');
       download.type = 'button';
       download.setAttribute('aria-label', `Download sample text file for ${tunnel.name}`);
       download.addEventListener('click', () => downloadConfig(tunnel, download));
-      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension ↻' : 'Extend one day +');
+      const renew = element('button', 'button button-lime', pending[`renew:${tunnel.id}`] ? 'Retry extension ↻' : 'Add 1 day · $0.50');
       renew.type = 'button';
       renew.dataset.renew = tunnel.id;
       renew.setAttribute('aria-label', `${pending[`renew:${tunnel.id}`] ? 'Retry extension for' : 'Extend'} ${tunnel.name}`);
@@ -190,7 +197,7 @@
   }
   function renderActivity(activities) {
     if (!activities.length) {
-      $('activity-list').replaceChildren(element('p', 'empty-inline', 'Your tunnel history will appear here.'));
+      $('activity-list').replaceChildren(element('p', 'empty-inline', 'Your plan activity will appear here.'));
       return;
     }
     $('activity-list').replaceChildren(...activities.slice(0, 6).map((activity) => {
@@ -302,7 +309,7 @@
     if (!$('create-form').reportValidity()) return;
     const name = $('tunnel-name').value.trim();
     if (!name) { message('Give your tunnel a name first.', true); $('tunnel-name').focus(); return; }
-    mutateTunnel('create', '/api/tunnels', { name, country: $('country').value, planId: 'day' }, 'Your sample tunnel is ready. Download the sample file or extend its demo expiry below.');
+    mutateTunnel('create', '/api/tunnels', { name, country: $('country').value, planId: 'day' }, 'Your demo plan is ready. Find it under Your plans to download a sample setup or add another day.');
   });
   const dialog = $('guide-dialog');
   ['guide-sidebar', 'guide-pool', 'about-demo'].forEach((id) => $(id).addEventListener('click', () => dialog.showModal()));
