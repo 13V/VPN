@@ -2,6 +2,8 @@
 
 The landing page and demo portal run on Vercel from this repository. Vercel runs `api/index.js` as a Node.js function. `scripts/build-vercel.js` copies the public assets into `dist/public` and makes the landing page its static `index.html`; the function serves `/portal` and API requests. The CLI supplier-validation engine is not exposed as an HTTP route. Live VPN purchasing remains blocked, including when Blink credentials exist in the hosting project.
 
+Do not configure `BLINK_API_KEY` or `BLINK_WALLET_ID` in the public portal's production environment. Supplier tests belong in a separate, restricted worker or local test process with a separately funded wallet. The demo does not need either variable.
+
 ## Reproduce
 
 1. Install Node.js 22+ and run `npm ci` and `npm test`.

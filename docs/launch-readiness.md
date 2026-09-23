@@ -6,7 +6,7 @@ This is a decision record and release checklist, not authorization to issue a to
 
 | Release | Current status | What can be said publicly |
 | --- | --- | --- |
-| Website and sample portal | **Ready as a prototype.** Deployed at https://vpn-one-phi.vercel.app; 79 offline tests pass. | Visitors can explore sample plans and simulated connection states. No VPN or payment is activated. |
+| Website and sample portal | **Ready as a prototype.** Deployed at https://vpn-one-phi.vercel.app; 84 offline tests pass. | Visitors can explore sample plans and simulated connection states. No VPN or payment is activated. |
 | Token on Pons | **Not ready to sign.** Token terms, fee recipient, funding policy, legal review and final launch configuration are unset. | The project intends to explore token-funded access. No token address, allocation or launch date is final. |
 | VPN benefit for holders | **Blocked.** No paid supplier delivery/recovery test, enforceable Lightning debit cap, redistribution permission or tunnel quality evidence. | Access is proposed, not available or guaranteed. Wallet sign-in alone grants no VPN service. |
 
@@ -16,6 +16,7 @@ The preferred sequence is a transparent prototype, then a separately reviewed to
 
 - Robinhood Chain mainnet is chain ID **4663**; testnet is **46630**. ETH pays gas. The public RPC is rate-limited and Robinhood recommends a provider for production reads. [Robinhood Chain connection guide](https://docs.robinhood.com/chain/connecting/).
 - Pons has materially different V1 and V2 launch mechanisms. V2 uses a bonding curve that later graduates to a locked Uniswap V4 pool; its creator revenue is a share of the standard trading fee plus any creator tax fixed at launch. It is paid in the quote asset, accrues before being swept and claimed from escrow, and does **not** flow directly to a VPN supplier. Quote asset, creator tax, buyback choice and fee recipient need explicit review before launch. [Pons V2 documentation](https://docs.ponsfamily.com/v2), [Pons contract repository](https://github.com/ponsdotdev/pons-labs).
+- The read-only Pons V2 check on 2026-09-23 reached the factory published by Pons on chain 4663. It found deployed code, one enabled launch config, a 0.0005 ETH launch fee and a 1,000-basis-point creator-tax cap. These can change; the selected config and economics hash must be reread at signing time.
 - A read-only nadanada catalogue check found Australia and a one-day **$0.50** entry. The Blink preflight found no verified server-enforced maximum total debit, so this repository still blocks live spending. These are point-in-time observations, not a price or availability guarantee. Run `npm run catalogue` and `npm run preflight` again before any paid pilot. [Supplier validation evidence](validation-report.md).
 - `npm audit --omit=dev --audit-level=high` found no known vulnerabilities in the current installed dependency tree. This is a point-in-time dependency check, not an audit of the app or Pons contracts.
 - Australian regulators say token fundraising and future benefit claims can carry legal obligations; the exact treatment depends on the token and offer. Obtain advice on the actual launch structure and final copy. [ASIC crypto-assets guidance](https://asic.gov.au/regulatory-resources/digital-transformation/crypto-assets/), [ACCC future-claims guidance](https://www.accc.gov.au/consumers/advertising-and-promotions/false-or-misleading-claims).
@@ -34,6 +35,17 @@ Record each decision with an owner and date. Do not infer a value from the curre
 | Public operations | Terms, privacy notice, risk/limitations, support channel, incident contact, domain ownership and monitoring. Review privacy claims against the actual supplier and data flows. |
 
 Avoid assuming trading volume. A service budget should use **received, claimable, converted funds**, less fees and a reserve. At the currently observed $0.50 one-day price, 100 one-day supplier orders would cost at least $50 before routing fees and support; this is an illustration, not the proposed holder allocation. Pons creator earnings depend on the exact launch terms and real trades. Never allocate more benefit than settled spendable funds.
+
+## Unsigned Pons V2 preflight
+
+The repository includes a [manifest example](../launch/manifest.example.json) and a read-only checker. Keep the filled manifest private at `launch/manifest.json` (ignored by Git), or at another local path. The manifest contains public launch terms and wallet addresses, never seed phrases, private keys or API credentials.
+
+```sh
+cp launch/manifest.example.json launch/manifest.json
+npm run launch:preflight -- --manifest launch/manifest.json
+```
+
+The example deliberately fails. Fill the final name/symbol/metadata, signing and fee-recipient addresses, direct `launchToken` method, fresh one-use salt, explicit exemption list, live config ID, ETH quote address, creator tax, buyback decision and maximum launch fee. The checker prints the current factory bytecode hash and `previewLaunchEconomics` pin once a config and quote asset are selected; **independently verify the factory, then record those exact hashes** in the manifest and rerun. It rejects a changed chain, factory bytecode, fee cap, disabled config, ineligible wallet or changed economics. It currently supports a direct Pons V2 launch priced in native ETH with no opening buy; a V1, custom-pair or bundled-buy path needs its own reviewed preflight. A technical `PASS` does not sign, simulate or authorize a transaction and does not substitute for the human and legal checks below. Use a trusted RPC via `ROBINHOOD_RPC_URL` for final reads rather than relying on the rate-limited public endpoint.
 
 ## Live-benefit gates
 

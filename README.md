@@ -17,6 +17,8 @@ The original supplier-validation CLI remains available for testing nadanada purc
 
 For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
 
+`npm run launch:preflight -- --manifest launch/manifest.example.json` performs a **read-only**, deliberately blocked Pons V2 check against Robinhood Chain. Copy and fill a private manifest only after choosing the immutable launch terms; the checker never holds a signer or sends a transaction. See the launch checklist for its scope and required human review.
+
 **Live spending is blocked.** Blink's inspected payment input has no enforceable maximum fee or total-debit parameter. Adding credentials does not remove this gate. Offline simulations work; paid supplier validation remains outstanding. See the [dated evidence report](docs/validation-report.md).
 
 ## Setup

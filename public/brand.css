@@ -198,6 +198,67 @@
 .landing-page .connection-panel {
   padding-bottom: 0;
 }
+.status-section {
+  padding: 91px 0 82px;
+  border-top: 1px solid #dcd7cd;
+}
+.status-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.63fr);
+  column-gap: 70px;
+  align-items: end;
+}
+.status-intro .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 21px;
+}
+.status-intro h2 {
+  max-width: 670px;
+  font: 500 clamp(32px, 4vw, 52px)/1.17 Manrope, Arial, sans-serif;
+  letter-spacing: -2px;
+}
+.status-intro h2 em { font-size: 1.09em; }
+.status-intro > p:last-child {
+  max-width: 330px;
+  padding-bottom: 5px;
+  color: #62685f;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 54px;
+  border-top: 1px solid #dcd7cd;
+  border-bottom: 1px solid #dcd7cd;
+}
+.status-grid > div { padding: 29px 33px 35px 0; }
+.status-grid > div + div { border-left: 1px solid #dcd7cd; padding-left: 33px; }
+.status-index { color: #6c756c; font-size: 9px; font-weight: 650; letter-spacing: 1.1px; }
+.status-grid h3 { margin-top: 31px; font-size: 18px; font-weight: 550; letter-spacing: -0.5px; }
+.status-grid p { max-width: 270px; margin-top: 10px; color: #62685f; font-size: 11px; line-height: 1.8; }
+.status-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 23px;
+  font-size: 11px;
+  font-weight: 650;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+}
+.status-source .icon { width: 14px; height: 14px; }
+@media (max-width: 760px) {
+  .status-section { padding: 65px 0 59px; }
+  .status-intro { display: block; }
+  .status-intro h2 { max-width: 550px; font-size: clamp(32px, 8vw, 43px); letter-spacing: -1.5px; }
+  .status-intro > p:last-child { max-width: 480px; margin-top: 20px; font-size: 13px; }
+  .status-grid { display: block; margin-top: 37px; }
+  .status-grid > div, .status-grid > div + div { padding: 23px 0 26px; border-left: 0; }
+  .status-grid > div + div { border-top: 1px solid #dcd7cd; }
+  .status-grid h3 { margin-top: 15px; }
+  .status-grid p { max-width: 470px; font-size: 12px; }
+}
 
 /* The portal uses the same type, color and card geometry as the website. */
 .portal-page {

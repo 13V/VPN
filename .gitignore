@@ -6,6 +6,7 @@ node_modules/
 coverage/
 dist/
 .vercel/
+launch/manifest.json
 *.conf
 *.key
 *.pem

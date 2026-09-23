@@ -174,6 +174,7 @@ test('landing page introduces the product before the separate portal and only ex
   const html = await landing.text();
   assert.match(html, /href="\/portal"/);
   assert.match(html, /id="how-it-works"/);
+  assert.match(html, /id="status"/);
   assert.doesNotMatch(html, /src="\/app.js"/);
   const portal = await request('/portal');
   assert.equal(portal.status, 200);

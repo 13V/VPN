@@ -62,6 +62,7 @@ if ("IntersectionObserver" in window) {
     [".intro-facts > div", 75],
     [".route-intro", 0],
     [".phone-scene, .experience-copy", 70],
+    [".status-intro, .status-grid > div", 70],
     [".faq-section > div:first-child, .faq-list, .footer-invitation", 0],
   ];
   for (const [selector, stagger] of groups) {
