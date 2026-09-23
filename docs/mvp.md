@@ -2,6 +2,8 @@
 
 This is the first working product slice. Velora is the project name; the token address, holder allocation policy and launch are still undecided. The existing supplier-validation harness is preserved alongside the portal.
 
+A separately gated, operator-funded [private live pilot](live-pilot.md) is now available in code. It does not change the demo allowance or enable token-funded self-service; this document continues to describe the public MVP.
+
 ## What works
 
 - Responsive dashboard with demo and wallet sessions, server-backed allowance display, tunnel list and activity.

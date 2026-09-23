@@ -2,7 +2,7 @@
 
 (() => {
   const $ = (id) => document.getElementById(id);
-  const state = { data: null, busy: false, connecting: false };
+  const state = { data: null, busy: false, connecting: false, pilotReady: false, pilotWallet: null };
   // These server errors are raised before any tunnel/allowance change is committed.
   // Every other failure retains the original request ID until its outcome is known.
   const noCommitCodes = new Set(['INVALID_PLAN', 'REQUEST_ID_REQUIRED', 'ALLOWANCE_EXHAUSTED', 'TUNNEL_NOT_FOUND']);
@@ -86,6 +86,8 @@
     $('demo-button').disabled = value;
     $('wallet-button').disabled = value;
     $('logout-button').disabled = value;
+    $('pilot-check').disabled = value;
+    $('pilot-download').disabled = value || !state.pilotReady;
     renderCreate();
     document.querySelectorAll('[data-renew]').forEach((button) => { button.disabled = value || state.data?.session?.kind !== 'demo'; });
   }
@@ -117,20 +119,32 @@
   function render() {
     const { mode, session, catalogue, dashboard } = state.data;
     const isDemo = session?.kind === 'demo';
-    $('plan-workspace').hidden = !session;
-    document.querySelector('.tunnels-section').hidden = !session;
-    document.querySelector('.lower-grid').hidden = !session;
-    $('page-title').replaceChildren(document.createTextNode(isDemo ? 'Your sample ' : 'Holder '), element('em', '', isDemo ? 'access.' : 'access.'));
-    document.querySelector('.hero-copy').textContent = isDemo ? 'Explore your sample plans and setup. Real holder access is still in development.' : session ? 'Wallet signed in. Holder eligibility and live VPN data are not available yet. Switch to the demo to explore the flow.' : 'Eligible holders are intended to receive VPN data covered by community fees. Explore a no-payment preview of how access could work.';
+    const isPilot = state.data.pilotEnabled && session?.kind === 'wallet';
+    if (state.pilotWallet !== session?.address) { state.pilotReady = false; state.pilotWallet = session?.address || null; }
+    $('pilot-access').hidden = !isPilot;
+    $('plan-workspace').hidden = !session || isPilot;
+    document.querySelector('.tunnels-section').hidden = !session || isPilot;
+    document.querySelector('.lower-grid').hidden = !session || isPilot;
+    $('page-title').replaceChildren(document.createTextNode(isDemo ? 'Your sample ' : isPilot ? 'Your pilot ' : 'Holder '), element('em', '', 'access.'));
+    document.querySelector('.hero-copy').textContent = isDemo ? 'Explore your sample plans and setup. Real holder access is still in development.' : isPilot ? 'Connect your approved wallet and enter your pilot access code to get a real WireGuard setup.' : session ? 'Wallet signed in. Holder eligibility and live VPN data are not available yet. Switch to the demo to explore the flow.' : 'Eligible holders are intended to receive VPN data covered by community fees. Explore a no-payment preview of how access could work.';
     $('access-preview').hidden = !!session;
-    $('mode-badge').textContent = mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
+    $('mode-badge').textContent = isPilot ? 'PRIVATE PILOT' : mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
     const notice = $('mode-notice').querySelector('p');
-    notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('Sample limits are illustrative. No real VPN connections or payments are made here.'));
+    notice.replaceChildren(element('strong', '', isPilot ? 'Limited live pilot. ' : mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode(isPilot ? 'Approved accounts can download a real configuration. Token-funded holder access is still in development.' : 'Sample limits are illustrative. No real VPN connections or payments are made here.'));
     $('demo-button').hidden = mode !== 'demo' || isDemo;
     $('demo-button').replaceChildren(document.createTextNode(session?.kind === 'wallet' ? 'Switch to demo' : 'Explore sample access'), icon('arrow-right'));
     $('wallet-button').hidden = session?.kind === 'wallet';
     $('logout-button').hidden = !session;
     $('session-label').textContent = isDemo ? 'Demo workspace · no real connection or payment.' : session ? `Wallet ${session.address.slice(0, 6)}…${session.address.slice(-4)}` : mode === 'demo' ? 'No wallet needed to explore' : 'Live access is not available yet';
+    $('service-footer-status').textContent = isPilot ? 'Private pilot access. Wider holder service is in development.' : 'Built to explore. Not yet a live service.';
+    if (isPilot) {
+      try { $('pilot-grant').value = sessionStorage.getItem(`velora:pilot:${session.address.toLowerCase()}`) || ''; }
+      catch { $('pilot-grant').value = ''; }
+    } else {
+      $('pilot-grant').value = '';
+      $('pilot-result').hidden = true;
+    }
+    $('pilot-download').disabled = state.busy || !state.pilotReady;
     const countries = catalogue?.countries || [];
     $('country').replaceChildren(...countries.map((country) => {
       const option = element('option', '', country.name);
@@ -293,6 +307,38 @@
     finally { setBusy(false); }
   }
   $('demo-button').addEventListener('click', () => auth(() => api('/api/auth/demo', {})));
+  $('pilot-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (state.busy || state.data?.session?.kind !== 'wallet' || !state.data.pilotEnabled) return;
+    const grant = $('pilot-grant').value.trim();
+    if (!grant || grant.length > 512) { message('Enter the pilot access code you received.', true); return; }
+    setBusy(true); state.pilotReady = false; message('');
+    try {
+      const result = await api('/api/pilot/status', { grant });
+      try { sessionStorage.setItem(`velora:pilot:${state.data.session.address.toLowerCase()}`, grant); }
+      catch { throw new Error('This browser cannot keep your access code for this tab. Enable session storage and try again.'); }
+      $('pilot-result').textContent = `Active until ${date(result.expiresAt, true)}. Download the configuration and keep it private.`;
+      $('pilot-result').hidden = false;
+      state.pilotReady = true;
+    } catch (error) { $('pilot-result').hidden = true; message(error.message || 'Pilot access could not be verified.', true); }
+    finally { setBusy(false); }
+  });
+  $('pilot-download').addEventListener('click', async () => {
+    if (state.busy || !state.pilotReady || state.data?.session?.kind !== 'wallet') return;
+    setBusy(true); message('');
+    try {
+      const grant = sessionStorage.getItem(`velora:pilot:${state.data.session.address.toLowerCase()}`);
+      if (!grant) throw new Error('Check your pilot access code again.');
+      const response = await fetch('/api/pilot/config', { method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ grant }), signal: AbortSignal.timeout(15000) });
+      if (!response.ok) { const data = await response.json().catch(() => null); throw new Error(data?.error || 'The configuration could not be downloaded.'); }
+      const blob = await response.blob(), url = URL.createObjectURL(blob), link = element('a');
+      link.href = url; link.download = 'velora-pilot.conf'; document.body.append(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      message('WireGuard setup downloaded. Import it into the WireGuard app and activate the tunnel.');
+    } catch (error) { message(error.message || 'The configuration could not be downloaded. Retry this same pilot account.', true); }
+    finally { setBusy(false); }
+  });
   $('logout-button').addEventListener('click', () => auth(() => api('/api/auth/logout', {})));
   $('wallet-button').addEventListener('click', () => auth(async () => {
     if (!window.ethereum?.request) throw new Error('No browser wallet was found. Install an Ethereum-compatible wallet, or explore the demo without one.');

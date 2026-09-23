@@ -682,3 +682,72 @@
     transition: none;
   }
 }
+
+/* A real pilot is visually separate from the sample allowance workspace. */
+.portal-page .pilot-section {
+  max-width: 860px;
+  margin: 0 0 90px;
+  padding: clamp(24px, 4vw, 48px);
+  border-color: #d7dacd;
+  background: #fbfaf5;
+}
+.pilot-section h2 {
+  max-width: 580px;
+  margin: 23px 0 17px;
+  font-family: var(--display);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+}
+.pilot-intro,
+.pilot-help {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.pilot-form {
+  margin: 34px 0 18px;
+}
+.pilot-form label {
+  display: block;
+  margin-bottom: 11px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .4px;
+}
+.pilot-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.pilot-controls input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #c7cdc0;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  font-size: 13px;
+}
+.pilot-controls input::placeholder { color: #8b9387; }
+.pilot-result {
+  margin: 0 0 18px;
+  padding: 13px 16px;
+  border: 1px solid #bdcbb8;
+  border-radius: 6px;
+  background: #eef3e9;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.pilot-section #pilot-download { margin-bottom: 20px; }
+.pilot-help { padding-top: 17px; border-top: 1px solid var(--line); }
+.pilot-help code { font: inherit; font-weight: 650; color: var(--text); }
+@media (max-width: 560px) {
+  .portal-page .pilot-section { margin-bottom: 58px; padding: 24px 20px; }
+  .pilot-controls { flex-direction: column; }
+  .pilot-controls .button,
+  .pilot-section #pilot-download { width: 100%; }
+}
