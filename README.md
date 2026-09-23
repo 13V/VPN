@@ -15,6 +15,8 @@ Connect an injected Ethereum wallet to test real signature authentication. Sign-
 
 The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the landing page and demo portal with private persistent state.
 
+For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
+
 **Live spending is blocked.** Blink's inspected payment input has no enforceable maximum fee or total-debit parameter. Adding credentials does not remove this gate. Offline simulations work; paid supplier validation remains outstanding. See the [dated evidence report](docs/validation-report.md).
 
 ## Setup
