@@ -120,9 +120,7 @@ const phoneConcept = document.getElementById("phone-concept");
 const phoneToggle = document.getElementById("phone-toggle");
 if (concept && toggle) {
   const reducedMotion = motionPreference;
-  let timer,
-    started = false,
-    autoTimer;
+  let timer;
   function display(state) {
     concept.dataset.state = state;
     toggle.setAttribute("aria-checked", String(state !== "off"));
@@ -138,16 +136,16 @@ if (concept && toggle) {
     }
     document.getElementById("connection-title").textContent =
       state === "on"
-        ? "You’re connected."
+        ? "Preview connected."
         : state === "connecting"
           ? "Finding your connection."
           : "Ready when you are.";
     document.getElementById("connection-description").textContent =
       state === "on"
-        ? "Your day. Your connection."
+        ? "A look at how your connection could feel."
         : state === "connecting"
-          ? "Connecting to Sydney…"
-          : "Choose a location. Make it yours.";
+        ? "Simulating Sydney…"
+          : "Explore a simulated connection.";
     document.getElementById("connection-status").textContent =
       state === "on"
         ? "Connected · preview"
@@ -170,37 +168,13 @@ if (concept && toggle) {
     timer = setTimeout(() => display("on"), 1100);
   }
   function togglePreview() {
-    started = true;
-    observer?.disconnect();
-    clearTimeout(autoTimer);
     clearTimeout(timer);
     if (concept.dataset.state === "off") connect();
     else display("off");
   }
   toggle.addEventListener("click", togglePreview);
   phoneToggle?.addEventListener("click", togglePreview);
-  const observer =
-    "IntersectionObserver" in window
-      ? new IntersectionObserver(
-          (entries) => {
-            if (
-              entries.some((entry) => entry.isIntersecting) &&
-              !started &&
-              !reducedMotion.matches
-            ) {
-              started = true;
-              autoTimer = setTimeout(() => {
-                if (!document.hidden) connect();
-              }, 1200);
-              observer.disconnect();
-            }
-          },
-          { threshold: 0.55 },
-        )
-      : null;
-  observer?.observe(concept);
   reducedMotion.addEventListener("change", () => {
-    clearTimeout(autoTimer);
     clearTimeout(timer);
     if (concept.dataset.state === "connecting") display("on");
   });

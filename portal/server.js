@@ -14,6 +14,7 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
     '/portal': ['index.html', 'text/html'], '/portal/': ['index.html', 'text/html'],
     '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'],
     '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
+    '/brand.css': ['brand.css', 'text/css'],
     '/connection-sculpture.jpg': ['connection-sculpture.jpg', 'image/jpeg'],
     '/velora-logo.svg': ['velora-logo.svg', 'image/svg+xml'],
     '/velora-logo-light.svg': ['velora-logo-light.svg', 'image/svg+xml'],

@@ -120,9 +120,9 @@
     $('plan-workspace').hidden = !session;
     document.querySelector('.tunnels-section').hidden = !session;
     document.querySelector('.lower-grid').hidden = !session;
-    $('page-title').textContent = isDemo ? 'Your sample access' : session ? 'Holder access preview' : 'VPN data for holders.';
+    $('page-title').replaceChildren(document.createTextNode(isDemo ? 'Your sample ' : 'Holder '), element('em', '', isDemo ? 'access.' : 'access.'));
     document.querySelector('.hero-copy').textContent = isDemo ? 'Explore your sample plans and setup. Real holder access is still in development.' : session ? 'Wallet signed in. Holder eligibility and live VPN data are not available yet. Switch to the demo to explore the flow.' : 'Eligible holders are intended to receive VPN data covered by community fees. Explore a no-payment preview of how access could work.';
-    document.querySelector('.portal-steps').hidden = !!session;
+    $('access-preview').hidden = !!session;
     $('mode-badge').textContent = mode === 'demo' ? 'DEMO MODE' : 'PREVIEW';
     const notice = $('mode-notice').querySelector('p');
     notice.replaceChildren(element('strong', '', mode === 'demo' ? 'You’re exploring a prototype. ' : 'Read-only preview. '), document.createTextNode('Sample limits are illustrative. No real VPN connections or payments are made here.'));
@@ -149,7 +149,7 @@
     const totalDays = isDemo ? sampleDays(allowance?.totalCents, plan?.priceCents) : null;
     $('allowance-title').textContent = isDemo ? 'Sample access available' : 'Holder access status';
     $('allowance-badge').textContent = isDemo ? 'SAMPLE ACCESS' : 'NOT LIVE';
-    $('allowance-amount').replaceChildren(document.createTextNode(remainingDays ?? '—'), element('span', '', remainingDays === null ? '' : remainingDays === 1 ? 'DAY LEFT' : 'DAYS LEFT'));
+    $('allowance-amount').replaceChildren(document.createTextNode(remainingDays ?? '—'), element('span', '', remainingDays === null ? 'NOT ACTIVE' : remainingDays === 1 ? 'DAY LEFT' : 'DAYS LEFT'));
     $('allowance-description').textContent = isDemo ? 'One sample day can create or extend a plan. This is not an announced holder allocation.' : session ? 'Wallet sign-in does not activate VPN data. Eligibility and funding are still in development.' : 'Explore the demo to see sample access.';
     $('allowance-spent').previousElementSibling.textContent = isDemo ? 'Days allocated' : 'Wallet';
     $('allowance-total').previousElementSibling.textContent = isDemo ? 'Demo weekly limit' : 'VPN data';
@@ -160,6 +160,9 @@
     $('allowance-meter').setAttribute('aria-valuenow', String(Math.round(percentage)));
     $('allowance-meter').setAttribute('aria-label', isDemo ? 'Sample access remaining this week' : 'Holder access not active');
     $('allowance-reset').textContent = isDemo && allowance?.resetsAt ? `Sample week resets ${date(allowance.resetsAt)}.` : 'Token-funded holder access is not live.';
+    $('pass-eligibility').textContent = isDemo ? 'Demo account' : 'Not assessed';
+    $('pass-plan').textContent = isDemo && plan ? `1 day · ${plan.bandwidthGb} GB` : 'Not available';
+    $('pass-create').hidden = !isDemo;
     document.querySelector('.pool-disclaimer').textContent = isDemo || !session ? 'Token launch and fee funding are not connected in this prototype.' : 'Wallet sign-in proves ownership only. Treasury funding and token fees have not been verified.';
     renderCreate();
     renderTunnels(dashboard?.tunnels || []);

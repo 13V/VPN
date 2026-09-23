@@ -18,9 +18,10 @@
       crossorigin
     />
     <link rel="stylesheet" href="/landing.css" />
+    <link rel="stylesheet" href="/brand.css" />
     <script src="/landing.js" defer></script>
   </head>
-  <body>
+  <body class="landing-page">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header shell">
       <a class="brand" href="/" aria-label="Velora home"
@@ -78,33 +79,28 @@
             </p>
           </div>
           <div class="connection-stage">
-            <div class="connection-panel" id="app-concept" data-state="off">
-              <div class="panel-topline">
-                <span>Your connection</span
-                ><span class="preview-label">Interactive preview</span>
+            <div class="connection-panel holder-pass" id="app-concept" data-state="off">
+              <div class="pass-overline">
+                <span class="pass-brand"><img src="/velora-mark.svg" alt="" width="24" height="24" /> VELORA / HOLDER ACCESS</span>
+                <span class="pass-preview">INTERACTIVE PREVIEW</span>
               </div>
-              <div class="connection-illustration" aria-hidden="true">
-                <div class="connection-path path-one"></div>
-                <div class="connection-path path-two"></div>
-                <div class="connection-emblem">
-                  <img src="/velora-mark.svg" alt="" width="48" height="48" />
+              <div class="pass-main">
+                <div>
+                  <p class="pass-kicker">Your sample access</p>
+                  <h2 class="pass-amount">7 <em>days</em></h2>
+                  <p class="pass-subtitle">A glimpse of the holder experience.</p>
                 </div>
-                <span class="path-point point-one"></span
-                ><span class="path-point point-two"></span>
+                <svg class="pass-route" viewBox="0 0 90 64" aria-hidden="true" focusable="false"><path d="M5 8 40 56 M50 56 85 8" /></svg>
+              </div>
+              <div class="pass-meter" aria-hidden="true"><span></span></div>
+              <div class="pass-facts">
+                <div><span>Eligibility</span><strong>Demo account</strong></div>
+                <div><span>Location</span><strong>Australia</strong></div>
+                <div><span>Sample plan</span><strong>1 day · 50 GB</strong></div>
               </div>
               <div class="connection-heading">
-                <h2 id="connection-title">Ready when you are.</h2>
-                <p id="connection-description">A little more room to roam.</p>
-              </div>
-              <div class="location-row">
-                <span class="location-monogram">AU</span>
-                <div>
-                  <strong>Australia</strong
-                  ><span>Sydney · Preview location</span>
-                </div>
-                <svg class="icon" aria-hidden="true">
-                  <use href="/icons.svg#chevron-down" />
-                </svg>
+                <h3 id="connection-title">Ready when you are.</h3>
+                <p id="connection-description">Explore a simulated connection.</p>
               </div>
               <div class="connection-control">
                 <div>
@@ -124,7 +120,7 @@
                 </button>
               </div>
               <a class="panel-link" href="/portal"
-                >Try your own demo plan
+                >Explore your sample access
                 <svg class="icon" aria-hidden="true">
                   <use href="/icons.svg#arrow-right" /></svg
               ></a>
