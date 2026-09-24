@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/landing.css" />
     <link rel="stylesheet" href="/brand.css" />
     <script src="/landing.js" defer></script>
+    <script src="/hero-sculpture.js" defer></script>
   </head>
   <body class="landing-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -83,23 +84,21 @@
                 <span class="pass-brand"><img src="/velora-mark.svg" alt="" width="24" height="24" /> VELORA / THE IDEA</span>
                 <span class="pass-preview">A SHARED CONNECTION</span>
               </div>
+              <div class="pass-art" id="velora-sculpture" aria-hidden="true">
+                <img class="pass-art-fallback" src="/hero-sculpture-fallback.svg" alt="" width="440" height="220" />
+                <canvas class="pass-art-canvas" aria-hidden="true"></canvas>
+              </div>
               <div class="pass-main">
                 <div>
                   <p class="pass-kicker">Community-powered VPN</p>
                   <h2 class="pass-amount access-stage">Everyday access.</h2>
                   <p class="pass-subtitle">A proposed benefit designed to make collective value useful in daily life.</p>
                 </div>
-                <svg class="pass-route" viewBox="0 0 90 64" aria-hidden="true" focusable="false"><path d="M5 8 40 56 M50 56 85 8" /></svg>
               </div>
-              <div class="pass-meter" aria-hidden="true"><span></span></div>
               <div class="pass-facts">
                 <div><span>01 / SOURCE</span><strong>Community fees</strong></div>
                 <div><span>02 / ACCESS</span><strong>Eligible holders</strong></div>
                 <div><span>03 / BENEFIT</span><strong>VPN data</strong></div>
-              </div>
-              <div class="connection-heading">
-                <h3 id="connection-title">A practical reason to build together.</h3>
-                <p id="connection-description">The goal is a connection you can actually use.</p>
               </div>
               <a class="panel-link" href="#how-it-works"
                 >See how the model works

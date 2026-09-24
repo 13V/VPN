@@ -42,6 +42,48 @@
   letter-spacing: 0.8px;
   white-space: nowrap;
 }
+.pass-art {
+  position: relative;
+  isolation: isolate;
+  height: 184px;
+  margin: 18px -30px 0;
+  overflow: hidden;
+  border-bottom: 1px solid #e7e2d8;
+  background:
+    radial-gradient(ellipse at 48% 16%, #fff 0%, #f4f4ee 48%, #e7e8df 100%);
+}
+.pass-art::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 8px;
+  width: 39%;
+  height: 15px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: #18372e38;
+  filter: blur(11px);
+}
+.pass-art-fallback,
+.pass-art-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pass-art-fallback {
+  z-index: 1;
+  object-fit: contain;
+  transition: opacity 300ms ease;
+}
+.pass-art-canvas {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.pass-art.is-rendered .pass-art-fallback { opacity: 0; }
+.pass-art.is-rendered .pass-art-canvas { opacity: 1; }
 .pass-main {
   display: flex;
   align-items: center;
@@ -175,6 +217,12 @@
 }
 .landing-page .connection-panel {
   padding-bottom: 0;
+}
+.landing-page .pass-main { margin-top: 16px; }
+.landing-page .pass-facts {
+  margin-top: 15px;
+  border-top: 1px solid #e7e2d8;
+  padding: 15px 0 19px;
 }
 .landing-page .holder-pass .pass-amount.access-stage {
   font-family: Newsreader, Georgia, serif;
@@ -623,6 +671,10 @@
   }
   .pass-main {
     margin-top: 31px;
+  }
+  .landing-page .pass-art {
+    height: 165px;
+    margin-inline: -22px;
   }
   .pass-route {
     width: 57px;

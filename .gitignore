@@ -5,6 +5,7 @@ node_modules/
 .state/
 coverage/
 dist/
+public/hero-sculpture.js
 .vercel/
 launch/manifest.json
 *.conf

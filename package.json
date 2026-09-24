@@ -11,7 +11,9 @@
     "vpn": "node src/cli.js",
     "pilot": "node src/manual-pilot-cli.js",
     "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js test/launch-preflight.test.js test/manual-pilot.test.js",
+    "prestart": "node scripts/build-hero-sculpture.js",
     "start": "node portal/server.js",
+    "build:hero": "node scripts/build-hero-sculpture.js",
     "catalogue": "node src/cli.js catalogue",
     "preflight": "node src/cli.js preflight",
     "report": "node src/cli.js report",
@@ -19,6 +21,8 @@
   },
   "dependencies": {
     "@vercel/blob": "2.8.0",
-    "ethers": "6.17.0"
+    "esbuild": "^0.28.2",
+    "ethers": "6.17.0",
+    "three": "^0.186.0"
   }
 }
