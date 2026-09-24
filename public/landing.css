@@ -12,13 +12,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: Newsreader;
-  src: url("/newsreader-italic.woff2") format("woff2");
-  font-weight: 200 800;
-  font-style: italic;
-  font-display: swap;
-}
 :root {
   --paper: #f6f3ed;
   --white: #fff;
@@ -71,10 +64,6 @@ button:focus-visible,
 a:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--ink);
-}
-em {
-  font-family: Newsreader, Georgia, serif;
-  font-weight: 400;
 }
 img {
   max-width: 100%;
@@ -221,13 +210,6 @@ h1 {
   font-weight: 400;
   letter-spacing: -0.052em;
   margin-top: 27px;
-}
-h1 em {
-  font-size: 1em;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  display: inline-block;
-  padding-bottom: 6px;
 }
 .hero-description {
   font-size: 16px;
@@ -551,7 +533,6 @@ h1 em {
 }
 .intro-facts > div > span {
   font-family: Newsreader, Georgia, serif;
-  font-style: italic;
   font-size: 22px;
   color: #827969;
   line-height: 1.1;
@@ -598,10 +579,6 @@ h1 em {
   letter-spacing: -0.044em;
   line-height: 1.13;
   margin-top: 22px;
-}
-h2 em {
-  font-size: 1em;
-  letter-spacing: -0.04em;
 }
 .section-intro > p:last-child,
 .experience-copy > p:not(.eyebrow) {
@@ -813,7 +790,6 @@ h2 em {
 }
 .phone-screen h3 {
   font-family: Newsreader, Georgia, serif;
-  font-style: italic;
   font-size: 33px;
   line-height: 1.08;
   font-weight: 400;
@@ -1200,9 +1176,6 @@ h2 em {
     letter-spacing: -3.5px;
     margin-top: 22px;
     line-height: 1.04;
-  }
-  .hero h1 em {
-    font-size: 1.1em;
   }
   .hero-description {
     font-size: 15px;
@@ -1591,8 +1564,7 @@ h2 em {
   padding: 0 0.13em 0.13em;
   margin: 0 -0.13em -0.13em;
 }
-.hero-line > span,
-.hero-line > em {
+.hero-line > span {
   display: block;
 }
 .connection-stage {

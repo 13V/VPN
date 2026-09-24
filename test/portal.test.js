@@ -175,7 +175,7 @@ test('launch mode serves access information but no account or plan API', async t
   assert.equal((await request('/api/auth/challenge', { method: 'POST', body: '{}' })).status, 404);
   assert.equal((await request('/api/tunnels', { method: 'POST', body: '{}' })).status, 404);
   assert.equal((await request('/app.js')).status, 404);
-  assert.match(await (await request('/portal')).text(), /Not open <em>yet/);
+  assert.match(await (await request('/portal')).text(), /Not open yet\./);
 });
 
 test('public pages show access status without a simulated plan or public demo assets', async t => {
@@ -191,7 +191,7 @@ test('public pages show access status without a simulated plan or public demo as
   const portal = await request('/portal');
   assert.equal(portal.status, 200);
   const access = await portal.text();
-  assert.match(access, /Not open <em>yet/);
+  assert.match(access, /Not open yet\./);
   assert.doesNotMatch(access, /\bdemo\b|sample plan|create-form/i);
   assert.equal((await request('/portal/')).status, 200);
   assert.equal((await request('/access.css')).status, 200);
