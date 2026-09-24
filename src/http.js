@@ -12,7 +12,7 @@ class ServiceError extends Error {
 async function request(url, options = {}, fetchImpl = fetch) {
   try {
     const response = await fetchImpl(url, {
-      ...options, redirect: 'error', signal: options.signal || AbortSignal.timeout(15000),
+      ...options, redirect: 'error', signal: AbortSignal.timeout(15000),
     });
     const text = await response.text();
     if (text.length > 1024 * 1024) throw new Error('oversized response');

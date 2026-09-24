@@ -4,13 +4,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Auth } = require('./auth');
 const { Portal, CATALOGUE, problem } = require('./model');
-const { PilotAccess } = require('./pilot-access');
 
-function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = new Portal({ mode }), auth = new Auth({ origin, demoEnabled: mode === 'demo' }),
-  pilot = process.env.VPN_PILOT_ENABLED === '1' && process.env.VPN_PILOT_SIGNING_KEY && process.env.VPN_RESELLERS_API_TOKEN ? new PilotAccess() : null,
-  now = Date.now, clientKey = req => req.socket.remoteAddress } = {}) {
+function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = new Portal({ mode }), auth = new Auth({ origin, demoEnabled: mode === 'demo' }), now = Date.now, clientKey = req => req.socket.remoteAddress } = {}) {
   const canonical = new URL(origin);
-  if (process.env.VPN_PILOT_ENABLED === '1' && !pilot) throw new Error('Pilot is enabled without both server-side credentials');
   if (canonical.origin !== origin || !['http:', 'https:'].includes(canonical.protocol) || canonical.username || canonical.password) throw new Error('VPN_ORIGIN must be an exact HTTP(S) origin');
   const limiter = new Map();
   const files = {
@@ -63,7 +59,7 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
         if (limit.count > 90) throw problem(429, 'RATE_LIMITED', 'Too many requests. Try again in a minute.');
       }
       const session = await auth.session(token(req));
-      if (req.method === 'GET' && route === '/api/bootstrap') return send(200, { mode, pilotEnabled: !!pilot, brand: 'VPN', chainId: 4663, session, catalogue: CATALOGUE, dashboard: session ? await portal.dashboard(session) : null });
+      if (req.method === 'GET' && route === '/api/bootstrap') return send(200, { mode, brand: 'VPN', chainId: 4663, session, catalogue: CATALOGUE, dashboard: session ? await portal.dashboard(session) : null });
       if (req.method === 'POST' && route.startsWith('/api/auth/')) {
         const input = await body(req);
         if (route === '/api/auth/challenge') return send(200, await auth.challenge(input.address));
@@ -74,15 +70,6 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
         }
       }
       if (!session) throw problem(401, 'SIGN_IN_REQUIRED', 'Sign in to view your tunnels.');
-      if (req.method === 'POST' && (route === '/api/pilot/status' || route === '/api/pilot/config')) {
-        if (!pilot) throw problem(503, 'PILOT_NOT_CONFIGURED', 'Live pilot access is not configured.');
-        const input = await body(req);
-        if (typeof input.grant !== 'string') throw problem(400, 'PILOT_GRANT_REQUIRED', 'Enter your pilot access code.');
-        if (route === '/api/pilot/status') return send(200, await pilot.status(session, input.grant));
-        const configuration = await pilot.configuration(session, input.grant);
-        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'content-disposition': 'attachment; filename="velora-pilot.conf"' });
-        res.end(configuration); return;
-      }
       if (req.method === 'POST' && route === '/api/tunnels') return send(200, await portal.provision(session, await body(req)));
       const match = /^\/api\/tunnels\/([0-9a-f-]{36})\/(renew|config)$/.exec(route);
       if (match?.[2] === 'renew' && req.method === 'POST') return send(200, await portal.provision(session, await body(req), match[1]));

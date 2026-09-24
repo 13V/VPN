@@ -2,7 +2,7 @@
 
 A Node.js 22+ MVP for Velora, a proposed holder-funded VPN: a public landing page followed by a responsive portal, wallet sign-in, sample access display, demo tunnel creation and renewal, activity history and setup downloads.
 
-**[Open the website](https://vpn-one-phi.vercel.app)** · [Explore the demo portal](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel. A gated, operator-funded live pilot is implemented but remains off until a prepaid reseller account and server-side credentials are configured and tested.
+**[Open the website](https://vpn-one-phi.vercel.app)** · [Explore the demo portal](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel; real VPN purchasing remains disabled.
 
 ```sh
 npm ci
@@ -14,8 +14,6 @@ Open [the local website](http://127.0.0.1:4173) to read the introduction, propos
 Connect an injected Ethereum wallet to test real signature authentication. Sign-in requires no transaction or wallet funds. EOA wallets are supported; contract-wallet signatures are not implemented. Real wallet sessions receive no sample access and cannot provision. See [MVP setup and scope](docs/mvp.md) for configuration, security boundaries and remaining launch work.
 
 The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the landing page and demo portal with private persistent state.
-
-For a **real WireGuard test**, the private pilot can provision a capped reseller account, fix its expiry, recover its configuration after an interrupted response, and deliver it to one wallet-bound access code. This uses prepaid reseller credit rather than Blink or token fees. No account has been created or funded in this repository. See [live pilot setup and limits](docs/live-pilot.md). The public site must remain labelled as a demo until a paid account and actual connection have been verified.
 
 For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
 

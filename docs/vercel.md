@@ -1,10 +1,8 @@
 # Vercel deployment
 
-The landing page and demo portal run on Vercel from this repository. Vercel runs `api/index.js` as a Node.js function. `scripts/build-vercel.js` copies the public assets into `dist/public` and makes the landing page its static `index.html`; the function serves `/portal` and API requests. The CLI nadanada/Blink validation engine is not exposed as an HTTP route. A separate, wallet-bound [private live pilot](live-pilot.md) is available only when both pilot server secrets are configured; token-funded public provisioning remains blocked.
+The landing page and demo portal run on Vercel from this repository. Vercel runs `api/index.js` as a Node.js function. `scripts/build-vercel.js` copies the public assets into `dist/public` and makes the landing page its static `index.html`; the function serves `/portal` and API requests. The CLI supplier-validation engine is not exposed as an HTTP route. Live VPN purchasing remains blocked, including when Blink credentials exist in the hosting project.
 
 Do not configure `BLINK_API_KEY` or `BLINK_WALLET_ID` in the public portal's production environment. Supplier tests belong in a separate, restricted worker or local test process with a separately funded wallet. The demo does not need either variable.
-
-For the private pilot only, `VPN_RESELLERS_API_TOKEN`, `VPN_PILOT_SIGNING_KEY` and the explicit `VPN_PILOT_ENABLED=1` switch may be set as server-side Production variables after the first operator account is provisioned and its expiry/configuration are verified. They are not browser variables. Keep the pilot capped and remove them when testing ends. The public landing page continues to describe the general holder benefit as in development; a funded account and real tunnel check are required before changing that statement.
 
 ## Reproduce
 

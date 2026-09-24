@@ -2,21 +2,19 @@
   "name": "vpn-holder-portal",
   "version": "0.2.0",
   "private": true,
-  "description": "Velora holder portal with a demo and a gated, prepaid VPN pilot.",
+  "description": "Holder portal MVP with a demo VPN journey and fail-closed supplier validation.",
   "license": "MIT",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "vpn": "node src/cli.js",
-    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js test/launch-preflight.test.js test/pilot.test.js",
+    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js test/launch-preflight.test.js",
     "start": "node portal/server.js",
     "catalogue": "node src/cli.js catalogue",
     "preflight": "node src/cli.js preflight",
     "report": "node src/cli.js report",
-    "launch:preflight": "node scripts/launch-preflight.js",
-    "pilot": "node src/pilot-cli.js",
-    "pilot:preflight": "node src/pilot-cli.js preflight"
+    "launch:preflight": "node scripts/launch-preflight.js"
   },
   "dependencies": {
     "@vercel/blob": "2.8.0",
