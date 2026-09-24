@@ -15,6 +15,8 @@ Connect an injected Ethereum wallet to test real signature authentication. Sign-
 
 The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the landing page and demo portal with private persistent state.
 
+For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate one invoice, save a paid WireGuard configuration, verify status and request an extension. It never sends a payment, and the public holder portal remains a demo. This route does not satisfy the original unattended-payment or lost-response recovery acceptance criteria.
+
 For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
 
 `npm run launch:preflight -- --manifest launch/manifest.example.json` performs a **read-only**, deliberately blocked Pons V2 check against Robinhood Chain. Copy and fill a private manifest only after choosing the immutable launch terms; the checker never holds a signer or sends a transaction. See the launch checklist for its scope and required human review.

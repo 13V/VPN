@@ -9,7 +9,8 @@
   },
   "scripts": {
     "vpn": "node src/cli.js",
-    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js test/launch-preflight.test.js",
+    "pilot": "node src/manual-pilot-cli.js",
+    "test": "node --test test/blink.test.js test/engine.test.js test/store.test.js test/portal-auth.test.js test/portal.test.js test/hosted-state.test.js test/vercel-handler.test.js test/launch-preflight.test.js test/manual-pilot.test.js",
     "start": "node portal/server.js",
     "catalogue": "node src/cli.js catalogue",
     "preflight": "node src/cli.js preflight",
