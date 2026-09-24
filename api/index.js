@@ -1,7 +1,6 @@
 'use strict';
 
 const { createHandler } = require('../portal/server');
-const { HostedState, HostedAuth, HostedPortal } = require('../portal/hosted-state');
 const { isIP } = require('node:net');
 
 let handler;
@@ -10,9 +9,9 @@ module.exports = async (req, res) => {
     if (!handler) {
       const origin = process.env.VPN_ORIGIN;
       if (!origin?.startsWith('https://')) throw new Error('An HTTPS VPN_ORIGIN is required');
-      const mode = process.env.VPN_PORTAL_MODE || 'demo';
-      const state = new HostedState({ origin, mode });
-      handler = createHandler({ origin, mode, auth: new HostedAuth(state), portal: new HostedPortal(state),
+      // The launch site is informational until paid delivery and funding pass.
+      // No session, simulated plan or supplier mutation API is hosted here.
+      handler = createHandler({ origin, mode: 'launch',
         // Vercel supplies x-real-ip; never enable this path on a directly exposed Node server.
         clientKey: request => process.env.VERCEL === '1' && isIP(request.headers['x-real-ip'] || '')
           ? request.headers['x-real-ip'] : request.socket.remoteAddress });

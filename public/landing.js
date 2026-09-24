@@ -114,72 +114,8 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) finishMotion();
 });
 
-// Illustrative app only: no network calls, wallet access or VPN provisioning.
+// The product surfaces are illustrative and make no network or wallet calls.
 const concept = document.getElementById("app-concept");
-const toggle = document.getElementById("connection-toggle");
-const phoneConcept = document.getElementById("phone-concept");
-const phoneToggle = document.getElementById("phone-toggle");
-if (concept && toggle) {
-  const reducedMotion = motionPreference;
-  let timer;
-  function display(state) {
-    concept.dataset.state = state;
-    toggle.setAttribute("aria-checked", String(state !== "off"));
-    if (phoneConcept && phoneToggle) {
-      phoneConcept.dataset.state = state;
-      phoneToggle.setAttribute("aria-checked", String(state !== "off"));
-      document.getElementById("phone-connection-status").textContent =
-        state === "on"
-          ? "Connected · preview"
-          : state === "connecting"
-            ? "Connecting · preview"
-            : "Not connected · preview";
-    }
-    document.getElementById("connection-title").textContent =
-      state === "on"
-        ? "Preview connected."
-        : state === "connecting"
-          ? "Finding your connection."
-          : "Ready when you are.";
-    document.getElementById("connection-description").textContent =
-      state === "on"
-        ? "A look at how your connection could feel."
-        : state === "connecting"
-        ? "Simulating Sydney…"
-          : "Explore a simulated connection.";
-    document.getElementById("connection-status").textContent =
-      state === "on"
-        ? "Connected · preview"
-        : state === "connecting"
-          ? "Connecting…"
-          : "Not connected";
-    animateEntry(
-      document.querySelector(".connection-heading"),
-      [
-        { opacity: 0.5, transform: "translateY(5px)" },
-        { opacity: 1, transform: "translateY(0)" },
-      ],
-      { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" },
-    );
-  }
-  function connect() {
-    clearTimeout(timer);
-    if (reducedMotion.matches) return display("on");
-    display("connecting");
-    timer = setTimeout(() => display("on"), 1100);
-  }
-  function togglePreview() {
-    clearTimeout(timer);
-    if (concept.dataset.state === "off") connect();
-    else display("off");
-  }
-  toggle.addEventListener("click", togglePreview);
-  phoneToggle?.addEventListener("click", togglePreview);
-  reducedMotion.addEventListener("change", () => {
-    clearTimeout(timer);
-    if (concept.dataset.state === "connecting") display("on");
-  });
-}
 
 // The phone follows scroll position, without changing the page's scroll behaviour.
 const phoneScene = document.querySelector(".phone-scene");

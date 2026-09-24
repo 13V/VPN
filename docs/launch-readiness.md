@@ -1,4 +1,4 @@
-# Velora launch readiness — 2026-09-23
+# Velora launch readiness — 2026-09-24
 
 This is a decision record and release checklist, not authorization to issue a token, move treasury funds, or enable paid VPN provisioning. Recheck external facts immediately before signing a launch transaction. The project is independent of Robinhood.
 
@@ -6,11 +6,11 @@ This is a decision record and release checklist, not authorization to issue a to
 
 | Release | Current status | What can be said publicly |
 | --- | --- | --- |
-| Website and sample portal | **Ready as a prototype.** Deployed at https://vpn-one-phi.vercel.app; 84 offline tests pass. | Visitors can explore sample plans and simulated connection states. No VPN or payment is activated. |
+| Website and access status | **Ready for an informational announcement.** Deployed at https://vpn-one-phi.vercel.app; the public handler has no account or plan API. | Visitors can learn the proposed model and see that VPN access is not open. No VPN or payment is activated. |
 | Token on Pons | **Not ready to sign.** Token terms, fee recipient, funding policy, legal review and final launch configuration are unset. | The project intends to explore token-funded access. No token address, allocation or launch date is final. |
 | VPN benefit for holders | **Blocked.** No paid supplier delivery/recovery test, enforceable Lightning debit cap, redistribution permission or tunnel quality evidence. | Access is proposed, not available or guaranteed. Wallet sign-in alone grants no VPN service. |
 
-The preferred sequence is a transparent prototype, then a separately reviewed token release, then a closed live-service pilot after the supplier and funding gates pass. If the token releases before the VPN benefit, the launch page and social copy must say that the benefit is **in development**, with no date or guaranteed amount.
+The preferred sequence is a transparent informational website, then a separately reviewed token release, then a closed live-service pilot after the supplier and funding gates pass. If the token releases before the VPN benefit, the launch page and social copy must say that the benefit is **in development**, with no date or guaranteed amount.
 
 ## Facts checked on 2026-09-23
 
@@ -23,7 +23,7 @@ The preferred sequence is a transparent prototype, then a separately reviewed to
 
 ## Decisions required before a token transaction
 
-Record each decision with an owner and date. Do not infer a value from the current demo.
+Record each decision with an owner and date. Do not infer a value from the old development prototype.
 
 | Decision | Required evidence |
 | --- | --- |
@@ -55,15 +55,15 @@ All must be evidenced before changing the website from “in development” to �
 2. **Payer safety:** Use a separately funded test wallet and an adapter that proves a server-enforced maximum **total debit including fees**. Verify invoice signature, amount, hash, expiry and catalogue price; reconcile ambiguous sends before retrying. Keep the current live-spending block until this is demonstrated.
 3. **Commercial and network quality:** Obtain explicit commercial redistribution permission. Test a real tunnel, DNS/leak behaviour, throughput, outages, renewal and revocation from each supported client platform. Do not claim “no logs,” anonymity or quality without evidence.
 4. **Funding and eligibility:** Derive snapshots from the correct deployed token and a documented finality rule; reconcile actual creator fees through sweep, claim and conversion; set funded caps; prevent double allocation and stale snapshots. Publish the policy and what happens when funding runs out.
-5. **Production operations:** Keep Blink/test-wallet credentials out of the public Vercel portal environment; a separate, restricted worker should hold any future payer secret. Move live configurations into encrypted storage, use a transactional database and recoverable order worker, establish backups, retention, alerting, rate limits, a manual pause and an incident process. Vercel Blob currently holds demo state only.
+5. **Production operations:** Keep Blink/test-wallet credentials out of the public Vercel environment; a separate, restricted worker should hold any future payer secret. Move live configurations into encrypted storage, use a transactional database and recoverable order worker, establish backups, retention, alerting, rate limits, a manual pause and an incident process. The informational site stores no VPN accounts or orders.
 
 ## Release rehearsal
 
-- **Before the public announcement:** Run `npm ci`, `npm test`, `node scripts/build-vercel.js`, the catalogue/preflight commands, and a desktop/mobile browser journey. Check HTTPS, the canonical domain, `/portal`, CSP, sample-only copy, broken links, and an unauthenticated session. Verify that the site never displays a token address before it is confirmed on chain.
+- **Before the public announcement:** Run `npm ci`, `npm test`, `node scripts/build-vercel.js`, the catalogue/preflight commands, and a desktop/mobile browser journey. Check HTTPS, the canonical domain, `/portal`, CSP, access-status copy, broken links, and disabled account/plan endpoints. Verify that the site never displays a token address before it is confirmed on chain.
 - **Before signing a Pons launch:** Have a second person compare the exact transaction preview against the recorded terms and verified contract addresses. Confirm chain ID 4663, signer, recipient, quote asset, tax, buyback setting, launch fee, gas and any optional buy. Use a test or simulation for the selected Pons generation. Do not use an unreviewed automation or a copied token name as confirmation.
 - **After confirmation:** Record the transaction hash, block, token and curve/pool address from the explorer. Confirm source/bytecode and on-chain metadata; then publish the token address on the canonical site and link to the explorer. Reconcile Pons fee accrual, sweep and claim paths with a small amount before relying on them for the budget.
-- **During the first day:** Watch the site, login errors, Blob capacity, RPC/indexer results, fee accounting, support requests and misleading-copy reports. If any gate fails, pause the feature or announcement and keep the demo available with its limitations visible.
+- **During the first day:** Watch site availability, RPC/indexer results, fee accounting, support requests and misleading-copy reports. If any gate fails, pause the affected feature or announcement and keep access status accurate.
 
 ## Stop conditions
 
-Do not sign the token transaction if the recorded Pons terms differ from the live preview, the legal/copy review is incomplete, the fee recipient is unverified, or the official domain and address-publication process are not controlled. Do not enable live VPN orders if any live-benefit gate above is incomplete. A successful demo, a token launch, or a growing trading-fee balance does not by itself validate supplier recovery or fund a specific holder allowance.
+Do not sign the token transaction if the recorded Pons terms differ from the live preflight, the legal/copy review is incomplete, the fee recipient is unverified, or the official domain and address-publication process are not controlled. Do not enable live VPN orders if any live-benefit gate above is incomplete. A polished website, a token launch, or a growing trading-fee balance does not by itself validate supplier recovery or fund a specific holder allowance.

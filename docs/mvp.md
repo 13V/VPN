@@ -1,5 +1,7 @@
 # Holder portal MVP — September 2026
 
+**Historical development record:** The public website now runs in `launch` mode, showing access status without accounts, wallet sign-in, plan actions or illustrative balances. The prototype described below remains in the repository for offline testing and is not exposed by the Vercel handler. See [current deployment instructions](vercel.md).
+
 This is the first working product slice. Velora is the project name; the token address, holder allocation policy and launch are still undecided. The existing supplier-validation harness is preserved alongside the portal.
 
 ## What works
@@ -28,7 +30,7 @@ Configuration is read from process environment variables, not automatically from
 
 | Variable | Default / purpose |
 | --- | --- |
-| `VPN_PORTAL_MODE` | `demo`; use `preview` to disable demo sign-in. There is no live mode. |
+| `VPN_PORTAL_MODE` | `launch` for the local public site. `demo` and `preview` are development-only; there is no live mode. |
 | `HOST` / `PORT` | `127.0.0.1` / `4173` |
 | `VPN_ORIGIN` | Exact browser origin, including port; domain used in sign-in messages and origin enforcement |
 | `VPN_PORTAL_STATE_DIR` | Windows `%LOCALAPPDATA%/13V/VPN-portal`; otherwise `~/.local/state/13V/VPN-portal` |

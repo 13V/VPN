@@ -1,21 +1,19 @@
 # Velora holder portal
 
-A Node.js 22+ MVP for Velora, a proposed holder-funded VPN: a public landing page followed by a responsive portal, wallet sign-in, sample access display, demo tunnel creation and renewal, activity history and setup downloads.
+A Node.js 22+ launch website for Velora, a proposed holder-funded VPN. The landing page explains the idea; `/portal` shows the current access status and the checks required before service opens.
 
-**[Open the website](https://vpn-one-phi.vercel.app)** · [Explore the demo portal](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel; real VPN purchasing remains disabled.
+**[Open the website](https://vpn-one-phi.vercel.app)** · [View access status](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel; real VPN purchasing remains disabled.
 
 ```sh
 npm ci
 npm start
 ```
 
-Open [the local website](http://127.0.0.1:4173) to read the introduction, proposed funding model and FAQ. The Holder Access preview is shared between the landing page and [portal](http://127.0.0.1:4173/portal); its connection switch runs a visual simulation only when tapped. **Explore the demo** starts a sample workspace. The portal presents seven sample plan-days: create an Australia one-day plan, extend it, and download a sample setup file. These days represent a fixed internal $3.50 test allowance at $0.50 per one-day sample plan; they are not an announced holder allocation or a charge to visitors. Refreshing preserves your session and demo orders. No real tunnel or payment is created. Demo downloads are explicitly labelled `.txt` previews, not usable WireGuard configurations.
+Open [the local website](http://127.0.0.1:4173) to read the introduction, proposed funding model and FAQ. [Access status](http://127.0.0.1:4173/portal) clearly states that no VPN plan or holder benefit can be activated yet. The public launch mode serves no account, wallet or plan-creation API. The earlier interactive prototype remains in the repository for offline development tests but is not part of the hosted website. See [MVP history and remaining work](docs/mvp.md).
 
-Connect an injected Ethereum wallet to test real signature authentication. Sign-in requires no transaction or wallet funds. EOA wallets are supported; contract-wallet signatures are not implemented. Real wallet sessions receive no sample access and cannot provision. See [MVP setup and scope](docs/mvp.md) for configuration, security boundaries and remaining launch work.
+The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the public information pages.
 
-The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the landing page and demo portal with private persistent state.
-
-For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate one invoice, save a paid WireGuard configuration, verify status and request an extension. It never sends a payment, and the public holder portal remains a demo. This route does not satisfy the original unattended-payment or lost-response recovery acceptance criteria.
+For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate one invoice, save a paid WireGuard configuration, verify status and request an extension. It never sends a payment, and the public holder access page remains informational. This route does not satisfy the original unattended-payment or lost-response recovery acceptance criteria.
 
 For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
 
@@ -35,7 +33,7 @@ npm run vpn -- purchase
 npm run report
 ```
 
-Run `npm ci` first to install the pinned dependencies. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The web demo mutates only sample data when you click its action buttons: local files with `npm start`, or a private Blob store on Vercel.
+Run `npm ci` first to install the pinned dependencies. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The hosted website does not create orders or accept payments.
 
 `docs/offline-tests.workflow.yml` is an optional GitHub Actions template for Node.js 22/24. It is inactive; a login with workflow-write permission can place it at `.github/workflows/test.yml` to enable CI.
 

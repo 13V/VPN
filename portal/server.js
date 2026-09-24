@@ -5,14 +5,15 @@ const path = require('node:path');
 const { Auth } = require('./auth');
 const { Portal, CATALOGUE, problem } = require('./model');
 
-function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = new Portal({ mode }), auth = new Auth({ origin, demoEnabled: mode === 'demo' }), now = Date.now, clientKey = req => req.socket.remoteAddress } = {}) {
+function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal = mode === 'launch' ? null : new Portal({ mode }), auth = mode === 'launch' ? null : new Auth({ origin, demoEnabled: mode === 'demo' }), now = Date.now, clientKey = req => req.socket.remoteAddress } = {}) {
   const canonical = new URL(origin);
   if (canonical.origin !== origin || !['http:', 'https:'].includes(canonical.protocol) || canonical.username || canonical.password) throw new Error('VPN_ORIGIN must be an exact HTTP(S) origin');
+  if (!['demo', 'preview', 'launch'].includes(mode)) throw new Error('Unknown portal mode');
   const limiter = new Map();
   const files = {
     '/': ['landing.html', 'text/html'],
     '/portal': ['index.html', 'text/html'], '/portal/': ['index.html', 'text/html'],
-    '/app.js': ['app.js', 'text/javascript'], '/style.css': ['style.css', 'text/css'],
+    '/access.css': ['access.css', 'text/css'],
     '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
     '/brand.css': ['brand.css', 'text/css'],
     '/connection-sculpture.jpg': ['connection-sculpture.jpg', 'image/jpeg'],
@@ -48,6 +49,10 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
         const [name, type] = files[route]; res.writeHead(200, { 'content-type': `${type}; charset=utf-8` }); res.end(fs.readFileSync(path.join(__dirname, '..', 'public', name))); return;
       }
       if (!route.startsWith('/api/')) return send(404, { error: 'Not found.' });
+      if (mode === 'launch') {
+        if (req.method === 'GET' && route === '/api/bootstrap') return send(200, { mode: 'launch', brand: 'Velora', serviceAvailable: false });
+        return send(404, { error: 'Not found.' });
+      }
       if (!['GET', 'POST'].includes(req.method)) throw problem(405, 'METHOD_REJECTED', 'Method not allowed.');
       if (req.method === 'POST') {
         if (req.headers.origin !== origin) throw problem(403, 'ORIGIN_REJECTED', 'Request origin is not allowed.');
@@ -93,8 +98,8 @@ function createApp(options) {
 
 if (require.main === module) {
   const port = Number(process.env.PORT || 4173), host = process.env.HOST || '127.0.0.1';
-  const origin = process.env.VPN_ORIGIN || `http://${host}:${port}`, mode = process.env.VPN_PORTAL_MODE || 'demo';
+  const origin = process.env.VPN_ORIGIN || `http://${host}:${port}`, mode = process.env.VPN_PORTAL_MODE || 'launch';
   const app = createApp({ origin, mode });
-  app.listen(port, host, () => process.stdout.write(`VPN ${mode} portal: ${origin}\nLive supplier payments are disabled.\n`));
+  app.listen(port, host, () => process.stdout.write(`VPN ${mode} access status: ${origin}\nLive supplier payments are disabled.\n`));
 }
 module.exports = { createApp, createHandler };

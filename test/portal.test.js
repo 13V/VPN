@@ -107,7 +107,7 @@ test('funded snapshot rejects stale, wrong-chain and overallocated inputs', t =>
 });
 
 async function httpFixture(t, mode = 'demo') {
-  const { portal, store } = fixture(t, { mode });
+  const { portal, store } = mode === 'launch' ? {} : fixture(t, { mode });
   const origin = 'http://127.0.0.1:4173';
   const app = createApp({ origin, mode, portal });
   await new Promise(resolve => app.listen(0, '127.0.0.1', resolve));
@@ -167,7 +167,18 @@ test('preview mode disables the demo login endpoint', async t => {
   assert.equal(r.status, 403);
 });
 
-test('landing page introduces the product before the separate portal and only exposes allowlisted assets', async t => {
+test('launch mode serves access information but no account or plan API', async t => {
+  const { request } = await httpFixture(t, 'launch');
+  const status = await (await request('/api/bootstrap')).json();
+  assert.deepEqual(status, { mode: 'launch', brand: 'Velora', serviceAvailable: false });
+  assert.equal((await request('/api/auth/demo', { method: 'POST', body: '{}' })).status, 404);
+  assert.equal((await request('/api/auth/challenge', { method: 'POST', body: '{}' })).status, 404);
+  assert.equal((await request('/api/tunnels', { method: 'POST', body: '{}' })).status, 404);
+  assert.equal((await request('/app.js')).status, 404);
+  assert.match(await (await request('/portal')).text(), /Not open <em>yet/);
+});
+
+test('public pages show access status without a simulated plan or public demo assets', async t => {
   const { request } = await httpFixture(t);
   const landing = await request('/');
   assert.equal(landing.status, 200);
@@ -176,10 +187,15 @@ test('landing page introduces the product before the separate portal and only ex
   assert.match(html, /id="how-it-works"/);
   assert.match(html, /id="status"/);
   assert.doesNotMatch(html, /src="\/app.js"/);
+  assert.doesNotMatch(html, /\bdemo\b|sample access|7 <em>days<\/em>/i);
   const portal = await request('/portal');
   assert.equal(portal.status, 200);
-  assert.match(await portal.text(), /id="create-form"/);
+  const access = await portal.text();
+  assert.match(access, /Not open <em>yet/);
+  assert.doesNotMatch(access, /\bdemo\b|sample plan|create-form/i);
   assert.equal((await request('/portal/')).status, 200);
+  assert.equal((await request('/access.css')).status, 200);
+  assert.equal((await request('/app.js')).status, 404);
   const brand = await request('/brand.css');
   assert.equal(brand.status, 200);
   assert.match(brand.headers.get('content-type'), /text\/css/);

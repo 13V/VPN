@@ -2,7 +2,7 @@
 
 This is a narrow path to provision the first real Australia tunnel while the Blink debit cap and nadanada redelivery gaps remain unresolved. The CLI talks directly to nadanada, but **does not pay**. An operator must use a separate Lightning wallet with a deliberately limited balance and fee setting. The software cannot enforce the original $2 including-fees ceiling on that external wallet. Do not use a treasury wallet.
 
-The public Velora site and holder portal remain in demo mode. This pilot has no holder eligibility check, free allowance, token fees, automated payment, commercial redistribution permission or production secret storage. Keep the pilot journal and exported WireGuard configuration local, private and outside Git or cloud sync. Do not share the invoice or configuration in screenshots, issues or chat.
+The public Velora site and access-status page remain informational, with no active VPN service. This pilot has no holder eligibility check, free allowance, token fees, automated payment, commercial redistribution permission or production secret storage. Keep the pilot journal and exported WireGuard configuration local, private and outside Git or cloud sync. Do not share the invoice or configuration in screenshots, issues or chat.
 
 ## First tunnel
 

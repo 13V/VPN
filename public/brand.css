@@ -198,6 +198,24 @@
 .landing-page .connection-panel {
   padding-bottom: 0;
 }
+.landing-page .holder-pass .pass-amount.access-stage {
+  font-size: clamp(30px, 3.2vw, 43px);
+  letter-spacing: -2.2px;
+  line-height: 1.2;
+}
+.landing-page .access-seal {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d9d4c9;
+  border-radius: 50%;
+  color: #18372e;
+}
+.landing-page .access-seal .icon { width: 14px; height: 14px; }
+.landing-page .phone-power { cursor: default; }
+.landing-page .phone-power:hover { transform: none; }
+.landing-page .phone-connection .status-dot { background: #9b9c91; }
 .status-section {
   padding: 91px 0 82px;
   border-top: 1px solid #dcd7cd;

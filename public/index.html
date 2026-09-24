@@ -1,75 +1,50 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f7f5f0">
-  <meta name="description" content="Explore how community-funded VPN data could work for eligible Velora holders. Try sample access with no payment or live connection.">
-  <title>Holder portal — Velora</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/brand.css">
-  <script src="/app.js" defer></script>
-</head>
-<body class="portal-page">
-  <a class="skip-link" href="#main">Skip to dashboard</a>
-  <aside class="sidebar" aria-label="Main navigation">
-    <a href="/" class="wordmark" aria-label="Velora website home"><img class="brand-lockup" src="/velora-logo.svg" alt="Velora" width="160" height="39"><span class="working-label">VPN DASHBOARD</span></a>
-    <div class="workspace-label">YOUR WORKSPACE</div>
-    <nav>
-      <a class="nav-link selected" href="#overview"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#overview"></use></svg> Overview <span class="nav-number">01</span></a>
-      <a class="nav-link" href="#tunnels"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#plans"></use></svg> Your plans <span class="nav-number" id="nav-count">—</span></a>
-      <a class="nav-link" href="#activity"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg> Activity</a>
-      <button class="nav-link" id="guide-sidebar"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#guide"></use></svg> How it works</button>
-    </nav>
-    <div class="sidebar-note"><div class="tiny-label">A LITTLE SHARED VALUE</div><p>A community token.<br>A useful connection.</p><span>The proposed model uses trading fees to fund holder VPN access.</span></div>
-    <a href="/" class="back-link"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-left"></use></svg> Back to website</a>
-    <div class="sidebar-footer"><span class="status-dot"></span> ROBINHOOD CHAIN <span class="testnet-label">PLANNED</span></div>
-  </aside>
-
-  <div class="app-shell">
-    <header class="topbar"><div class="breadcrumb">Velora <span>/</span> <strong>Holder access</strong></div><div class="topbar-actions"><span class="mode-badge" id="mode-badge">PREVIEW</span><button class="button button-small button-outline" id="wallet-button">Wallet sign-in <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button><button class="button button-small button-outline" id="logout-button" hidden>Sign out</button></div></header>
-    <main id="main" tabindex="-1">
-      <div class="notice" id="mode-notice"><span class="notice-icon" aria-hidden="true">i</span><p><strong>Prototype preview.</strong> Sample limits are illustrative. No real VPN connections or payments are made here.</p><button id="about-demo">What’s included <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button></div>
-      <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
-      <section class="hero" id="overview" aria-labelledby="page-title">
-        <div class="hero-intro"><p class="eyebrow"><span class="small-rule"></span> THE HOLDER EXPERIENCE</p><h1 id="page-title">Holder <em>access.</em></h1><p class="hero-copy">VPN data for eligible holders, intended to be covered by community trading fees. Explore how it could feel in the demo.</p><p class="session-label" id="session-label">No wallet needed to explore</p></div>
-        <div class="holder-pass holder-pass-teaser" id="access-preview" aria-label="Sample holder access preview">
-          <div class="pass-overline"><span class="pass-brand"><img src="/velora-mark.svg" alt="" width="24" height="24"> VELORA / HOLDER ACCESS</span><span class="pass-preview">DEMO ONLY</span></div>
-          <div class="pass-main"><div><p class="pass-kicker">Your sample access</p><h2 class="pass-amount">7 <em>days</em></h2><p class="pass-subtitle">Illustrative access. No live VPN connection.</p></div><svg class="pass-route" viewBox="0 0 90 64" aria-hidden="true" focusable="false"><path d="M5 8 40 56 M50 56 85 8"></path></svg></div>
-          <div class="pass-meter" aria-hidden="true"><span></span></div>
-          <div class="pass-facts"><div><span>Eligibility</span><strong>Demo account</strong></div><div><span>Location</span><strong>Australia</strong></div><div><span>Sample plan</span><strong>1 day · 50 GB</strong></div></div>
-          <button class="pass-action" id="demo-button" type="button">Explore sample access <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f3ed" />
+    <meta name="description" content="See where Velora holder VPN access stands and what needs to happen before it opens." />
+    <title>Access status — Velora</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/landing.css" />
+    <link rel="stylesheet" href="/access.css" />
+  </head>
+  <body class="access-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="brand" href="/" aria-label="Velora home"><img src="/velora-logo.svg" alt="Velora" width="144" height="35" /></a>
+      <nav class="desktop-nav" aria-label="Main navigation"><a href="/#how-it-works">The idea</a><a href="/#status">Launch status</a><a href="/#questions">Questions</a></nav>
+      <a class="header-portal" href="/">Back to Velora <svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-up-right" /></svg></a>
+    </header>
+    <main id="main" class="access-main shell">
+      <div class="access-intro">
+        <div>
+          <p class="eyebrow"><span class="status-dot"></span> VELORA / ACCESS</p>
+          <h1>Access begins with<br /><em>a connection we trust.</em></h1>
         </div>
-      </section>
-
-      <div id="plan-workspace" class="workspace-layout" hidden>
-        <section class="panel allowance-panel holder-pass holder-pass-active" aria-labelledby="allowance-title">
-          <div class="pass-overline"><span class="pass-brand"><img src="/velora-mark.svg" alt="" width="24" height="24"> VELORA / HOLDER ACCESS</span><span class="pass-preview" id="allowance-badge">DEMO ONLY</span></div>
-          <div class="pass-main"><div><p class="pass-kicker" id="allowance-title">Sample access available</p><div class="pass-amount allowance-amount" id="allowance-amount">— <span>DAYS LEFT</span></div><p class="pass-subtitle allowance-description" id="allowance-description">Explore the demo to see sample access.</p></div><svg class="pass-route" viewBox="0 0 90 64" aria-hidden="true" focusable="false"><path d="M5 8 40 56 M50 56 85 8"></path></svg></div>
-          <div class="pass-meter allowance-meter" role="meter" aria-label="Sample access remaining this week" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="allowance-meter"><span id="allowance-fill"></span></div>
-          <div class="pass-facts"><div><span>Eligibility</span><strong id="pass-eligibility">Demo account</strong></div><div><span>Location</span><strong>Australia</strong></div><div><span>Sample plan</span><strong id="pass-plan">1 day · 50 GB</strong></div></div>
-          <div class="pass-bottom"><div class="allowance-stats"><div><span>Days allocated</span><strong id="allowance-spent">—</strong></div><div><span>Demo weekly limit</span><strong id="allowance-total">—</strong></div></div><a class="pass-action" id="pass-create" href="#create-plan">Create sample plan <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></a></div>
-          <p class="allowance-footer"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#renew"></use></svg><span id="allowance-reset">Sample access only. Live holder benefits are not available yet.</span></p>
-        </section>
-        <div class="workspace-columns">
-          <div class="plans-column"><section hidden class="tunnels-section" id="tunnels" aria-labelledby="tunnels-title"><div class="section-heading"><div class="heading-with-count"><h2 id="tunnels-title">Your plans</h2><span class="count" id="tunnel-count">0</span></div><a class="mobile-add-plan" href="#create-plan">Add plan <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#plus"></use></svg></a><span class="tiny-label">02 / YOUR ACCESS</span></div><div id="tunnel-list" class="tunnel-list"><div class="empty-state"><div class="empty-symbol" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#plans"></use></svg></div><h3>No sample plans yet</h3><p>Create a sample plan to see how holder access could work.</p><span class="tiny-label">AUSTRALIA · ONE DAY · NO PAYMENT</span></div></div></section>      <div class="lower-grid" hidden><section class="panel activity-panel" id="activity" aria-labelledby="activity-title"><div class="section-heading inside"><h2 id="activity-title">Recent activity</h2><span class="tiny-label">03 / THE DETAILS</span></div><div id="activity-list" class="activity-list"><p class="empty-inline">Your plan activity will appear here.</p></div></section><section class="pool-panel"><div class="tiny-label">POWERED BY THE COMMUNITY</div><h2>Real utility.<br>Shared by holders.</h2><p>The proposed model routes token trading fees into a pool that funds holder VPN data.</p><button class="text-button" id="guide-pool">See how it works <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button><span class="pool-disclaimer">Token launch and fee funding are not connected in this prototype.</span></section></div>
-<div class="setup-tip"><div><strong>About your setup</strong><p>Download a sample file from any plan. When live access is available, this is where you’ll get your WireGuard setup.</p></div></div></div>
-          <section class="panel create-panel" id="create-plan" aria-labelledby="create-title"><div class="panel-heading"><span class="tiny-label">SAMPLE ACCESS</span><span class="pill subtle">AUSTRALIA</span></div><h3 id="create-title">Create a sample plan</h3><p class="muted">Name your device and choose your location. No payment is involved.</p>
-          <form id="create-form">
-            <div class="form-grid"><label>Plan name<input id="tunnel-name" name="name" type="text" placeholder="My phone" maxlength="40" value="My phone" required autocomplete="off"></label><label>Location<select id="country" name="country"><option value="AU">Australia</option></select></label></div>
-            <div class="plan-choice"><div class="plan-radio" aria-hidden="true"></div><div><strong id="plan-name">One day</strong><span id="plan-detail">50 GB sample data · Australia</span></div><div class="plan-price" id="plan-price">Included<span>IN THE DEMO</span></div></div>
-            <button class="button button-lime button-full" id="create-button" type="submit" disabled>Explore demo to create a tunnel <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button><p class="form-caption" id="create-caption">This prototype generates a sample download, not a working VPN.</p>
-          </form>
-        </section>
-        </div>
+        <p>We are preparing holder-funded VPN access. The service is not open yet; paid delivery, recovery and connection checks come first.</p>
       </div>
-
-      <footer class="page-footer"><span><a href="/">Velora</a> <span class="muted">/ Your connection. Collectively powered.</span></span><span>Built to explore. Not yet a live service.</span></footer>
+      <div class="access-grid">
+        <section class="availability" aria-labelledby="availability-title">
+          <div class="availability-top"><span>01 / CURRENT AVAILABILITY</span><img src="/velora-mark.svg" alt="" width="33" height="33" /></div>
+          <div class="availability-center"><p>Holder VPN access</p><h2 id="availability-title">Not open <em>yet.</em></h2><p>No VPN plan or holder benefit can be activated on this site today.</p></div>
+          <div class="availability-bottom"><span class="availability-mark" aria-hidden="true"></span><span>Service validation in progress</span></div>
+        </section>
+        <section class="path-card" aria-labelledby="path-title">
+          <div class="path-heading"><span class="eyebrow">02 / THE PATH TO OPENING</span><h2 id="path-title">A few things<br /><em>have to be right.</em></h2></div>
+          <ol>
+            <li><span>01</span><div><h3>Verify provisioning</h3><p>Confirm a paid nadanada tunnel can be delivered, renewed and recovered after an interrupted response.</p></div></li>
+            <li><span>02</span><div><h3>Test a real connection</h3><p>Check the WireGuard setup, DNS behaviour and connection quality on a device.</p></div></li>
+            <li><span>03</span><div><h3>Publish holder terms</h3><p>Set a funded allowance policy and make eligibility clear before inviting wallets in.</p></div></li>
+          </ol>
+        </section>
+      </div>
+      <div class="access-bottom">
+        <div><span class="eyebrow">NO ACTION NEEDED TODAY</span><h2>We’ll make the next step clear<br /><em>when access is ready.</em></h2><p>There is no official Velora token address or live holder benefit announced here. You do not need to connect a wallet or send funds.</p></div>
+        <div class="access-links"><a class="button button-primary" href="/">Explore Velora <svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-right" /></svg></a><a class="record-link" href="https://github.com/13V/VPN/blob/codex/holder-portal-mvp/docs/validation-report.md" target="_blank" rel="noopener noreferrer">Read the validation record <svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-up-right" /></svg></a></div>
+      </div>
     </main>
-  </div>
-
-  <dialog id="guide-dialog" aria-labelledby="guide-title"><div class="dialog-top"><span class="tiny-label">THE CONNECTION GUIDE</span><button class="icon-button" id="close-guide" aria-label="Close guide"><svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#close"></use></svg></button></div><h2 id="guide-title">Try the demo<br>in three steps.</h2><p class="muted">Explore sample access. Nothing here charges your wallet or connects a VPN.</p><ol class="guide-steps"><li><span>01</span><div><h3>Start with seven sample days</h3><p>These days let you try creating and extending plans. They are only a demo limit, not an announced holder benefit.</p></div></li><li><span>02</span><div><h3>Create a one-day sample plan</h3><p>Choose Australia and the one-day plan. The download is a text example; it cannot connect you to a VPN.</p></div></li><li><span>03</span><div><h3>Preview or extend your plan</h3><p>View a sample setup file or add another sample day. Live VPN data and token-funded holder access are still being developed.</p></div></li></ol><div class="guide-callout"><strong>Installing a real tunnel later</strong><p>A live service would provide a WireGuard configuration to import into the WireGuard app. Do not import the demo text file. Tunnel connectivity, DNS and throughput are still untested.</p></div><button class="button button-lime button-full" id="guide-done">Got it <svg class="icon" aria-hidden="true" focusable="false"><use href="/icons.svg#arrow-right"></use></svg></button></dialog>
-</body>
+    <footer class="access-footer shell"><a href="/" aria-label="Velora home"><img src="/velora-logo.svg" alt="Velora" width="120" height="29" /></a><span>Your connection. Collectively powered.</span><span>Independent project. No Robinhood endorsement implied.</span></footer>
+  </body>
 </html>
