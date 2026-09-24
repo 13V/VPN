@@ -122,15 +122,9 @@
     const isPilot = state.data.pilotEnabled && session?.kind === 'wallet';
     if (state.pilotWallet !== session?.address) { state.pilotReady = false; state.pilotWallet = session?.address || null; }
     $('pilot-access').hidden = !isPilot;
-    $('overview').hidden = isPilot;
-    document.querySelector('.sidebar a[href="#overview"], .sidebar a[href="#pilot-access"]').href = isPilot ? '#pilot-access' : '#overview';
     $('plan-workspace').hidden = !session || isPilot;
     document.querySelector('.tunnels-section').hidden = !session || isPilot;
     document.querySelector('.lower-grid').hidden = !session || isPilot;
-    document.querySelector('.sidebar a[href="#tunnels"]').hidden = isPilot;
-    document.querySelector('.sidebar a[href="#activity"]').hidden = isPilot;
-    $('guide-sidebar').hidden = isPilot;
-    $('about-demo').hidden = isPilot;
     $('page-title').replaceChildren(document.createTextNode(isDemo ? 'Your sample ' : isPilot ? 'Your pilot ' : 'Holder '), element('em', '', 'access.'));
     document.querySelector('.hero-copy').textContent = isDemo ? 'Explore your sample plans and setup. Real holder access is still in development.' : isPilot ? 'Connect your approved wallet and enter your pilot access code to get a real WireGuard setup.' : session ? 'Wallet signed in. Holder eligibility and live VPN data are not available yet. Switch to the demo to explore the flow.' : 'Eligible holders are intended to receive VPN data covered by community fees. Explore a no-payment preview of how access could work.';
     $('access-preview').hidden = !!session;
