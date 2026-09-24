@@ -23,7 +23,8 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
     '/favicon.svg': ['favicon.svg', 'image/svg+xml'],
     '/icons.svg': ['icons.svg', 'image/svg+xml'],
     '/manrope-latin.woff2': ['manrope-latin.woff2', 'font/woff2'],
-    '/instrument-serif-italic.woff2': ['instrument-serif-italic.woff2', 'font/woff2'],
+    '/newsreader-roman.woff2': ['newsreader-roman.woff2', 'font/woff2'],
+    '/newsreader-italic.woff2': ['newsreader-italic.woff2', 'font/woff2'],
   };
   function token(req) { return (req.headers.cookie || '').split(';').map(s => s.trim()).find(s => s.startsWith('vpn_session='))?.slice(12); }
   function cookie(value, maxAge = 28800) { return `vpn_session=${value}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${canonical.protocol === 'https:' ? '; Secure' : ''}`; }

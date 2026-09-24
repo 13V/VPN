@@ -3,8 +3,8 @@
 .access-intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(220px, .55fr); gap: 54px; align-items: end; }
 .access-intro .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 1.4px; font-weight: 650; }
 .access-intro .status-dot { width: 6px; height: 6px; }
-.access-intro h1 { max-width: 840px; margin-top: 26px; font: 500 clamp(44px, 5.1vw, 72px)/1.07 Manrope, Arial, sans-serif; letter-spacing: -.065em; }
-.access-intro h1 em { font-size: 1.04em; }
+.access-intro h1 { max-width: 840px; margin-top: 26px; font: 400 clamp(52px, 5.8vw, 82px)/1.02 Newsreader, Georgia, serif; letter-spacing: -.05em; }
+.access-intro h1 em { font-size: 1em; }
 .access-intro > p { padding-bottom: 9px; max-width: 306px; color: #62685f; font-size: 13px; line-height: 1.9; }
 .access-grid { margin-top: 68px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
 .availability, .path-card { min-height: 490px; border-radius: 9px; }
@@ -15,21 +15,21 @@
 .availability-top img { filter: brightness(0) invert(1); opacity: .9; }
 .availability-center { position: relative; z-index: 1; margin-block: 28px; }
 .availability-center > p:first-child { color: #cedacf; font-size: 13px; }
-.availability-center h2 { font: 500 clamp(43px, 5vw, 70px)/1.08 Manrope, Arial, sans-serif; letter-spacing: -.065em; margin-top: 10px; }
-.availability-center h2 em { font-size: 1.05em; }
+.availability-center h2 { font: 400 clamp(47px, 5.4vw, 74px)/1.04 Newsreader, Georgia, serif; letter-spacing: -.045em; margin-top: 10px; }
+.availability-center h2 em { font-size: 1em; }
 .availability-center > p:last-child { max-width: 330px; margin-top: 22px; color: #d8e0d8; font-size: 12px; line-height: 1.8; }
 .availability-bottom { justify-content: flex-start; padding-top: 23px; border-top: 1px solid #ffffff3b; color: #d7e2d4; }
 .availability-mark { width: 6px; height: 6px; border-radius: 50%; background: #c9d5ad; }
 .path-card { padding: 34px 38px 24px; background: #fff; border: 1px solid #dedbd2; }
 .path-heading .eyebrow { font-size: 10px; letter-spacing: 1.3px; }
-.path-heading h2 { font: 500 clamp(28px, 3vw, 38px)/1.15 Manrope, Arial, sans-serif; letter-spacing: -.05em; margin-top: 20px; }
+.path-heading h2 { font: 400 clamp(33px, 3.4vw, 44px)/1.12 Newsreader, Georgia, serif; letter-spacing: -.04em; margin-top: 20px; }
 .path-card ol { list-style: none; padding: 0; margin: 31px 0 0; }
 .path-card li { display: grid; grid-template-columns: 32px 1fr; gap: 20px; padding: 16px 0; border-top: 1px solid #e9e6de; }
 .path-card li > span { color: #8f947f; font-size: 10px; padding-top: 3px; }
 .path-card h3 { font-size: 13px; font-weight: 650; }
 .path-card li p { color: #62685f; font-size: 11px; line-height: 1.8; margin-top: 5px; max-width: 360px; }
 .access-bottom { margin-top: 74px; border-top: 1px solid #dcd7cd; padding-top: 48px; display: flex; justify-content: space-between; align-items: end; gap: 40px; }
-.access-bottom h2 { margin-top: 20px; font: 500 clamp(27px, 3vw, 39px)/1.2 Manrope, Arial, sans-serif; letter-spacing: -.05em; }
+.access-bottom h2 { margin-top: 20px; font: 400 clamp(33px, 3.5vw, 45px)/1.16 Newsreader, Georgia, serif; letter-spacing: -.04em; }
 .access-bottom p { max-width: 510px; margin-top: 20px; color: #62685f; font-size: 12px; line-height: 1.85; }
 .access-links { display: grid; gap: 18px; min-width: 205px; justify-items: start; }
 .record-link { font-size: 11px; font-weight: 650; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
@@ -37,4 +37,4 @@
 .access-footer { display: flex; align-items: center; gap: 25px; padding-top: 29px; padding-bottom: 30px; border-top: 1px solid #dcd7cd; color: #62685f; font-size: 10px; }
 .access-footer span:last-child { margin-left: auto; }
 @media (max-width: 850px) { .access-intro { grid-template-columns: 1fr; gap: 22px; } .access-intro > p { max-width: 580px; } .access-grid { grid-template-columns: 1fr; margin-top: 45px; } .availability, .path-card { min-height: 370px; } .path-card { min-height: 0; } }
-@media (max-width: 600px) { .access-main { padding-top: 54px; padding-bottom: 58px; } .access-intro h1 { font-size: clamp(39px, 11vw, 54px); } .access-grid { gap: 13px; } .availability, .path-card { padding: 26px; } .availability { min-height: 340px; } .availability-center h2 { font-size: 49px; } .access-bottom { display: block; margin-top: 52px; padding-top: 37px; } .access-links { margin-top: 27px; } .access-footer { flex-wrap: wrap; gap: 11px 20px; } .access-footer span:last-child { margin-left: 0; width: 100%; } }
+@media (max-width: 600px) { .access-main { padding-top: 54px; padding-bottom: 58px; } .access-intro h1 { font-size: clamp(39px, 11vw, 54px); } .access-grid { gap: 13px; } .availability, .path-card { padding: 26px; } .availability { min-height: 340px; } .availability-center h2 { font-size: 54px; } .access-bottom { display: block; margin-top: 52px; padding-top: 37px; } .access-links { margin-top: 27px; } .access-footer { flex-wrap: wrap; gap: 11px 20px; } .access-footer span:last-child { margin-left: 0; width: 100%; } }

@@ -6,9 +6,16 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("/instrument-serif-italic.woff2") format("woff2");
-  font-weight: 400;
+  font-family: Newsreader;
+  src: url("/newsreader-roman.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Newsreader;
+  src: url("/newsreader-italic.woff2") format("woff2");
+  font-weight: 200 800;
   font-style: italic;
   font-display: swap;
 }
@@ -66,7 +73,7 @@ summary:focus-visible {
   outline: 2px solid var(--ink);
 }
 em {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: Newsreader, Georgia, serif;
   font-weight: 400;
 }
 img {
@@ -209,15 +216,16 @@ img {
 }
 h1 {
   font-size: clamp(60px, 6.25vw, 88px);
-  line-height: 1.03;
-  font-weight: 500;
-  letter-spacing: -5px;
+  line-height: 1.01;
+  font-family: Newsreader, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.052em;
   margin-top: 27px;
 }
 h1 em {
-  font-size: 1.14em;
-  line-height: 0.94;
-  letter-spacing: -2.5px;
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: -0.045em;
   display: inline-block;
   padding-bottom: 6px;
 }
@@ -542,7 +550,7 @@ h1 em {
   align-items: flex-start;
 }
 .intro-facts > div > span {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: Newsreader, Georgia, serif;
   font-style: italic;
   font-size: 22px;
   color: #827969;
@@ -584,15 +592,16 @@ h1 em {
 .section-intro h2,
 .experience-copy h2,
 .faq-section h2 {
-  font-size: 43px;
-  font-weight: 500;
-  letter-spacing: -1.8px;
-  line-height: 1.17;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 49px;
+  font-weight: 400;
+  letter-spacing: -0.044em;
+  line-height: 1.13;
   margin-top: 22px;
 }
 h2 em {
-  font-size: 1.2em;
-  letter-spacing: -0.5px;
+  font-size: 1em;
+  letter-spacing: -0.04em;
 }
 .section-intro > p:last-child,
 .experience-copy > p:not(.eyebrow) {
@@ -803,7 +812,7 @@ h2 em {
   color: var(--muted);
 }
 .phone-screen h3 {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: Newsreader, Georgia, serif;
   font-style: italic;
   font-size: 33px;
   line-height: 1.08;
@@ -1031,10 +1040,11 @@ h2 em {
   padding-bottom: 47px;
 }
 .footer-invitation h2 {
+  font-family: Newsreader, Georgia, serif;
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.25;
-  letter-spacing: -1px;
+  letter-spacing: -0.04em;
 }
 .footer-route {
   display: block;
