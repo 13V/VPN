@@ -24,5 +24,9 @@
     "esbuild": "^0.28.2",
     "ethers": "6.17.0",
     "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "d3-geo": "^3.1.1",
+    "topojson-client": "^3.1.0"
   }
 }

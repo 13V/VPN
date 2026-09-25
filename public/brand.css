@@ -45,25 +45,25 @@
 .pass-art {
   position: relative;
   isolation: isolate;
-  height: 184px;
+  height: 330px;
   margin: 18px -30px 0;
   overflow: hidden;
-  border-bottom: 1px solid #e7e2d8;
+  border-bottom: 1px solid #e0dfd4;
   background:
-    radial-gradient(ellipse at 48% 16%, #fff 0%, #f4f4ee 48%, #e7e8df 100%);
+    radial-gradient(ellipse at 44% 30%, #fff 0%, #f2f1e9 52%, #dddfd2 100%);
 }
 .pass-art::after {
   content: "";
   position: absolute;
   z-index: 0;
   left: 50%;
-  bottom: 8px;
-  width: 39%;
-  height: 15px;
+  bottom: 18px;
+  width: 55%;
+  height: 20px;
   border-radius: 50%;
   transform: translateX(-50%);
-  background: #18372e38;
-  filter: blur(11px);
+  background: #53675332;
+  filter: blur(16px);
 }
 .pass-art-fallback,
 .pass-art-canvas {
@@ -84,6 +84,23 @@
 }
 .pass-art.is-rendered .pass-art-fallback { opacity: 0; }
 .pass-art.is-rendered .pass-art-canvas { opacity: 1; }
+.landing-page .connection-stage {
+  width: 100%;
+  padding: 0;
+  perspective: none;
+}
+.landing-page .connection-stage::before { display: none; }
+.landing-page .connection-stage .pass-art {
+  height: clamp(450px, 42vw, 550px);
+  margin: 0;
+  border: 0;
+  background: radial-gradient(ellipse 58% 54% at 50% 52%, #efece3 0%, #f6f3ed 64%, transparent 100%);
+}
+.landing-page .connection-stage .pass-art::after {
+  bottom: 6%;
+  width: 53%;
+  background: #4559412b;
+}
 .pass-main {
   display: flex;
   align-items: center;
@@ -218,7 +235,7 @@
 .landing-page .connection-panel {
   padding-bottom: 0;
 }
-.landing-page .pass-main { margin-top: 16px; }
+.landing-page .pass-main { margin-top: 20px; padding-bottom: 23px; }
 .landing-page .pass-facts {
   margin-top: 15px;
   border-top: 1px solid #e7e2d8;
@@ -528,6 +545,11 @@
   width: 13px;
   height: 13px;
 }
+@media (max-width: 760px) {
+  .landing-page .connection-stage .pass-art {
+    height: clamp(315px, 100vw, 410px);
+  }
+}
 .portal-page .workspace-columns {
   gap: 28px;
 }
@@ -673,8 +695,8 @@
     margin-top: 31px;
   }
   .landing-page .pass-art {
-    height: 165px;
-    margin-inline: -22px;
+    height: min(380px, 108vw);
+    margin: 0;
   }
   .pass-route {
     width: 57px;

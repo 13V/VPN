@@ -199,8 +199,8 @@ test('public pages show access status without a simulated plan or public demo as
   const brand = await request('/brand.css');
   assert.equal(brand.status, 200);
   assert.match(brand.headers.get('content-type'), /text\/css/);
-  const artwork = await request('/connection-sculpture.jpg');
+  const artwork = await request('/hero-sculpture-fallback.svg');
   assert.equal(artwork.status, 200);
-  assert.match(artwork.headers.get('content-type'), /image\/jpeg/);
+  assert.match(artwork.headers.get('content-type'), /image\/svg\+xml/);
   assert.equal((await request('/portal.json')).status, 404);
 });

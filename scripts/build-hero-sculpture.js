@@ -10,5 +10,5 @@ esbuild.buildSync({
   format: 'iife',
   target: 'es2020',
   legalComments: 'eof',
-  banner: { js: '/*! Three.js sculpture for Velora. MIT licence: /threejs-license.txt */' },
+  banner: { js: '/*! Velora globe: Three.js MIT /threejs-license.txt; world-atlas ISC /world-atlas-license.txt */' },
 });
