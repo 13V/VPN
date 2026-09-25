@@ -1,6 +1,23 @@
-# VPN supplier validation
+# Velora holder portal
 
-Node.js 22+ harness for testing nadanada VPN purchase, renewal and interrupted delivery through Bitcoin Lightning. This repository does not implement a token, holder website or treasury bridge.
+A Node.js 22+ launch website for Velora, a proposed holder-funded VPN. The landing page explains the idea; `/portal` shows the current access status and the checks required before service opens.
+
+**[Open the website](https://vpn-one-phi.vercel.app)** · [View access status](https://vpn-one-phi.vercel.app/portal). Hosted on Vercel; real VPN purchasing remains disabled.
+
+```sh
+npm ci
+npm start
+```
+
+Open [the local website](http://127.0.0.1:4173) to read the introduction, proposed funding model and FAQ. [Access status](http://127.0.0.1:4173/portal) clearly states that no VPN plan or holder benefit can be activated yet. The public launch mode serves no account, wallet or plan-creation API. The earlier interactive prototype remains in the repository for offline development tests but is not part of the hosted website. See [MVP history and remaining work](docs/mvp.md).
+
+The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the public information pages.
+
+For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate one invoice, save a paid WireGuard configuration, verify status and request an extension. It never sends a payment, and the public holder access page remains informational. This route does not satisfy the original unattended-payment or lost-response recovery acceptance criteria.
+
+For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
+
+`npm run launch:preflight -- --manifest launch/manifest.example.json` performs a **read-only**, deliberately blocked Pons V2 check against Robinhood Chain. Copy and fill a private manifest only after choosing the immutable launch terms; the checker never holds a signer or sends a transaction. See the launch checklist for its scope and required human review.
 
 **Live spending is blocked.** Blink's inspected payment input has no enforceable maximum fee or total-debit parameter. Adding credentials does not remove this gate. Offline simulations work; paid supplier validation remains outstanding. See the [dated evidence report](docs/validation-report.md).
 
@@ -16,7 +33,7 @@ npm run vpn -- purchase
 npm run report
 ```
 
-There are no dependencies to install. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All commands default to read-only behaviour.
+Run `npm ci` first to install the pinned dependencies. Tests use local fixtures and temporary directories, never real payments. Catalogue and preflight access public supplier/Blink endpoints. All supplier CLI commands default to read-only behaviour. The hosted website does not create orders or accept payments.
 
 `docs/offline-tests.workflow.yml` is an optional GitHub Actions template for Node.js 22/24. It is inactive; a login with workflow-write permission can place it at `.github/workflows/test.yml` to enable CI.
 

@@ -1,5 +1,9 @@
 # nadanada validation — 2026-09-18
 
+**2026-09-24 update:** A separate operator-assisted nadanada CLI is available in [manual-pilot.md](manual-pilot.md). Today's read-only catalogue again returned AU (`19`) and the one-day `$0.50` selector. Current OpenAPI explicitly says each VPN payment can generate one configuration and documents `409 CONFIG_ALREADY_GENERATED` on repeat completion. No invoice has been requested or paid, and no actual tunnel has been delivered. The manual CLI never pays and cannot enforce a cap on an external wallet; it therefore does not change the unattended-integration verdict below.
+
+**Read-only recheck — 2026-09-23:** `npm run catalogue` still returned Australia (code `19`) and the one-day `$0.50` entry. `npm run preflight` still reported `hardCap: false`, no Blink test-wallet credentials, and live spending disabled. No invoice was requested and no payment was attempted. The catalogue and exchange-rate quote are time-sensitive; rerun them before a funded pilot.
+
 **Decision: suitability for unattended integration is not established.** No paid live scenario has run. No invoices were requested, funds spent or supplier messages sent during this implementation.
 
 The harness and offline tests are implemented. Public read-only catalogue and Blink schema checks succeeded. Paid validation is blocked because Blink has no verified maximum-total-debit control in the inspected payment operation, and no test-wallet credentials are present. WireGuard is not installed here; provisioning would not establish connection quality even if paid tests succeeded.

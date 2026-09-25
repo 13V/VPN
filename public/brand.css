@@ -1,0 +1,736 @@
+/* The access pass is one product surface on the website and in the portal. */
+.holder-pass {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #d9d4c9;
+  border-radius: 14px;
+  background: #fff;
+  color: #18372e;
+  box-shadow: 0 22px 55px -42px #17352c6b;
+  padding: 29px 30px 0;
+  font-family: Manrope, Arial, sans-serif;
+}
+.holder-pass::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: #18372e;
+}
+.pass-overline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 9px;
+  letter-spacing: 1.15px;
+  font-weight: 650;
+}
+.pass-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+.pass-brand img {
+  width: 20px;
+  height: 20px;
+}
+.pass-preview {
+  color: #716c60;
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+.pass-art {
+  position: relative;
+  isolation: isolate;
+  height: 330px;
+  margin: 18px -30px 0;
+  overflow: hidden;
+  border-bottom: 1px solid #e0dfd4;
+  background:
+    radial-gradient(ellipse at 44% 30%, #fff 0%, #f2f1e9 52%, #dddfd2 100%);
+}
+.pass-art::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 18px;
+  width: 55%;
+  height: 20px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: #53675332;
+  filter: blur(16px);
+}
+.pass-art-fallback,
+.pass-art-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pass-art-fallback {
+  z-index: 1;
+  object-fit: contain;
+  transition: opacity 300ms ease;
+}
+.pass-art-canvas {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.pass-art.is-rendered .pass-art-fallback { opacity: 0; }
+.pass-art.is-rendered .pass-art-canvas { opacity: 1; }
+.landing-page .connection-stage {
+  width: 100%;
+  padding: 0;
+  perspective: none;
+}
+.landing-page .connection-stage::before { display: none; }
+.landing-page .connection-stage .pass-art {
+  height: clamp(450px, 42vw, 550px);
+  margin: 0;
+  border: 0;
+  background: radial-gradient(ellipse 58% 54% at 50% 52%, #efece3 0%, #f6f3ed 64%, transparent 100%);
+}
+.landing-page .connection-stage .pass-art::after {
+  bottom: 6%;
+  width: 53%;
+  background: #4559412b;
+}
+.pass-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 42px;
+}
+.pass-kicker {
+  font-size: 13px;
+  font-weight: 500;
+  color: #62685f;
+}
+.holder-pass .pass-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 4px 0 0;
+  font-size: 67px;
+  font-weight: 450;
+  letter-spacing: -4px;
+  line-height: 1.13;
+  color: #18372e;
+  font-family: Manrope, Arial, sans-serif;
+}
+.pass-amount > span {
+  color: #62685f;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+.pass-subtitle {
+  max-width: 300px;
+  margin: 8px 0 0;
+  color: #62685f;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.pass-route {
+  flex: none;
+  width: 78px;
+  height: 56px;
+  fill: none;
+  stroke: #18372e;
+  stroke-width: 1.3;
+  opacity: 0.52;
+}
+.holder-pass .pass-meter {
+  display: block;
+  height: 2px;
+  margin: 27px 0 0;
+  border-radius: 0;
+  background: #e7e2d8;
+  overflow: hidden;
+}
+.pass-meter > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #18372e;
+  border-radius: 0;
+  transition: width 0.35s ease;
+}
+.pass-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  padding: 23px 0 25px;
+}
+.pass-facts > div {
+  min-width: 0;
+}
+.pass-facts > div + div {
+  border-left: 1px solid #e7e2d8;
+  padding-left: 13px;
+}
+.pass-facts span,
+.pass-facts strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.pass-facts span {
+  color: #77766e;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.pass-facts strong {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.holder-pass .connection-heading {
+  text-align: left;
+  padding-top: 16px;
+  border-top: 1px solid #e7e2d8;
+}
+.holder-pass .connection-heading h3 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+.holder-pass .connection-heading p {
+  margin-top: 4px;
+  min-height: 0;
+  font-size: 11px;
+}
+.holder-pass .connection-control {
+  padding: 11px 0 19px;
+}
+.holder-pass .panel-link {
+  margin: 0 -30px;
+  padding: 17px 30px;
+  border-top: 1px solid #e7e2d8;
+  color: #18372e;
+  font-size: 11px;
+  font-weight: 650;
+}
+.holder-pass .panel-link:hover {
+  background: #f5f1e9;
+}
+.holder-pass .panel-link .icon,
+.pass-action .icon {
+  width: 17px;
+  height: 17px;
+}
+.landing-page .connection-stage::before {
+  inset: 33px -17px 53px 19px;
+  background: #eae4d980;
+  border-radius: 14px;
+  transform: rotate(2deg);
+}
+.landing-page .connection-panel {
+  padding-bottom: 0;
+}
+.landing-page .pass-main { margin-top: 20px; padding-bottom: 23px; }
+.landing-page .pass-facts {
+  margin-top: 15px;
+  border-top: 1px solid #e7e2d8;
+  padding: 15px 0 19px;
+}
+.landing-page .holder-pass .pass-amount.access-stage {
+  font-family: Newsreader, Georgia, serif;
+  font-size: clamp(35px, 3.6vw, 49px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.13;
+}
+.landing-page .holder-pass .connection-heading { padding-bottom: 25px; }
+.landing-page .phone-power { cursor: default; }
+.landing-page .phone-power:hover { transform: none; }
+.landing-page .phone-connection .status-dot { background: #9b9c91; }
+.status-section {
+  padding: 91px 0 82px;
+  border-top: 1px solid #dcd7cd;
+}
+.status-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.63fr);
+  column-gap: 70px;
+  align-items: end;
+}
+.status-intro .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 21px;
+}
+.status-intro h2 {
+  max-width: 670px;
+  font: 400 clamp(36px, 4.4vw, 56px)/1.12 Newsreader, Georgia, serif;
+  letter-spacing: -0.045em;
+}
+.status-intro > p:last-child {
+  max-width: 330px;
+  padding-bottom: 5px;
+  color: #62685f;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 54px;
+  border-top: 1px solid #dcd7cd;
+  border-bottom: 1px solid #dcd7cd;
+}
+.status-grid > div { padding: 29px 33px 35px 0; }
+.status-grid > div + div { border-left: 1px solid #dcd7cd; padding-left: 33px; }
+.status-index { color: #6c756c; font-size: 9px; font-weight: 650; letter-spacing: 1.1px; }
+.status-grid h3 { margin-top: 31px; font-size: 18px; font-weight: 550; letter-spacing: -0.5px; }
+.status-grid p { max-width: 270px; margin-top: 10px; color: #62685f; font-size: 11px; line-height: 1.8; }
+.status-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 23px;
+  font-size: 11px;
+  font-weight: 650;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+}
+.status-source .icon { width: 14px; height: 14px; }
+@media (max-width: 760px) {
+  .status-section { padding: 65px 0 59px; }
+  .status-intro { display: block; }
+  .status-intro h2 { max-width: 550px; font-size: clamp(32px, 8vw, 43px); letter-spacing: -1.5px; }
+  .status-intro > p:last-child { max-width: 480px; margin-top: 20px; font-size: 13px; }
+  .status-grid { display: block; margin-top: 37px; }
+  .status-grid > div, .status-grid > div + div { padding: 23px 0 26px; border-left: 0; }
+  .status-grid > div + div { border-top: 1px solid #dcd7cd; }
+  .status-grid h3 { margin-top: 15px; }
+  .status-grid p { max-width: 470px; font-size: 12px; }
+}
+
+/* The portal uses the same type, color and card geometry as the website. */
+.portal-page {
+  --bg: #f6f3ed;
+  --panel: #fff;
+  --text: #18372e;
+  --muted: #62685f;
+  --line: #dcd7cd;
+  --jade: #29483d;
+  --beige: #eae4d9;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Manrope, Arial, sans-serif;
+}
+.portal-page .sidebar,
+.portal-page .topbar {
+  background: #f6f3ed;
+  border-color: var(--line);
+}
+.portal-page .sidebar {
+  width: 210px;
+  padding: 31px 17px 21px;
+}
+.portal-page .app-shell {
+  margin-left: 210px;
+}
+.portal-page .sidebar .brand-lockup {
+  width: 137px;
+}
+.portal-page .workspace-label {
+  margin-top: 54px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 550;
+  letter-spacing: 0.3px;
+}
+.portal-page .nav-link {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 550;
+}
+.portal-page .nav-link.selected {
+  background: #eae4d9;
+}
+.portal-page .topbar {
+  min-height: 82px;
+  padding-inline: 42px;
+}
+.portal-page .topbar #wallet-button {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 11px;
+}
+.portal-page main {
+  max-width: 1400px;
+  padding: 27px 42px 0;
+}
+.portal-page .notice {
+  padding: 0 0 19px;
+  border-bottom-color: var(--line);
+}
+.portal-page .notice p,
+.portal-page .notice button {
+  font-size: 11px;
+  line-height: 1.6;
+}
+.portal-page .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.83fr);
+  align-items: center;
+  gap: clamp(35px, 6vw, 90px);
+  padding: 72px 0 83px;
+  min-height: 0;
+}
+.portal-page .hero:has(.holder-pass[hidden]) {
+  display: block;
+  padding: 39px 0 28px;
+}
+.portal-page .hero-intro {
+  min-width: 0;
+}
+.portal-page #overview .eyebrow {
+  display: flex;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.portal-page .hero h1 {
+  max-width: 680px;
+  margin: 26px 0 0;
+  font-family: Newsreader, Georgia, serif;
+  font-size: clamp(46px, 5.2vw, 76px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+.portal-page .hero-copy {
+  max-width: 480px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+.portal-page .session-label {
+  display: block;
+  margin-top: 27px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.portal-page .holder-pass-teaser {
+  padding-bottom: 0;
+  width: 100%;
+}
+.pass-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 49px;
+  padding: 14px 18px;
+  border: 1px solid #18372e;
+  border-radius: 5px;
+  background: #18372e;
+  color: #fff;
+  font: 600 11px Manrope, Arial, sans-serif;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.pass-action:hover:not(:disabled) {
+  background: #29483d;
+  transform: translateY(-1px);
+}
+.holder-pass-teaser .pass-action {
+  display: flex;
+  width: calc(100% + 60px);
+  margin: 0 -30px;
+  border-radius: 0;
+  padding-inline: 30px;
+}
+.portal-page .workspace-layout {
+  gap: 37px;
+}
+.portal-page .workspace-layout .allowance-panel {
+  display: block;
+  min-height: 0;
+  padding: 30px 34px 24px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 22px 55px -42px #17352c6b;
+}
+.portal-page .holder-pass-active .pass-main {
+  margin-top: 33px;
+}
+.portal-page .holder-pass-active .pass-kicker {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.portal-page .holder-pass-active .allowance-amount {
+  margin-top: 4px;
+  font-size: 67px;
+  font-weight: 450;
+  letter-spacing: -4px;
+}
+.portal-page .holder-pass-active .allowance-amount > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.portal-page .holder-pass-active .allowance-description {
+  max-width: 480px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.portal-page .holder-pass-active .allowance-meter {
+  height: 2px;
+  margin: 27px 0 0;
+  background: #e7e2d8;
+}
+.portal-page .holder-pass-active .allowance-meter > span {
+  background: var(--text);
+}
+.portal-page .holder-pass-active .pass-facts {
+  padding-bottom: 20px;
+}
+.portal-page .holder-pass-active .pass-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e7e2d8;
+}
+.portal-page .holder-pass-active .allowance-stats {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  width: auto;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+.portal-page .holder-pass-active .allowance-stats > div {
+  text-align: left;
+  gap: 5px;
+}
+.portal-page .holder-pass-active .allowance-stats span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.portal-page .holder-pass-active .allowance-stats strong {
+  color: var(--text);
+  font: 600 12px Manrope, Arial, sans-serif;
+}
+.portal-page .holder-pass-active .allowance-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 19px 0 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+.portal-page .holder-pass-active .allowance-footer .icon {
+  width: 13px;
+  height: 13px;
+}
+@media (max-width: 760px) {
+  .landing-page .connection-stage .pass-art {
+    height: clamp(315px, 100vw, 410px);
+  }
+}
+.portal-page .workspace-columns {
+  gap: 28px;
+}
+.portal-page .tunnel-card,
+.portal-page .create-panel,
+.portal-page .empty-state {
+  border-radius: 9px;
+  box-shadow: none;
+}
+.portal-page .create-panel {
+  background: #eae4d9;
+  border-color: #dcd7cd;
+}
+.portal-page .create-panel h3 {
+  font-size: 23px;
+  font-weight: 550;
+  letter-spacing: -0.65px;
+}
+.portal-page .plan-choice,
+.portal-page .create-panel input,
+.portal-page .create-panel select {
+  background: #fff;
+  border-color: #dcd7cd;
+}
+.portal-page .empty-state {
+  border-style: solid;
+}
+.portal-page .empty-symbol {
+  background: #eae4d9 url("/velora-mark.svg") center / 22px no-repeat;
+}
+.portal-page .empty-symbol .icon {
+  opacity: 0;
+}
+.portal-page .button,
+.portal-page input,
+.portal-page select {
+  border-radius: 5px;
+}
+.portal-page .button-lime,
+.portal-page .button-full,
+.portal-page .tunnel-actions .button-outline {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fff;
+}
+.portal-page .tunnel-actions .button-lime {
+  background: #fff;
+  border-color: #dcd7cd;
+  color: var(--text);
+}
+
+@media (max-width: 1050px) {
+  .portal-page .sidebar {
+    width: 184px;
+  }
+  .portal-page .app-shell {
+    margin-left: 184px;
+  }
+  .portal-page .topbar {
+    padding-inline: 27px;
+  }
+  .portal-page main {
+    padding-inline: 27px;
+  }
+  .portal-page .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(315px, 0.9fr);
+    gap: 28px;
+  }
+}
+@media (max-width: 900px) {
+  .portal-page .sidebar {
+    position: static;
+    width: auto;
+  }
+  .portal-page .app-shell {
+    margin-left: 0;
+  }
+  .portal-page .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(315px, 0.9fr);
+  }
+}
+@media (max-width: 740px) {
+  .portal-page .topbar {
+    min-height: 0;
+    padding: 12px 20px;
+  }
+  .portal-page main {
+    padding: 0 20px;
+  }
+  .portal-page .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 0 59px;
+  }
+  .portal-page .hero:has(.holder-pass[hidden]) {
+    padding: 32px 0 23px;
+  }
+  .portal-page .hero h1 {
+    font-size: clamp(43px, 10vw, 62px);
+    letter-spacing: -2.4px;
+  }
+  .portal-page .hero-copy {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .portal-page .workspace-layout .allowance-panel {
+    padding: 25px 24px 22px;
+  }
+  .portal-page .holder-pass-active .pass-bottom {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .portal-page .holder-pass-active .pass-action {
+    width: 100%;
+  }
+  .portal-page .workspace-columns {
+    gap: 24px;
+  }
+}
+@media (max-width: 430px) {
+  .holder-pass {
+    padding: 22px 22px 0;
+  }
+  .holder-pass .panel-link {
+    margin-inline: -22px;
+    padding-inline: 22px;
+  }
+  .holder-pass-teaser .pass-action {
+    width: calc(100% + 44px);
+    margin-inline: -22px;
+    padding-inline: 22px;
+  }
+  .pass-overline {
+    font-size: 8px;
+    letter-spacing: 0.65px;
+  }
+  .pass-preview {
+    font-size: 8px;
+  }
+  .pass-main {
+    margin-top: 31px;
+  }
+  .landing-page .pass-art {
+    height: min(380px, 108vw);
+    margin: 0;
+  }
+  .pass-route {
+    width: 57px;
+    height: 45px;
+  }
+  .holder-pass .pass-amount,
+  .portal-page .holder-pass-active .allowance-amount {
+    font-size: 55px;
+    letter-spacing: -3px;
+  }
+  .pass-facts {
+    gap: 8px;
+  }
+  .pass-facts > div + div {
+    padding-left: 8px;
+  }
+  .pass-facts strong {
+    font-size: 10px;
+  }
+  .portal-page .workspace-layout .allowance-panel {
+    padding: 22px 20px;
+  }
+  .portal-page .holder-pass-active .allowance-stats {
+    gap: 22px;
+  }
+}
+@media (max-width: 350px) {
+  .pass-preview {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pass-meter > span,
+  .pass-action {
+    transition: none;
+  }
+}
