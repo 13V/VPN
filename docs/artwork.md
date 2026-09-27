@@ -1,17 +1,19 @@
-# Velora hero artwork — 2026-09-25
+# Velora faceted globe — 2026-09-27
 
-The landing hero presents a conceptual terrestrial globe as a small studio object. Its warm mineral body, forest-green inlaid land, muted brass orbit and stone display base are decorative. They do not represent VPN coverage, server locations, live access, connection quality or product performance.
+The hero uses a low-poly globe in Velora's green, ivory and warm beige palette. Its broad triangular ocean faces, raised ivory land and shallow beige coast edges follow the user's faceted style reference. The reference photograph is not embedded, traced or used as a texture. The globe is decorative, with no locations or indicators that imply verified VPN coverage.
 
-The final scene is built in [Three.js](https://threejs.org/) from editable source in `src/hero-sculpture.js`. The globe uses a local canvas colour, relief and roughness texture; the coastlines come from `src/earth-land.json`. The narrow orbit is a shaped 3D ribbon, so the globe occludes its rear segment. The scene uses broad environment and direct light without a glowing atmosphere. It stops drawing when hidden, caps frame rate and pixel density, and holds a deliberate still composition for reduced motion.
+The artwork is built from real coastline data and code. `scripts/build-faceted-globe.mjs` creates an icosphere, clips each face against the local land mask, and raises the land slightly above the ocean. It writes `src/faceted-globe.json` and projects the same triangles into `public/hero-sculpture-fallback.svg`. The low polygon count intentionally simplifies small islands and coastal details. Orientation checks use known land and ocean coordinates.
 
-Two quick page studies compared green land on ivory with a tonal engraved version. The latter lacked enough contrast against Velora's warm page. Two further studio-object studies were generated with the built-in image-generation tool to examine material and lighting. They were visual references only; no generated bitmap appears on the website. The final hero uses geographical source data and code-native materials.
+`src/hero-sculpture.js` renders the model with locally bundled Three.js, matte face colours and directional light. It makes one slow rotation in about 140 seconds. Rendering pauses while off screen or in a hidden document, is limited to 30 frames per second, and caps pixel density at 1.75. Reduced motion holds the designed Atlantic-facing pose. The matching SVG appears immediately and remains usable if WebGL fails or its context is lost. The scene has no textures, environment maps, post-processing or external asset requests.
 
 ## Rebuild
 
-`npm run build:hero` bundles the Three.js module to the ignored `public/hero-sculpture.js`. The local `npm start` command and the Vercel build also bundle it. The static `public/hero-sculpture-fallback.svg` uses the same geography and palette, so it is available before WebGL initializes and when WebGL cannot run. After changing the land source or fallback design, regenerate it with:
-
 ```sh
-node scripts/build-hero-fallback.js
+npm run build:hero
 ```
 
-The coastline source is a locally simplified copy of [world-atlas v2 land at 1:50m](https://github.com/topojson/world-atlas), derived from [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/). `scripts/prepare-earth-land.js` documents the simplification. To regenerate the source, download the fixed `world-atlas@2.0.2/land-50m.json` file from the world-atlas package and run `node scripts/prepare-earth-land.js path/to/land-50m.json`, then rebuild the SVG and JS. Natural Earth describes its map data as public domain; the world-atlas redistribution carries the licence shipped at `public/world-atlas-license.txt`. Three.js's MIT licence is shipped at `public/threejs-license.txt`. No third-party asset request is made by the page.
+This regenerates the mesh and fallback before bundling the browser script. `npm start` and the Vercel build run the same command automatically. The browser bundle is ignored; the mesh, SVG, generators and renderer source are checked in. `node scripts/build-hero-fallback.js` also regenerates the mesh and still together.
+
+The coastline source `src/earth-land.json` is a locally simplified copy of [world-atlas v2 land at 1:50m](https://github.com/topojson/world-atlas), derived from [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/). `scripts/prepare-earth-land.js` documents its simplification. To regenerate it, download `world-atlas@2.0.2/land-50m.json`, run `node scripts/prepare-earth-land.js path/to/land-50m.json`, then rebuild the hero. Natural Earth describes its data as public domain; the world-atlas ISC licence is at `public/world-atlas-license.txt`. Three.js's MIT licence is at `public/threejs-license.txt`.
+
+An earlier glass image generated for visual exploration is not used by this version. No stock image or generated bitmap is shipped in the hero.

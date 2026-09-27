@@ -91,15 +91,17 @@
 }
 .landing-page .connection-stage::before { display: none; }
 .landing-page .connection-stage .pass-art {
-  height: clamp(450px, 42vw, 550px);
+  height: auto;
+  aspect-ratio: 1;
   margin: 0;
   border: 0;
-  background: radial-gradient(ellipse 58% 54% at 50% 52%, #efece3 0%, #f6f3ed 64%, transparent 100%);
+  background: transparent;
 }
 .landing-page .connection-stage .pass-art::after {
-  bottom: 6%;
-  width: 53%;
-  background: #4559412b;
+  bottom: 3%;
+  width: 45%;
+  height: 14px;
+  background: #18372e16;
 }
 .pass-main {
   display: flex;
@@ -546,8 +548,8 @@
   height: 13px;
 }
 @media (max-width: 760px) {
-  .landing-page .connection-stage .pass-art {
-    height: clamp(315px, 100vw, 410px);
+  .landing-page .connection-stage {
+    width: min(430px, 100%);
   }
 }
 .portal-page .workspace-columns {
@@ -693,10 +695,6 @@
   }
   .pass-main {
     margin-top: 31px;
-  }
-  .landing-page .pass-art {
-    height: min(380px, 108vw);
-    margin: 0;
   }
   .pass-route {
     width: 57px;
