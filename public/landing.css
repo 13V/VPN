@@ -1682,3 +1682,212 @@ h1 {
     transition: none !important;
   }
 }
+
+/* The opening is a single editorial statement followed by the proposed funding path. */
+.hero {
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 34px;
+  padding-top: 84px;
+  padding-bottom: 77px;
+}
+.hero h1 {
+  max-width: 660px;
+  font-size: clamp(67px, 6.65vw, 94px);
+  line-height: .97;
+}
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 10px;
+  font-weight: 650;
+}
+.hero-eyebrow span { color: #a8a08f; padding-inline: 5px; }
+.hero-description {
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.75;
+  margin-top: 31px;
+}
+.opening-note {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 35px;
+  min-height: 90px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.opening-note-label {
+  color: #827c71;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.opening-note p {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: Newsreader, Georgia, serif;
+  font-size: clamp(19px, 2vw, 27px);
+  letter-spacing: -.025em;
+}
+.opening-note p .icon { color: #a0957c; width: 18px; height: 18px; }
+.opening-note a,
+.idea-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 44px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.opening-note a:hover,
+.idea-bottom a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.opening-note a .icon,
+.idea-bottom a .icon { width: 15px; height: 15px; }
+.idea-section {
+  color: #f6f3ed;
+  background: #19392f;
+  padding: 107px 0 0;
+}
+.idea-inner {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(56px, 9vw, 145px);
+  align-items: start;
+  padding-bottom: 80px;
+}
+.idea-heading .eyebrow {
+  color: #c5cbbd;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 10px;
+  font-weight: 650;
+}
+.idea-heading h2 {
+  max-width: 530px;
+  margin-top: 32px;
+  font: 400 clamp(48px, 5.2vw, 73px)/1.02 Newsreader, Georgia, serif;
+  letter-spacing: -.052em;
+}
+.idea-heading > p:last-child {
+  max-width: 365px;
+  margin-top: 28px;
+  color: #d4d8ce;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.funding-sequence {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+  border-top: 1px solid #bfcbbc58;
+}
+.funding-sequence li {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  gap: 28px;
+  padding: 24px 0 27px;
+  border-bottom: 1px solid #bfcbbc58;
+}
+.funding-number {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #b9c4b4;
+  font: 400 29px/1 Newsreader, Georgia, serif;
+}
+.funding-number span {
+  color: #aebfb2;
+  font: 600 9px/1.5 Manrope, Arial, sans-serif;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.funding-sequence h3 {
+  font-size: 18px;
+  font-weight: 550;
+  letter-spacing: -.035em;
+}
+.funding-sequence p {
+  max-width: 340px;
+  margin-top: 8px;
+  color: #c8d2c6;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.idea-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 76px;
+  border-top: 1px solid #bfcbbc58;
+}
+.idea-bottom > span {
+  color: #b5c3b7;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.experience-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .88fr);
+  gap: clamp(70px, 10vw, 145px);
+  padding-block: 98px;
+}
+.experience-copy h2 {
+  font-size: clamp(43px, 4.2vw, 59px);
+  line-height: 1.08;
+}
+.experience-copy > p:not(.eyebrow) { max-width: 420px; }
+.phone-scene {
+  min-height: 575px;
+  align-content: center;
+  border: 1px solid #d9d1c3;
+  background: radial-gradient(circle at 50% 40%, #f5f2eb 0%, #ece6db 53%, #e5ded1 100%);
+  padding: 36px 24px 23px;
+}
+.stone-plinth { display: none; }
+.phone-caption {
+  margin-top: 26px;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media (max-width: 1050px) {
+  .hero { gap: 22px; }
+  .hero h1 { font-size: clamp(61px, 6.6vw, 74px); letter-spacing: -.052em; }
+  .opening-note { grid-template-columns: 130px minmax(0, 1fr) auto; gap: 20px; }
+  .opening-note p { font-size: 21px; }
+  .idea-inner { gap: 54px; }
+  .funding-sequence li { grid-template-columns: 82px 1fr; gap: 20px; }
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 45px; padding-bottom: 31px; gap: 20px; }
+  .hero h1 { font-size: clamp(55px, 11.7vw, 74px); margin-top: 21px; line-height: .99; }
+  .hero-description { margin-top: 24px; font-size: 14px; max-width: 440px; }
+  .hero-actions { flex-wrap: wrap; gap: 10px 22px; }
+  .opening-note { grid-template-columns: 1fr; gap: 5px; padding-block: 22px 24px; }
+  .opening-note p { display: block; font-size: clamp(20px, 5.5vw, 27px); line-height: 1.18; }
+  .opening-note p .icon { margin-inline: 5px; vertical-align: -2px; }
+  .opening-note a { margin-top: 2px; }
+  .idea-section { padding-top: 69px; }
+  .idea-inner { grid-template-columns: 1fr; gap: 47px; padding-bottom: 50px; }
+  .idea-heading h2 { font-size: clamp(43px, 10vw, 59px); margin-top: 23px; }
+  .idea-heading > p:last-child { margin-top: 20px; }
+  .funding-sequence li { grid-template-columns: 74px 1fr; gap: 16px; padding-block: 23px; }
+  .funding-sequence h3 { font-size: 17px; }
+  .idea-bottom { align-items: flex-start; flex-direction: column; padding-block: 19px; gap: 3px; }
+  .experience-grid { grid-template-columns: 1fr; gap: 39px; padding-block: 65px; }
+  .experience-copy h2 { font-size: clamp(38px, 9vw, 52px); }
+  .phone-scene { min-height: 515px; padding: 32px 18px 20px; }
+}
+@media (max-width: 370px) {
+  .hero h1 { font-size: 51px; }
+  .hero-actions .button { padding-inline: 16px; gap: 10px; }
+  .opening-note p { font-size: 19px; }
+  .funding-sequence li { grid-template-columns: 57px 1fr; gap: 10px; }
+}
