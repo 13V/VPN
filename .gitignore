@@ -4,6 +4,10 @@ node_modules/
 !.env.example
 .state/
 coverage/
+dist/
+public/hero-sculpture.js
+.vercel/
+launch/manifest.json
 *.conf
 *.key
 *.pem

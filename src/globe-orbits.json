@@ -1,0 +1,8 @@
+{
+  "cameraHalf": 1.38,
+  "aircraftBank": [0.36,-0.40,0],
+  "paths": [
+    { "radius": 1.20, "rotation": [1.04,0.20,-0.42], "phase": 0.20, "speed": 0.17, "color": "#ad9f83" },
+    { "radius": 1.24, "rotation": [0.87,-0.48,0.83], "phase": 1.70, "speed": -0.13, "color": "#82978a" }
+  ]
+}

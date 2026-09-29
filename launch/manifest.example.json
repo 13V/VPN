@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "chainId": 4663,
+  "ponsVersion": "v2",
+  "factoryAddress": "0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e",
+  "launchWallet": null,
+  "creatorFeeRecipient": null,
+  "token": {
+    "name": "Velora",
+    "symbol": null,
+    "logo": null,
+    "description": null,
+    "socials": {
+      "website": "https://vpn-one-phi.vercel.app",
+      "twitter": null,
+      "telegram": null,
+      "discord": null,
+      "farcaster": null
+    }
+  },
+  "economics": {
+    "launchMethod": null,
+    "salt": null,
+    "snipeTaxExemptions": [],
+    "launchConfigId": null,
+    "pairToken": null,
+    "creatorTaxBps": null,
+    "buybackEnabled": null,
+    "maxLaunchFeeEth": null,
+    "expectedEconomics": null,
+    "expectedFactoryCodeHash": null
+  }
+}

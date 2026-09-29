@@ -1,10 +1,16 @@
-# nadanada validation — 2026-09-18
+# nadanada validation — 2026-09-29
+
+**2026-09-29 update:** A fresh read-only catalogue again returned Australia (`19`) and the one-day `$0.50` selector. The Blink preflight still found no verified server-enforced maximum total debit (`hardCap: false`), and no Blink credentials or prior pilot orders are present on this machine. No invoice was requested and no money was spent. The operator-assisted pilot now supports a third, separate recovery order that deliberately discards its first successful configuration response, plus a repeat-completion command. These are offline-tested capabilities, not paid supplier observations.
+
+**2026-09-24 update:** A separate operator-assisted nadanada CLI is available in [manual-pilot.md](manual-pilot.md). Today's read-only catalogue again returned AU (`19`) and the one-day `$0.50` selector. Current OpenAPI explicitly says each VPN payment can generate one configuration and documents `409 CONFIG_ALREADY_GENERATED` on repeat completion. No invoice has been requested or paid, and no actual tunnel has been delivered. The manual CLI never pays and cannot enforce a cap on an external wallet; it therefore does not change the unattended-integration verdict below.
+
+**Read-only recheck — 2026-09-23:** `npm run catalogue` still returned Australia (code `19`) and the one-day `$0.50` entry. `npm run preflight` still reported `hardCap: false`, no Blink test-wallet credentials, and live spending disabled. No invoice was requested and no payment was attempted. The catalogue and exchange-rate quote are time-sensitive; rerun them before a funded pilot.
 
 **Decision: suitability for unattended integration is not established.** No paid live scenario has run. No invoices were requested, funds spent or supplier messages sent during this implementation.
 
-The harness and offline tests are implemented. Public read-only catalogue and Blink schema checks succeeded. Paid validation is blocked because Blink has no verified maximum-total-debit control in the inspected payment operation, and no test-wallet credentials are present. WireGuard is not installed here; provisioning would not establish connection quality even if paid tests succeeded.
+The harness and offline tests are implemented. Public read-only catalogue and Blink schema checks succeeded. Automated paid validation is blocked because Blink has no verified maximum-total-debit control in the inspected payment operation, and no test-wallet credentials are present. The official WireGuard 1.1.1 Windows client was installed on 2026-09-29, but there is no paid configuration to import or test.
 
-Local validation: **37 tests passed** on Node.js 24.19.0. An explicit `purchase --live` returned `LIVE_PAYMENT_BLOCKED` before requesting an invoice. A Node.js 22/24 CI template is provided as `docs/offline-tests.workflow.yml`; it is inactive because the current GitHub login lacks workflow-write permission. No remote CI run is claimed.
+Local validation: the original supplier harness passed 37 tests; the current full suite passed **91 tests** on 2026-09-29, including operator-assisted recovery and replay cases. An explicit automated `purchase --live` returned `LIVE_PAYMENT_BLOCKED` before requesting an invoice. A Node.js 22/24 CI template is provided as `docs/offline-tests.workflow.yml`; it is inactive because the current GitHub login lacks workflow-write permission. No remote CI run is claimed.
 
 ## Redacted evidence
 

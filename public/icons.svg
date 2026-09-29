@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Velora UI: a consistent 20px grid and restrained 1.5px line weight. -->
+  <symbol id="arrow-right" viewBox="0 0 20 20"><path d="M3.5 10h13m-5-5 5 5-5 5"/></symbol>
+  <symbol id="arrow-up-right" viewBox="0 0 20 20"><path d="M5 15 15 5M5 5h10v10"/></symbol>
+  <symbol id="arrow-left" viewBox="0 0 20 20"><path d="M16.5 10h-13m5-5-5 5 5 5"/></symbol>
+  <symbol id="arrow-down" viewBox="0 0 20 20"><path d="M10 3.5v13m-5-5 5 5 5-5"/></symbol>
+  <symbol id="download" viewBox="0 0 20 20"><path d="M10 3v10m-4-4 4 4 4-4M4 14v3h12v-3"/></symbol>
+  <symbol id="renew" viewBox="0 0 20 20"><path d="M15.3 6a6.5 6.5 0 1 0 1.2 6M16 3v4h-4"/></symbol>
+  <symbol id="plus" viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></symbol>
+  <symbol id="close" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></symbol>
+  <symbol id="check" viewBox="0 0 20 20"><path d="m4 10 4 4 8-8"/></symbol>
+  <symbol id="chevron-down" viewBox="0 0 20 20"><path d="m5 8 5 5 5-5"/></symbol>
+  <symbol id="overview" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="1.5"/><path d="M8 3v14"/></symbol>
+  <symbol id="plans" viewBox="0 0 20 20"><rect x="5" y="2.5" width="10" height="15" rx="2"/><path d="M9 14.5h2"/></symbol>
+  <symbol id="activity" viewBox="0 0 20 20"><path d="M3 6h14M3 10h10M3 14h7"/></symbol>
+  <symbol id="guide" viewBox="0 0 20 20"><path d="M10 5c-2-2-5-2-7-1v12c2-1 5-1 7 1 2-2 5-2 7-1V4c-2-1-5-1-7 1Zm0 0v12"/></symbol>
+</svg>

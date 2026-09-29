@@ -1,0 +1,139 @@
+/* One restrained faceted accent connects the product preview and access page. */
+.phone-scene { min-height: 680px; padding: 34px 28px 26px; }
+.phone-device { width: min(316px, 100%); border-radius: 43px; transform: rotate(-2deg); }
+.phone-scene[data-motion="scroll"] .phone-device {
+  transform: translateY(var(--phone-lift, 0px)) rotate(var(--phone-turn, -2deg)) rotateY(var(--phone-yaw, 0deg));
+}
+.product-preview-phone { padding-inline: 22px; border-radius: 36px; background: #fffdf8; }
+.product-preview-phone .phone-status { height: 43px; font-size: 10px; }
+.product-preview-phone .phone-brand { margin: 14px 0 26px; width: 105px; }
+.preview-screen { min-height: 379px; }
+.preview-screen[hidden] { display: none; }
+.screen-kicker,
+.screen-feature-label {
+  color: #7d8175;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+.preview-screen h3 {
+  margin-top: 11px;
+  font: 400 38px/1.02 Newsreader, Georgia, serif;
+  letter-spacing: -.045em;
+}
+.screen-lede {
+  min-height: 34px;
+  max-width: 228px;
+  margin-top: 10px;
+  color: #697068;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.screen-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 157px;
+  margin-top: 18px;
+  padding: 17px 17px 15px;
+  border: 1px solid #dedbd0;
+  border-radius: 4px;
+  background: #f4f1e9;
+}
+.screen-feature::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 43px;
+  aspect-ratio: 100 / 94;
+  background: url("/facet-mark.svg") center / contain no-repeat;
+  opacity: .8;
+  pointer-events: none;
+}
+.screen-feature-label { max-width: calc(100% - 52px); }
+.screen-feature strong {
+  margin-top: 12px;
+  color: #18372e;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -.03em;
+}
+.screen-feature p {
+  margin-top: 7px;
+  color: #647067;
+  font-size: 10px;
+  line-height: 1.55;
+}
+.screen-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  margin-top: auto;
+  padding: 4px 7px;
+  border: 1px solid #cdd1c4;
+  color: #365447;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+.screen-rows { margin-top: 17px; border-top: 1px solid #e8e4dc; }
+.screen-rows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e8e4dc;
+  font-size: 10px;
+}
+.screen-rows span { color: #687168; }
+.screen-rows strong { color: #1b392f; font-weight: 650; text-align: right; }
+.preview-tabs { margin-top: 15px; padding: 13px 0 14px; }
+.preview-tabs span { font-size: 9px; }
+.phone-device[data-active="eligibility"] .preview-tabs span:nth-child(1),
+.phone-device[data-active="plan"] .preview-tabs span:nth-child(2),
+.phone-device[data-active="setup"] .preview-tabs span:nth-child(3) { color: #18372e; font-weight: 750; }
+.phone-device[data-active="eligibility"] .preview-tabs span:not(:nth-child(1)),
+.phone-device[data-active="plan"] .preview-tabs span:not(:nth-child(2)),
+.phone-device[data-active="setup"] .preview-tabs span:not(:nth-child(3)) { color: #81877d; font-weight: 450; }
+.preview-steps { margin-top: 31px; border-top: 1px solid #cfc7b9; }
+.preview-step {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 41px minmax(0, 1fr) 17px;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 1px;
+  border: 0;
+  border-bottom: 1px solid #cfc7b9;
+  background: transparent;
+  color: #18372e;
+  text-align: left;
+  cursor: pointer;
+}
+.preview-step:hover { background: #f7f3eb99; }
+.preview-step[aria-pressed="true"] { border-bottom-color: #18372e; }
+.preview-step-number { align-self: start; color: #7d8375; font: 400 22px/1 Newsreader, Georgia, serif; }
+.preview-step[aria-pressed="true"] .preview-step-number { color: #18372e; }
+.preview-step strong { display: block; font-size: 13px; font-weight: 650; letter-spacing: -.025em; }
+.preview-step small { display: block; margin-top: 5px; color: #697068; font-size: 11px; line-height: 1.55; }
+.preview-step .icon { width: 16px; height: 16px; opacity: .4; transition: transform .25s ease, opacity .25s ease; }
+.preview-step[aria-pressed="true"] .icon { opacity: 1; transform: translateX(3px); }
+.experience-copy .preview-steps + .button { margin-top: 28px; }
+.experience-copy .service-note { margin-top: 30px; }
+@media (max-width: 760px) {
+  .preview-steps { margin-top: 25px; }
+  .preview-step { padding-block: 16px; }
+  .phone-scene { min-height: 0; padding: 31px 17px 23px; }
+  .phone-scene[data-motion="scroll"] .phone-device { transform: rotate(-1deg); }
+}
+@media (max-width: 370px) {
+  .phone-scene { padding-inline: 8px; }
+  .product-preview-phone { padding-inline: 18px; }
+  .preview-screen h3 { font-size: 34px; }
+  .screen-feature { padding-inline: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preview-step .icon { transition: none; }
+}
