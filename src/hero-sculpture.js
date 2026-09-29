@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import model from './faceted-globe.json';
 import flights from './globe-orbits.json';
+import { aircraftTriangles } from './low-poly-aircraft.mjs';
 
 const mount = document.getElementById('velora-sculpture');
 const canvas = mount?.querySelector('canvas');
@@ -32,26 +33,27 @@ if (mount && canvas) {
     globe.position.y = 0.045;
     scene.add(globe);
     const orbitResources = [];
-    const aircraftShape = new THREE.Shape(flights.aircraft.map(([x,y]) => new THREE.Vector2(x,y)));
-    const aircraftGeometry = new THREE.ExtrudeGeometry(aircraftShape, {
-      depth: 0.008, bevelEnabled: true, bevelThickness: 0.002, bevelSize: 0.002,
-      bevelSegments: 1, steps: 1, curveSegments: 1,
-    });
-    const aircraftTop = new THREE.MeshLambertMaterial({ color: '#fffaf0' });
-    const aircraftEdge = new THREE.MeshLambertMaterial({ color: '#36594b' });
-    const outlineGeometry = new THREE.BufferGeometry().setFromPoints(
-      flights.aircraft.map(([x,y]) => new THREE.Vector3(x,y,0.011)));
-    const outlineMaterial = new THREE.LineBasicMaterial({ color: '#36594b' });
-    orbitResources.push(aircraftGeometry, aircraftTop, aircraftEdge, outlineGeometry, outlineMaterial);
+    const aircraftPositions = [], aircraftColors = [];
+    for (const [hex, ...vertices] of aircraftTriangles()) {
+      aircraftPositions.push(...vertices);
+      const color = new THREE.Color(`#${hex}`);
+      for (let i = 0; i < 3; i++) aircraftColors.push(color.r,color.g,color.b);
+    }
+    const aircraftGeometry = new THREE.BufferGeometry();
+    aircraftGeometry.setAttribute('position',new THREE.Float32BufferAttribute(aircraftPositions,3));
+    aircraftGeometry.setAttribute('color',new THREE.Float32BufferAttribute(aircraftColors,3));
+    aircraftGeometry.computeVertexNormals();
+    const aircraftMaterial = new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true });
+    const bank = new THREE.Quaternion().setFromEuler(new THREE.Euler(...flights.aircraftBank));
+    const cameraAxis = new THREE.Vector3(0,0,1);
+    orbitResources.push(aircraftGeometry, aircraftMaterial);
     const routes = flights.paths.map(path => {
       const rotation = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(...path.rotation));
       const track = new THREE.TorusGeometry(path.radius, 0.0024, 5, 192);
       const trackMaterial = new THREE.MeshBasicMaterial({ color: path.color });
       const ring = new THREE.Mesh(track, trackMaterial);
       ring.rotation.set(...path.rotation); ring.position.y = globe.position.y; scene.add(ring);
-      const aircraft = new THREE.Group();
-      aircraft.add(new THREE.Mesh(aircraftGeometry, [aircraftTop, aircraftEdge]));
-      aircraft.add(new THREE.LineLoop(outlineGeometry, outlineMaterial));
+      const aircraft = new THREE.Mesh(aircraftGeometry, aircraftMaterial);
       scene.add(aircraft);
       orbitResources.push(track, trackMaterial);
       return { ...path, rotation, aircraft, position: new THREE.Vector3(), tangent: new THREE.Vector3() };
@@ -62,7 +64,7 @@ if (mount && canvas) {
         route.position.set(Math.cos(angle) * route.radius, Math.sin(angle) * route.radius, 0).applyMatrix4(route.rotation);
         route.tangent.set(-Math.sin(angle), Math.cos(angle), 0).transformDirection(route.rotation).multiplyScalar(Math.sign(route.speed));
         route.aircraft.position.copy(route.position); route.aircraft.position.y += globe.position.y;
-        route.aircraft.rotation.set(0, 0, Math.atan2(-route.tangent.x, route.tangent.y));
+        route.aircraft.quaternion.setFromAxisAngle(cameraAxis,Math.atan2(-route.tangent.x,route.tangent.y)).multiply(bank);
       }
     }
     placeAircraft(0);

@@ -1,8 +1,8 @@
-# Velora faceted globe — 2026-09-27
+# Velora faceted globe — 2026-09-29
 
 The hero uses a low-poly globe in Velora's green, ivory and warm beige palette. Its broad triangular ocean faces, raised ivory land and shallow beige coast edges follow the user's faceted style reference. The reference photograph is not embedded, traced or used as a texture. The globe is decorative, with no locations or indicators that imply verified VPN coverage.
 
-Two fine orbit paths carry small ivory aircraft with green edges. Their different inclinations and speeds create a continuous journey through depth, and the globe occludes the paths and aircraft behind it. The paths are decorative rather than routes between real locations. `src/globe-orbits.json` holds the shared route definitions and original aircraft silhouette; both the WebGL scene and static fallback use these definitions. Reduced motion holds both aircraft in their starting positions.
+Two fine orbit paths carry solid low-poly aircraft with ivory fuselages, faceted wings, green cockpits and raised tail fins. Their flat-shaded faces match the globe's geometry and palette, with no icon outlines. Their different inclinations and speeds create a continuous journey through depth, and the globe occludes the paths and aircraft behind it. The paths are decorative rather than routes between real locations. `src/globe-orbits.json` holds the shared route definitions and bank angle; `src/low-poly-aircraft.mjs` defines the original aircraft mesh used by both WebGL and the static fallback. Reduced motion holds both aircraft in their starting positions.
 
 The artwork is built from real coastline data and code. `scripts/build-faceted-globe.mjs` creates an icosphere, clips each face against the local land mask, and raises the land slightly above the ocean. It writes `src/faceted-globe.json` and projects the same triangles into `public/hero-sculpture-fallback.svg`. The low polygon count intentionally simplifies small islands and coastal details. Orientation checks use known land and ocean coordinates.
 

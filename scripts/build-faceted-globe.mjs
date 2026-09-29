@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as THREE from 'three';
+import { aircraftTriangles } from '../src/low-poly-aircraft.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const flights = JSON.parse(fs.readFileSync(path.join(root, 'src/globe-orbits.json'), 'utf8'));
@@ -108,7 +109,8 @@ const faces = triangles.map(([hex, ...coordinates]) => {
   return { depth: (p[0].z+p[1].z+p[2].z)/3, visible: normal.z > 0,
     svg: `<path d="M${p.map(screen).join('L')}Z" fill="#${color}" stroke="#${color}" stroke-width=".4"/>` };
 }).filter(f => f.visible).sort((a,b) => a.depth-b.depth);
-const planes = [];
+const aircraft = aircraftTriangles();
+const bank = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(...flights.aircraftBank));
 for (const route of flights.paths) {
   const matrix = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(...route.rotation));
   const point = angle => new THREE.Vector3(Math.cos(angle)*route.radius, Math.sin(angle)*route.radius, 0).applyMatrix4(matrix);
@@ -119,12 +121,16 @@ for (const route of flights.paths) {
   const position = point(route.phase);
   const tangent = new THREE.Vector3(-Math.sin(route.phase),Math.cos(route.phase),0).transformDirection(matrix).multiplyScalar(Math.sign(route.speed));
   const angle = Math.atan2(-tangent.x,tangent.y);
-  const silhouette = flights.aircraft.map(([x,y]) => new THREE.Vector3(position.x+x*Math.cos(angle)-y*Math.sin(angle),position.y+x*Math.sin(angle)+y*Math.cos(angle),position.z));
-  if (position.x**2+position.y**2 > 1.025**2 || position.z > Math.sqrt(1.025**2-position.x**2-position.y**2)) {
-    planes.push(`<path d="M${silhouette.map(screen).join('L')}Z" fill="#fffaf0" stroke="#36594b" stroke-width="1.1" stroke-linejoin="round"/>`);
+  const attitude = new THREE.Matrix4().makeRotationZ(angle).multiply(bank);
+  for (const [hex,...vertices] of aircraft) {
+    const p = [0,3,6].map(i => new THREE.Vector3(...vertices.slice(i,i+3)).applyMatrix4(attitude).add(position));
+    const normal = p[1].clone().sub(p[0]).cross(p[2].clone().sub(p[0])).normalize();
+    if (normal.z <= 0) continue;
+    const color = new THREE.Color(`#${hex}`).multiplyScalar(0.55+Math.max(0,normal.dot(light))*0.86).getHexString();
+    faces.push({depth:(p[0].z+p[1].z+p[2].z)/3,svg:`<path d="M${p.map(screen).join('L')}Z" fill="#${color}" stroke="#${color}" stroke-width=".3"/>`});
   }
 }
 faces.sort((a,b) => a.depth-b.depth);
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" role="presentation"><!-- Velora faceted atlas. Natural Earth / world-atlas; /world-atlas-license.txt -->${faces.map(f=>f.svg).join('')}${planes.join('')}</svg>`;
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" role="presentation"><!-- Velora faceted atlas. Natural Earth / world-atlas; /world-atlas-license.txt -->${faces.map(f=>f.svg).join('')}</svg>`;
 fs.writeFileSync(path.join(root, 'public/hero-sculpture-fallback.svg'), svg);
 console.log(`Built ${triangles.length} triangles and matching SVG fallback.`);
