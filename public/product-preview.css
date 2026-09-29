@@ -1,0 +1,113 @@
+/* A single visual language for the future product screens and access status. */
+.product-preview-phone { background: #fffdf8; }
+.product-preview-phone .phone-brand { margin: 13px 0 22px; width: 89px; }
+.preview-screen { min-height: 339px; }
+.preview-screen[hidden] { display: none; }
+.screen-kicker,
+.screen-feature-label {
+  color: #7d8175;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+.preview-screen h3 {
+  margin-top: 10px;
+  font: 400 30px/1.05 Newsreader, Georgia, serif;
+  letter-spacing: -.045em;
+}
+.screen-lede {
+  min-height: 27px;
+  max-width: 175px;
+  margin-top: 8px;
+  color: #697068;
+  font-size: 9px;
+  line-height: 1.55;
+}
+.screen-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 141px;
+  margin-top: 17px;
+  padding: 15px 14px 13px;
+  border: 1px solid #dedbd0;
+  border-radius: 5px;
+  background: #f4f1e9;
+}
+.screen-feature strong {
+  margin-top: 9px;
+  color: #18372e;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: -.03em;
+}
+.screen-feature p {
+  margin-top: 5px;
+  color: #647067;
+  font-size: 8px;
+  line-height: 1.5;
+}
+.screen-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  margin-top: auto;
+  padding: 3px 6px;
+  border: 1px solid #cdd1c4;
+  color: #365447;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+.screen-rows { margin-top: 15px; border-top: 1px solid #e8e4dc; }
+.screen-rows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+  padding: 9px 0;
+  border-bottom: 1px solid #e8e4dc;
+  font-size: 8px;
+}
+.screen-rows span { color: #687168; }
+.screen-rows strong { color: #1b392f; font-weight: 650; text-align: right; }
+.preview-tabs { margin-top: 14px; padding: 12px 0 13px; }
+.preview-tabs span { font-size: 7px; }
+.phone-device[data-active="eligibility"] .preview-tabs span:nth-child(1),
+.phone-device[data-active="plan"] .preview-tabs span:nth-child(2),
+.phone-device[data-active="setup"] .preview-tabs span:nth-child(3) { color: #18372e; font-weight: 750; }
+.phone-device[data-active="eligibility"] .preview-tabs span:not(:nth-child(1)),
+.phone-device[data-active="plan"] .preview-tabs span:not(:nth-child(2)),
+.phone-device[data-active="setup"] .preview-tabs span:not(:nth-child(3)) { color: #81877d; font-weight: 450; }
+.preview-steps { margin-top: 31px; border-top: 1px solid #cfc7b9; }
+.preview-step {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 41px minmax(0, 1fr) 17px;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 1px;
+  border: 0;
+  border-bottom: 1px solid #cfc7b9;
+  background: transparent;
+  color: #18372e;
+  text-align: left;
+  cursor: pointer;
+}
+.preview-step:hover { background: #f7f3eb99; }
+.preview-step[aria-pressed="true"] { border-bottom-color: #18372e; }
+.preview-step-number { align-self: start; color: #7d8375; font: 400 22px/1 Newsreader, Georgia, serif; }
+.preview-step[aria-pressed="true"] .preview-step-number { color: #18372e; }
+.preview-step strong { display: block; font-size: 13px; font-weight: 650; letter-spacing: -.025em; }
+.preview-step small { display: block; margin-top: 5px; color: #697068; font-size: 11px; line-height: 1.55; }
+.preview-step .icon { width: 16px; height: 16px; opacity: .4; transition: transform .25s ease, opacity .25s ease; }
+.preview-step[aria-pressed="true"] .icon { opacity: 1; transform: translateX(3px); }
+.experience-copy .preview-steps + .button { margin-top: 28px; }
+.experience-copy .service-note { margin-top: 30px; }
+@media (max-width: 760px) {
+  .preview-steps { margin-top: 25px; }
+  .preview-step { padding-block: 16px; }
+  .phone-scene { min-height: 565px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preview-step .icon { transition: none; }
+}

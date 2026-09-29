@@ -15,6 +15,31 @@ document.addEventListener("keydown", (event) => {
 
 // One-time reveals enhance visible content; nothing depends on JS to be readable.
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+const previewPhone = document.getElementById("phone-concept");
+const previewButtons = [...document.querySelectorAll("[data-preview-target]")];
+const previewScreens = [...document.querySelectorAll("[data-preview-screen]")];
+for (const button of previewButtons) {
+  button.addEventListener("click", () => {
+    const selected = button.dataset.previewTarget;
+    if (!previewScreens.some((screen) => screen.dataset.previewScreen === selected)) return;
+    for (const step of previewButtons) {
+      const active = step === button;
+      step.setAttribute("aria-pressed", String(active));
+      step.classList.toggle("is-active", active);
+    }
+    for (const screen of previewScreens) {
+      screen.hidden = screen.dataset.previewScreen !== selected;
+    }
+    previewPhone.dataset.active = selected;
+    const current = previewScreens.find((screen) => !screen.hidden);
+    if (!motionPreference.matches && current?.animate) {
+      current.animate(
+        [{ opacity: 0, transform: "translateY(7px)" }, { opacity: 1, transform: "translateY(0)" }],
+        { duration: 340, easing: "cubic-bezier(.22,1,.36,1)" },
+      );
+    }
+  });
+}
 const activeAnimations = new Set();
 function animateEntry(node, frames, options) {
   if (

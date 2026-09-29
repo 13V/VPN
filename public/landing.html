@@ -19,6 +19,7 @@
     />
     <link rel="stylesheet" href="/landing.css" />
     <link rel="stylesheet" href="/brand.css" />
+    <link rel="stylesheet" href="/product-preview.css" />
     <script src="/landing.js" defer></script>
     <script src="/hero-sculpture.js" defer></script>
   </head>
@@ -122,14 +123,9 @@
       >
         <div class="experience-grid shell">
           <div class="phone-scene">
-            <div class="stone-plinth" aria-hidden="true"></div>
-              <div
-              class="phone-device"
-              id="phone-concept"
-              aria-label="Illustration of a Velora app interface"
-            >
+            <div class="phone-device" id="phone-concept" data-active="eligibility" aria-label="Illustration of the future Velora app">
               <div class="phone-camera" aria-hidden="true"></div>
-              <div class="phone-screen">
+              <div class="phone-screen product-preview-phone">
                 <div class="phone-status" aria-hidden="true">
                   <span>9:41</span
                   ><svg viewBox="0 0 40 14">
@@ -145,50 +141,68 @@
                   width="103"
                   height="25"
                 />
-                <p class="phone-eyebrow">YOUR EVERYDAY CONNECTION</p>
-                <h3>A world<br />within reach.</h3>
-                <div class="phone-power" aria-hidden="true">
-                  <svg viewBox="0 0 48 48" aria-hidden="true">
-                    <path d="M24 8v17M14 13a16 16 0 1 0 20 0" />
-                  </svg>
+                <div class="preview-screen" id="preview-eligibility" data-preview-screen="eligibility" aria-label="Eligibility screen preview">
+                  <p class="screen-kicker">01 / ACCESS</p>
+                  <h3>Know where<br />you stand.</h3>
+                  <p class="screen-lede">A clear answer when holder access opens.</p>
+                  <div class="screen-feature">
+                    <span class="screen-feature-label">HOLDER STATUS</span>
+                    <strong>Eligibility check</strong>
+                    <p>Your result and the rules behind it will appear here.</p>
+                    <span class="screen-tag">IN PREPARATION</span>
+                  </div>
+                  <div class="screen-rows">
+                    <div><span>Wallet</span><strong>Not connected</strong></div>
+                    <div><span>Access rules</span><strong>To be announced</strong></div>
+                  </div>
                 </div>
-                <div class="phone-connection">
-                  <span class="status-dot"></span>
-                   <span id="phone-connection-status"
-                     >Your connection</span
-                  >
+                <div class="preview-screen" id="preview-plan" data-preview-screen="plan" aria-label="Funded plan screen preview" hidden>
+                  <p class="screen-kicker">02 / FUNDED PLAN</p>
+                  <h3>Your plan,<br />made clear.</h3>
+                  <p class="screen-lede">The data available to you, in one place.</p>
+                  <div class="screen-feature">
+                    <span class="screen-feature-label">EXAMPLE PLAN</span>
+                    <strong>Australia · One day</strong>
+                    <p>Future plans depend on funding and published holder rules.</p>
+                    <span class="screen-tag">ILLUSTRATION</span>
+                  </div>
+                  <div class="screen-rows">
+                    <div><span>Funding status</span><strong>Awaiting launch</strong></div>
+                    <div><span>Data balance</span><strong>Shown with a plan</strong></div>
+                  </div>
                 </div>
-                <div class="phone-location">
-                  <span class="location-monogram">AU</span>
-                  <div><strong>Australia</strong><span>Sydney</span></div>
-                  <svg class="icon" aria-hidden="true">
-                    <use href="/icons.svg#chevron-down" />
-                  </svg>
+                <div class="preview-screen" id="preview-setup" data-preview-screen="setup" aria-label="Setup screen preview" hidden>
+                  <p class="screen-kicker">03 / SETUP</p>
+                  <h3>Ready for<br />your device.</h3>
+                  <p class="screen-lede">A guided path from plan to connection.</p>
+                  <div class="screen-feature">
+                    <span class="screen-feature-label">WIREGUARD SETUP</span>
+                    <strong>Configuration &amp; guide</strong>
+                    <p>Secure setup files would be available with an active plan.</p>
+                    <span class="screen-tag">PLANNED</span>
+                  </div>
+                  <div class="screen-rows">
+                    <div><span>Configuration</span><strong>With your plan</strong></div>
+                    <div><span>Renewal</span><strong>Tracked here</strong></div>
+                  </div>
                 </div>
-                <div class="phone-credit">
-                  <span>Holder access</span
-                  ><strong>In your <small>hands</small></strong>
-                </div>
-                <div class="phone-tabs">
-                  <span>Connection</span><span>Activity</span
-                  ><span>Account</span>
-                </div>
+                <div class="phone-tabs preview-tabs" aria-hidden="true"><span>Access</span><span>Plan</span><span>Setup</span></div>
                 <div class="home-indicator" aria-hidden="true"></div>
               </div>
             </div>
-            <p class="phone-caption">Interface illustration / Future experience</p>
+            <p class="phone-caption">Product preview / No active connection</p>
           </div>
           <div class="experience-copy">
-            <p class="eyebrow">02 / The experience</p>
-            <h2 id="experience-title">
-              From shared funding<br />to your own plan.
-            </h2>
-            <p>
-              The planned experience puts your eligibility, plan and setup in one place.
-              The interface shown here is a concept while live access is being validated.
-            </p>
+            <p class="eyebrow">02 / The planned experience</p>
+            <h2 id="experience-title">One place for<br />what matters.</h2>
+            <p>Explore how holder access could feel when the service is ready. These screens are an interface concept; eligibility and plan rules have not been set.</p>
+            <div class="preview-steps" role="group" aria-label="Explore the future app screens">
+              <button class="preview-step is-active" type="button" data-preview-target="eligibility" aria-pressed="true" aria-controls="preview-eligibility"><span class="preview-step-number">01</span><span><strong>Eligibility</strong><small>Know your status and the rules behind it.</small></span><svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-right" /></svg></button>
+              <button class="preview-step" type="button" data-preview-target="plan" aria-pressed="false" aria-controls="preview-plan"><span class="preview-step-number">02</span><span><strong>Funded plan</strong><small>See your data and the funding behind it.</small></span><svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-right" /></svg></button>
+              <button class="preview-step" type="button" data-preview-target="setup" aria-pressed="false" aria-controls="preview-setup"><span class="preview-step-number">03</span><span><strong>Setup</strong><small>Get a clear path to your device.</small></span><svg class="icon" aria-hidden="true"><use href="/icons.svg#arrow-right" /></svg></button>
+            </div>
             <a class="button button-primary" href="/portal"
-              >Check access status
+              >See current access status
               <svg class="icon" aria-hidden="true">
                 <use href="/icons.svg#arrow-right" /></svg
             ></a>
