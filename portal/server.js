@@ -15,6 +15,7 @@ function createHandler({ origin = 'http://127.0.0.1:4173', mode = 'demo', portal
     '/portal': ['index.html', 'text/html'], '/portal/': ['index.html', 'text/html'],
     '/access.css': ['access.css', 'text/css'],
     '/product-preview.css': ['product-preview.css', 'text/css'],
+    '/facet-mark.svg': ['facet-mark.svg', 'image/svg+xml'],
     '/landing.css': ['landing.css', 'text/css'], '/landing.js': ['landing.js', 'text/javascript'],
     '/hero-sculpture.js': ['hero-sculpture.js', 'text/javascript'],
     '/hero-sculpture-fallback.svg': ['hero-sculpture-fallback.svg', 'image/svg+xml'],

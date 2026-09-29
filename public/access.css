@@ -47,12 +47,13 @@
 .availability::after {
   content: "";
   position: absolute;
-  right: -15%;
-  bottom: -44%;
-  width: 92%;
-  aspect-ratio: 1;
-  border: 1px solid #f7f3e925;
-  border-radius: 50%;
+  right: -6%;
+  bottom: -12%;
+  width: 52%;
+  aspect-ratio: 100 / 94;
+  background: url("/facet-mark.svg") center / contain no-repeat;
+  filter: saturate(.45) brightness(1.15);
+  opacity: .13;
   pointer-events: none;
 }
 .availability-top,

@@ -150,15 +150,15 @@ if (phoneScene && "IntersectionObserver" in window) {
     phoneScene.dataset.motion = "scroll";
     phoneScene.style.setProperty(
       "--phone-turn",
-      `${(-8 + progress * 10).toFixed(2)}deg`,
+      `${(-3 + progress * 4).toFixed(2)}deg`,
     );
     phoneScene.style.setProperty(
       "--phone-lift",
-      `${(18 - progress * 36).toFixed(2)}px`,
+      `${(8 - progress * 16).toFixed(2)}px`,
     );
     phoneScene.style.setProperty(
       "--phone-yaw",
-      `${(-9 + progress * 12).toFixed(2)}deg`,
+      `${(-2 + progress * 3).toFixed(2)}deg`,
     );
   }
   function schedulePhone() {
