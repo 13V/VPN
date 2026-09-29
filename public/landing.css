@@ -967,7 +967,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 100px;
-  padding-block: 103px;
+  padding-block: 63px 91px;
 }
 .faq-list details {
   border-bottom: 1px solid var(--line);
