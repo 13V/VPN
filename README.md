@@ -13,7 +13,7 @@ Open [the local website](http://127.0.0.1:4173) to read the introduction, propos
 
 The original supplier-validation CLI remains available for testing nadanada purchase, renewal and interrupted delivery through Bitcoin Lightning. No token launch or treasury bridge is implemented. See [Vercel deployment instructions](docs/vercel.md) for hosting the public information pages.
 
-For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate one invoice, save a paid WireGuard configuration, verify status and request an extension. It never sends a payment, and the public holder access page remains informational. This route does not satisfy the original unattended-payment or lost-response recovery acceptance criteria.
+For a first, **operator-assisted nadanada tunnel**, use the separate [manual Lightning pilot](docs/manual-pilot.md). It can create and validate a saved invoice, retrieve a paid WireGuard configuration, verify status, request an extension, and run a deliberately interrupted delivery on a separate order. It never sends a payment, and the public holder access page remains informational. The lost-response result must be observed live before unattended delivery can be considered reliable.
 
 For the token and service release sequence, required decisions, Pons fee mechanics and stop conditions, use the [dated launch-readiness checklist](docs/launch-readiness.md).
 

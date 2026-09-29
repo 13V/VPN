@@ -13,9 +13,10 @@ async function main(args = process.argv.slice(2)) {
   else if (command === 'prepare') result = await pilot.prepare(id, live);
   else if (command === 'invoice') result = pilot.invoice(id);
   else if (command === 'collect') result = await pilot.collect(id, live);
+  else if (command === 'replay') result = await pilot.replay(id, live);
   else if (command === 'export') result = await pilot.export(id, live);
-  else if (command === 'help') result = { commands: ['status', 'prepare primary --live', 'invoice primary', 'collect primary --live', 'export primary --live', 'prepare renewal --live', 'invoice renewal', 'collect renewal --live'],
-    caution: 'Operator-only nadanada test. No CLI payment is made or capped. Public holder access stays in demo mode.' };
+  else if (command === 'help') result = { commands: ['status', 'prepare primary --live', 'invoice primary', 'collect primary --live', 'replay primary --live', 'export primary --live', 'prepare renewal --live', 'invoice renewal', 'collect renewal --live', 'prepare recovery --live', 'invoice recovery', 'collect recovery --live'],
+    caution: 'Operator-only nadanada test. No CLI payment is made or capped. Public holder access remains informational.' };
   else throw new Error('Unknown command');
   process.stdout.write(JSON.stringify(result, null, 2) + '\n');
 }

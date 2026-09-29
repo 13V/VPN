@@ -22,7 +22,7 @@ function setup(config) {
     catalogue: async () => catalogue,
     quote: async () => { calls.quotes++; return quote; },
     config: async () => { calls.completions++; return config ? config(calls.completions) : raw; },
-    status: async () => ({ found: true, isEnabled: true, expiryDate: new Date(now + 86400000).toISOString(), bandwidthAllotted: 50 }),
+    status: async () => ({ found: true, isEnabled: true, expiryDate: new Date(now + Math.max(1, calls.completions) * 86400000).toISOString(), bandwidthAllotted: 50 }),
   };
   const pilot = new ManualPilot({ store: new Store(dir), supplier, rates: { rate: async () => 0.001 }, now: () => now });
   return { pilot, calls, dir };
@@ -54,6 +54,7 @@ test('payment pending and lost completion retry the saved invoice only', async t
   await pilot.prepare('primary', true);
   assert.equal((await pilot.collect('primary', true)).orders.primary.state, 'payment_pending');
   assert.equal((await pilot.collect('primary', true)).orders.primary.state, 'config_unknown');
+  assert.throws(() => pilot.invoice('primary'), /never pay an uncertain order again/);
   assert.equal((await pilot.collect('primary', true)).orders.primary.state, 'complete');
   assert.equal(calls.quotes, 1);
 });
@@ -64,5 +65,59 @@ test('a supplier 409 leaves paid delivery unrecoverable without replacement invo
   await pilot.prepare('primary', true);
   assert.equal((await pilot.collect('primary', true)).orders.primary.state, 'config_unrecoverable');
   await assert.rejects(() => pilot.collect('primary', true), /No recoverable validated order/);
+  assert.equal(calls.quotes, 1);
+});
+
+test('manual pilot discards one recovery response and retrieves the same paid order on retry', async t => {
+  const { pilot, calls, dir } = setup();
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  await pilot.prepare('primary', true);
+  await pilot.collect('primary', true);
+  await pilot.prepare('renewal', true);
+  assert.equal((await pilot.collect('renewal', true)).orders.renewal.state, 'complete');
+  assert.equal((await pilot.prepare('recovery')).readOnly, true);
+  assert.equal((await pilot.prepare('recovery', true)).orders.recovery.state, 'quoted');
+  assert.notEqual(pilot.summary().orders.primary.publicKey, pilot.summary().orders.recovery.publicKey);
+  assert.equal((await pilot.collect('recovery', true)).orders.recovery.state, 'config_unknown');
+  assert.equal(pilot.store.read().orders.recovery.rawConfig, undefined);
+  assert.throws(() => pilot.invoice('recovery'), /never pay an uncertain order again/);
+  assert.equal(pilot.summary().orders.recovery.discardAttempted, true);
+  assert.equal((await pilot.collect('recovery', true)).orders.recovery.state, 'complete');
+  assert.equal(calls.quotes, 3);
+  assert.equal((await pilot.replay('recovery')).readOnly, true);
+  assert.equal((await pilot.replay('recovery', true)).orders.recovery.replay, 'same_configuration');
+  assert.equal(calls.quotes, 3);
+});
+
+test('pending recovery payment does not consume the deliberate response discard', async t => {
+  const { pilot, calls, dir } = setup(n => {
+    if (n === 3) throw Object.assign(new Error('pending'), { status: 402 });
+    if (n === 5) throw Object.assign(new Error('already generated'), { status: 409 });
+    return raw;
+  });
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  await pilot.prepare('primary', true);
+  await pilot.collect('primary', true);
+  await pilot.prepare('renewal', true);
+  await pilot.collect('renewal', true);
+  await pilot.prepare('recovery', true);
+  assert.equal((await pilot.collect('recovery', true)).orders.recovery.state, 'payment_pending');
+  assert.equal(pilot.summary().orders.recovery.discardAttempted, false);
+  assert.equal((await pilot.collect('recovery', true)).orders.recovery.state, 'config_unknown');
+  assert.equal((await pilot.collect('recovery', true)).orders.recovery.state, 'config_unrecoverable');
+  assert.equal(calls.quotes, 3);
+  assert.equal(pilot.store.read().orders.recovery.rawConfig, undefined);
+});
+
+test('replay records supplier 409 without losing a complete tunnel', async t => {
+  const { pilot, calls, dir } = setup(n => {
+    if (n === 2) throw Object.assign(new Error('already generated'), { status: 409 });
+    return raw;
+  });
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  await pilot.prepare('primary', true);
+  await pilot.collect('primary', true);
+  assert.equal((await pilot.replay('primary', true)).orders.primary.replay, 'refused_409');
+  assert.equal(pilot.summary().orders.primary.state, 'complete');
   assert.equal(calls.quotes, 1);
 });

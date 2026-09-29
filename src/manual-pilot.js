@@ -18,16 +18,18 @@ class ManualPilot {
     return { paymentMode: 'external_manual_lightning', orders: Object.fromEntries(Object.entries(state.orders).map(([id, o]) => [id, {
       state: o.state, createdAt: o.createdAt, invoiceExpiresAt: o.quote?.expiresAt,
       invoiceSats: o.invoiceSats, publicKey: o.keys.publicKey,
-      before: o.before, after: o.after, lastEvent: o.lastEvent,
+      before: o.before, after: o.after, discardAttempted: o.discardAttempted,
+      replay: o.replay, lastEvent: o.lastEvent,
     }])) };
   }
   async prepare(id, live = false) {
-    if (!['primary', 'renewal'].includes(id)) throw new Error('Use primary or renewal');
+    if (!['primary', 'renewal', 'recovery'].includes(id)) throw new Error('Use primary, renewal, or recovery');
     if (!live) return { readOnly: true, action: `prepare ${id} --live creates one nadanada invoice but does not pay it`, ...this.summary() };
     return this.store.locked(async () => {
       const state = this.store.read();
       if (state.orders[id]) return this.summary();
       if (id === 'renewal' && state.orders.primary?.state !== 'complete') throw new Error('Complete the primary tunnel before renewal');
+      if (id === 'recovery' && state.orders.renewal?.state !== 'complete') throw new Error('Complete the renewal before the recovery scenario');
       const { country, plan } = selectPlan(await this.supplier.catalogue());
       const keys = id === 'renewal' ? { ...state.orders.primary.keys } : wg.keys();
       let before;
@@ -55,24 +57,34 @@ class ManualPilot {
   }
   invoice(id) {
     const o = this.store.read().orders[id];
-    if (!o || !['quoted', 'payment_pending', 'config_unknown'].includes(o.state)) throw new Error('No validated invoice is available for this order');
+    if (!o || !['quoted', 'payment_pending'].includes(o.state)) throw new Error('No unpaid validated invoice is available; never pay an uncertain order again');
     if (Date.parse(o.quote.expiresAt) <= this.now() + 30000) throw new Error('Invoice has expired; do not pay or create a replacement automatically');
     return { id, paymentRequest: o.quote.paymentRequest, sats: o.invoiceSats, expiresAt: o.quote.expiresAt,
       warning: 'Pay only in a separate test wallet whose balance and fee limit you control. This CLI cannot cap that wallet’s debit.' };
   }
   async collect(id, live = false) {
-    if (!['primary', 'renewal'].includes(id)) throw new Error('Use primary or renewal');
+    if (!['primary', 'renewal', 'recovery'].includes(id)) throw new Error('Use primary, renewal, or recovery');
     if (!live) return { readOnly: true, action: `collect ${id} --live attempts the same saved payment completion; it never creates or pays another invoice`, ...this.summary() };
     return this.store.locked(async () => {
       const state = this.store.read(), o = state.orders[id];
       if (!o || !['quoted', 'payment_pending', 'config_requesting', 'config_unknown', 'config_received', 'configured', 'complete'].includes(o.state)) throw new Error('No recoverable validated order exists');
       if (o.state === 'complete') return this.summary();
       if (!o.rawConfig) {
-        o.state = 'config_requesting'; o.lastEvent = 'Completing saved invoice; no new payment'; this.store.save(state);
+        const discard = id === 'recovery' && !o.discardAttempted;
+        if (discard) o.discardAttempted = true;
+        o.state = 'config_requesting';
+        o.lastEvent = discard ? 'Fault injection armed; first successful completion response will be discarded' : 'Completing saved invoice; no new payment';
+        this.store.save(state);
         try {
-          o.rawConfig = await this.supplier.config(o);
+          const raw = await this.supplier.config(o);
+          if (discard) {
+            o.state = 'config_unknown'; o.lastEvent = 'First successful configuration response deliberately discarded; retry this same paid order';
+            this.store.save(state); return this.summary();
+          }
+          o.rawConfig = raw;
           o.state = 'config_received'; o.lastEvent = 'Configuration response durably saved'; this.store.save(state);
         } catch (e) {
+          if (discard && e.status === 402) o.discardAttempted = false;
           o.state = e.status === 402 ? 'payment_pending' : e.status === 409 ? 'config_unrecoverable' : 'config_unknown';
           o.lastEvent = e.status === 402 ? 'Payment is not confirmed' : e.status === 409 ? 'Supplier refused repeat delivery; manual recovery required' : 'Completion uncertain; retry this same order only';
           this.store.save(state); return this.summary();
@@ -95,6 +107,21 @@ class ManualPilot {
       if (!o?.config) throw new Error('No saved configuration');
       fs.writeFileSync(path.join(this.store.dir, `${id}.conf`), o.config, { mode: 0o600, flag: 'wx' });
       return { exported: true, location: path.join(this.store.dir, `${id}.conf`) };
+    });
+  }
+  async replay(id, live = false) {
+    if (!['primary', 'renewal', 'recovery'].includes(id)) throw new Error('Use primary, renewal, or recovery');
+    if (!live) return { readOnly: true, action: `replay ${id} --live repeats completion of an already-saved order; it never pays`, ...this.summary() };
+    return this.store.locked(async () => {
+      const state = this.store.read(), o = state.orders[id];
+      if (o?.state !== 'complete') throw new Error('Replay requires a complete order');
+      o.replay = 'requesting'; this.store.save(state);
+      try {
+        const raw = await this.supplier.config(o);
+        o.replay = wg.config(raw, o.keys) === o.config ? 'same_configuration' : 'different_configuration';
+      } catch (e) { o.replay = e.status === 409 ? 'refused_409' : 'unresolved'; }
+      this.store.save(state);
+      return this.summary();
     });
   }
 }
