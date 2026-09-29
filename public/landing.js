@@ -88,6 +88,7 @@ if ("IntersectionObserver" in window) {
     [".idea-heading, .funding-sequence > li", 65],
     [".phone-scene, .experience-copy", 70],
     [".status-intro, .status-grid > div", 70],
+    [".proof-copy li", 95],
     [".faq-section > div:first-child, .faq-list, .footer-invitation", 0],
   ];
   for (const [selector, stagger] of groups) {
@@ -126,6 +127,25 @@ motionPreference.addEventListener("change", finishMotion);
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) finishMotion();
 });
+
+// The atlas only moves while its panel is on screen.
+const proofArt = document.querySelector(".proof-art");
+if (proofArt && "IntersectionObserver" in window) {
+  let proofVisible = false;
+  const syncProofMotion = () => {
+    proofArt.classList.toggle(
+      "is-moving",
+      proofVisible && !motionPreference.matches && !document.hidden,
+    );
+  };
+  const proofObserver = new IntersectionObserver(([entry]) => {
+    proofVisible = entry.isIntersecting;
+    syncProofMotion();
+  }, { threshold: 0.05 });
+  proofObserver.observe(proofArt);
+  motionPreference.addEventListener("change", syncProofMotion);
+  document.addEventListener("visibilitychange", syncProofMotion);
+}
 
 // The product surfaces are illustrative and make no network or wallet calls.
 const concept = document.getElementById("app-concept");
